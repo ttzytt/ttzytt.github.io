@@ -1508,7 +1508,7 @@ a:hover {
 #site-name,
 #aside-content .author-info__name,
 #aside-content .author-info__description {
-  font-family: Iosevk, 'Microsoft YaHei', '微软雅黑', 'Microsoft JhengHei', '华文细黑', 'STHeiti', '华文黑体', 'sans-serif';
+  font-family: Iosevka, 'Microsoft YaHei', '微软雅黑', 'Microsoft JhengHei', '华文细黑', 'STHeiti', '华文黑体', 'sans-serif';
 }
 .is-center {
   text-align: center;
