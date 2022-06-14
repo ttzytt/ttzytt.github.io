@@ -1,9 +1,9 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css">@font-face{
     font-family: 'Iosevka';
     font-display: swap;
-    src: url('../font/iosevka-regular.ttf') format("truetype");
+    src: url('../font/iosevka-regular.ttf');
 }
 
 body {
-    font-family: Iosevka;
+    font-family: 'Iosevka';
 }
