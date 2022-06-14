@@ -1371,7 +1371,7 @@ body {
   background: var(--global-bg);
   color: var(--font-color);
   font-size: var(--global-font-size);
-  font-family: Iosevka;
+  font-family: Iosevka, 'Microsoft YaHei', '微软雅黑', 'Microsoft JhengHei', '华文细黑', 'STHeiti', '华文黑体', 'sans-serif';
   line-height: 2;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
@@ -1502,6 +1502,13 @@ a {
 }
 a:hover {
   color: #49b1f5;
+}
+#site-title,
+#site-subtitle,
+#site-name,
+#aside-content .author-info__name,
+#aside-content .author-info__description {
+  font-family: Iosevk, 'Microsoft YaHei', '微软雅黑', 'Microsoft JhengHei', '华文细黑', 'STHeiti', '华文黑体', 'sans-serif';
 }
 .is-center {
   text-align: center;
@@ -1705,7 +1712,7 @@ pre[class*='language-'] pre > code.highlight {
 #article-container pre,
 #article-container code {
   font-size: var(--global-font-size);
-  font-family: Iosevka !important;
+  font-family: Iosevka, consolas, 'Andale Mono', 'Courier New', monospace !important;
 }
 #article-container code {
   padding: 2px 4px;
