@@ -1,0 +1,69 @@
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* #aside_content .card-widget, #recent-posts>.recent-post-item, .layout>div:first-child:not(.recent-posts), .layout>#page, .layout>#post, .read-mode .layout_post>#post{ */
+    /* 以下代表透明度为0.5 */
+    /* background: rgba(255,255,255,.5); */
+/* } */
+#aside-content .card-widget {
+    background: rgba(255, 255, 255, .5);
+}
+#content-inner {
+    --light_bg_color: hsla(0, 0%, 100%, .5);
+    --dark_bg_color: hsla(0, 0%, 7%, .5);
+    --light_page_color: hsla(0, 0%, 100%, .5);
+    --dark_page_color: hsla(0, 0%, 7%, .5)
+}
+
+#aside-content .card-widget {
+    background: var(--light_bg_color)
+}
+
+[data-theme=dark] #aside-content .card-widget {
+    background: var(--dark_bg_color)
+}
+
+/* .layout>#post {
+    background: rgba(255, 255, 255, .5);
+} 
+.layout>#page {
+    background: rgba(255, 255, 255, .5);
+}
+.layout>#archive {
+    background: rgba(255, 255, 255, .5);
+}
+#recent-posts>.recent-post-item {
+    background: rgba(255, 255, 255, .5);
+} */
+
+#recent-posts>.recent-post-item,
+.layout>div:first-child:not(.recent-posts),
+.layout_post>#page,
+.layout_post>#post,
+.read-mode .layout_post>#post {
+    background: var(--light_page_color)
+}
+
+[data-theme=dark] #recent-posts>.recent-post-item,
+[data-theme=dark] .layout>div:first-child:not(.recent-posts),
+[data-theme=dark] .layout_post>#page,
+[data-theme=dark] .layout_post>#post,
+[data-theme=dark] .read-mode .layout_post>#post {
+    background: var(--dark_page_color)
+}
+
+
+#footer>#footer-wrap{
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
