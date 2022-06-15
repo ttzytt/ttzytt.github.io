@@ -6,7 +6,7 @@
   <link href="https://ttzytt.com/atom.xml" rel="self"/>
   
   <link href="https://ttzytt.com/"/>
-  <updated>2022-06-14T19:18:23.817Z</updated>
+  <updated>2022-06-15T18:42:10.596Z</updated>
   <id>https://ttzytt.com/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hexo Butterfly 更换字体时遇到的一些奇怪的问题</title>
+    <link href="https://ttzytt.com/2022/06/hexo_font_update/"/>
+    <id>https://ttzytt.com/2022/06/hexo_font_update/</id>
+    <published>2022-06-14T23:18:55.952Z</published>
+    <updated>2022-06-15T18:42:10.596Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天发完 Treap 的博客之后自己看了一遍，突然感觉很不爽。Treap 的这篇博客大量的用到了指针和箭头运算符，因为博客的字体没有连字（ligature）的功能，所以看着特别傻。于是我决定把博客的字体换成 Iosevka。</p><p>以下是一些我参考的网站</p><ul><li><a href="https://imbhj.com/25c13146/">https://imbhj.com/25c13146/</a></li><li><a href="https://zhuanlan.zhihu.com/p/361392320">https://zhuanlan.zhihu.com/p/361392320</a></li></ul><p>基本的思路还是写一个 css 文件，然后在 html 的 head 部分注入进去。最后再在 hexo 的设置中把字体改成你想用的字体。</p><p>我改完写完 css 然后上传了字体文件之后 <code>hexo s</code> 了一下，发现没问题。不过很奇怪的是部署到 github 之后如果开 linux 的虚拟机访问，或是用手机访问，都不能正确的加载字体。</p><p>于是我就尝试 f12 了一下，打开 css 文件之后发现 css 文件变成了这样：</p><pre class="line-numbers language-css" data-language="css"><code class="language-css">&lt;link rel=<span class="token string">"stylesheet"</span> type=<span class="token string">"text/css"</span> href=<span class="token string">"https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"</span>><span class="token atrule"><span class="token rule">@font-face</span></span><span class="token punctuation">&#123;</span>    <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">'Iosevka'</span><span class="token punctuation">;</span>    <span class="token property">font-display</span><span class="token punctuation">:</span> swap<span class="token punctuation">;</span>    <span class="token property">src</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">'/font/iosevka-regular.ttf'</span><span class="token punctuation">)</span></span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token string">'truetype'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token selector">body</span> <span class="token punctuation">&#123;</span>    <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">'Iosevka'</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>其中，<code>@font-face</code> 前面的 <code>link</code> 不是我自己添加的，于是我就尝试在 css 中把这一行删掉，字体也能正常显示了。因为这个文件我不管怎么写，<code>hexo g</code> 的时候都会加入这一行代码，部署的时候也会一起传上去，所以我干脆直接在这个 css 文件前面加了这个：</p><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">nothing</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p>这样这个 <code>link</code> 就会加到 <code>nothing</code> 的前面，不会影响 <code>@font-face</code> ，字体也就能正常显示了。</p><p>不过我还是不清楚为什么在生成的时候会在这个文件中加入这行代码，如果有知道的可以联系我，也许是我加的一些插件？后面我又直接在 vscode 中搜索了一下，发现很多文件都被添加了这个代码，还是挺奇怪的。</p><p>只通过博客看的话好像可以很方便的解决这个问题，实际上因为网上没有现成的资料，我浪费了大量的时间去解决它，希望下次不会再遇到这种奇怪的问题了。</p>]]></content>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;p&gt;今天发完 Treap 的博客之后自己看了一遍，突然感觉很不爽。Treap 的这篇博客大量的用到了指针和箭头运算符，因为博客的字体没有连字（ligature）的功能，所以看着特别傻。于是我决定把博客的字体换成 Iosevka。&lt;/p&gt;
+&lt;p&gt;以下是一些我参考的网站&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Hexo" scheme="https://ttzytt.com/categories/Hexo/"/>
+    
+    
+    <category term="Hexo" scheme="https://ttzytt.com/tags/Hexo/"/>
+    
+    <category term="css" scheme="https://ttzytt.com/tags/css/"/>
+    
+  </entry>
   
   <entry>
     <title>Treap（树堆）学习笔记，基于洛谷 P3369</title>
@@ -237,9 +269,9 @@
     
     <category term="USACO 银组" scheme="https://ttzytt.com/tags/USACO-%E9%93%B6%E7%BB%84/"/>
     
-    <category term="2022" scheme="https://ttzytt.com/tags/2022/"/>
-    
     <category term="搜索" scheme="https://ttzytt.com/tags/%E6%90%9C%E7%B4%A2/"/>
+    
+    <category term="2022" scheme="https://ttzytt.com/tags/2022/"/>
     
     <category term="双指针" scheme="https://ttzytt.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
@@ -281,11 +313,11 @@
     
     <category term="图论" scheme="https://ttzytt.com/tags/%E5%9B%BE%E8%AE%BA/"/>
     
+    <category term="搜索" scheme="https://ttzytt.com/tags/%E6%90%9C%E7%B4%A2/"/>
+    
     <category term="2022" scheme="https://ttzytt.com/tags/2022/"/>
     
     <category term="二分图最大匹配" scheme="https://ttzytt.com/tags/%E4%BA%8C%E5%88%86%E5%9B%BE%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D/"/>
-    
-    <category term="搜索" scheme="https://ttzytt.com/tags/%E6%90%9C%E7%B4%A2/"/>
     
   </entry>
   
@@ -317,11 +349,11 @@
     
     <category term="2021" scheme="https://ttzytt.com/tags/2021/"/>
     
-    <category term="搜索" scheme="https://ttzytt.com/tags/%E6%90%9C%E7%B4%A2/"/>
-    
     <category term="USACO 铜组" scheme="https://ttzytt.com/tags/USACO-%E9%93%9C%E7%BB%84/"/>
     
     <category term="动态规划" scheme="https://ttzytt.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    
+    <category term="搜索" scheme="https://ttzytt.com/tags/%E6%90%9C%E7%B4%A2/"/>
     
   </entry>
   

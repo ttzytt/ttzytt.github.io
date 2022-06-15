@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Hexo Butterfly 更换字体时遇到的一些奇怪的问题 | tzyt的博客</title><meta name="keywords" content="Hexo,css"><meta name="author" content="tzyt"><meta name="copyright" content="tzyt"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="今天发完 Treap 的博客之后自己看了一遍，突然感觉很不爽。Treap 的这篇博客大量的用到了指针和箭头运算符，因为博客的字体没有连字（ligature）的功能，所以看着特别傻。于是我决定把博客的字体换成 Iosevka。 以下是一些我参考的网站  https:&#x2F;&#x2F;imbhj.com&#x2F;25c13146&#x2F; https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;361392320  基本的思路还">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo Butterfly 更换字体时遇到的一些奇怪的问题">
+<meta property="og:url" content="https://ttzytt.com/2022/06/hexo_font_update/index.html">
+<meta property="og:site_name" content="tzyt的博客">
+<meta property="og:description" content="今天发完 Treap 的博客之后自己看了一遍，突然感觉很不爽。Treap 的这篇博客大量的用到了指针和箭头运算符，因为博客的字体没有连字（ligature）的功能，所以看着特别傻。于是我决定把博客的字体换成 Iosevka。 以下是一些我参考的网站  https:&#x2F;&#x2F;imbhj.com&#x2F;25c13146&#x2F; https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;361392320  基本的思路还">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ttzytt.com/img/Hexo_blog_logo.svg">
+<meta property="article:published_time" content="2022-06-14T23:18:55.952Z">
+<meta property="article:modified_time" content="2022-06-15T18:42:10.596Z">
+<meta property="article:author" content="tzyt">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="css">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ttzytt.com/img/Hexo_blog_logo.svg"><link rel="shortcut icon" href="/img/avatar.gif"><link rel="canonical" href="https://ttzytt.com/2022/06/hexo_font_update/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"8U0W48V3OX","apiKey":"3451307079fbe11a78faea91417af67d","indexName":"hexo","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo Butterfly 更换字体时遇到的一些奇怪的问题',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-06-15 14:42:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/custom_background.css"><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="tzyt的博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.gif" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(to right, #2c3e50, #4ca1af)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">tzyt的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Hexo Butterfly 更换字体时遇到的一些奇怪的问题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-06-14T23:18:55.952Z" title="发表于 2022-06-14 19:18:55">2022-06-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-06-15T18:42:10.596Z" title="更新于 2022-06-15 14:42:10">2022-06-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Hexo/">Hexo</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">564</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Hexo Butterfly 更换字体时遇到的一些奇怪的问题"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/06/hexo_font_update/#post-comment"><span class="waline-comment-count" id="/2022/06/hexo_font_update/"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天发完 Treap 的博客之后自己看了一遍，突然感觉很不爽。Treap 的这篇博客大量的用到了指针和箭头运算符，因为博客的字体没有连字（ligature）的功能，所以看着特别傻。于是我决定把博客的字体换成 Iosevka。</p>
+<p>以下是一些我参考的网站</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://imbhj.com/25c13146/">https://imbhj.com/25c13146/</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/361392320">https://zhuanlan.zhihu.com/p/361392320</a></li>
+</ul>
+<p>基本的思路还是写一个 css 文件，然后在 html 的 head 部分注入进去。最后再在 hexo 的设置中把字体改成你想用的字体。</p>
+<p>我改完写完 css 然后上传了字体文件之后 <code>hexo s</code> 了一下，发现没问题。不过很奇怪的是部署到 github 之后如果开 linux 的虚拟机访问，或是用手机访问，都不能正确的加载字体。</p>
+<p>于是我就尝试 f12 了一下，打开 css 文件之后发现 css 文件变成了这样：</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css">&lt;link rel=<span class="token string">"stylesheet"</span> type=<span class="token string">"text/css"</span> href=<span class="token string">"https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"</span>><span class="token atrule"><span class="token rule">@font-face</span></span><span class="token punctuation">&#123;</span>
+    <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">'Iosevka'</span><span class="token punctuation">;</span>
+    <span class="token property">font-display</span><span class="token punctuation">:</span> swap<span class="token punctuation">;</span>
+    <span class="token property">src</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">'/font/iosevka-regular.ttf'</span><span class="token punctuation">)</span></span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token string">'truetype'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token selector">body</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">'Iosevka'</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其中，<code>@font-face</code> 前面的 <code>link</code> 不是我自己添加的，于是我就尝试在 css 中把这一行删掉，字体也能正常显示了。因为这个文件我不管怎么写，<code>hexo g</code> 的时候都会加入这一行代码，部署的时候也会一起传上去，所以我干脆直接在这个 css 文件前面加了这个：</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">nothing</span><span class="token punctuation">&#123;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>这样这个 <code>link</code> 就会加到 <code>nothing</code> 的前面，不会影响 <code>@font-face</code> ，字体也就能正常显示了。</p>
+<p>不过我还是不清楚为什么在生成的时候会在这个文件中加入这行代码，如果有知道的可以联系我，也许是我加的一些插件？后面我又直接在 vscode 中搜索了一下，发现很多文件都被添加了这个代码，还是挺奇怪的。</p>
+<p>只通过博客看的话好像可以很方便的解决这个问题，实际上因为网上没有现成的资料，我浪费了大量的时间去解决它，希望下次不会再遇到这种奇怪的问题了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">tzyt</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ttzytt.com/2022/06/hexo_font_update/">https://ttzytt.com/2022/06/hexo_font_update/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ttzytt.com" target="_blank">tzyt的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a><a class="post-meta__tags" href="/tags/css/">css</a></div><div class="post_share"><div class="social-share" data-image="/img/Hexo_blog_logo.svg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/06/treap_note/"><img class="next-cover" src="/img/DS_cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Treap（树堆）学习笔记，基于洛谷 P3369</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.gif" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">tzyt</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/394488"><i class="fa-solid fa-up-right-from-square"></i><span>洛谷</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ttzytt" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/Zyt2006613@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">如果有想交换友链的，可以通过洛谷的私信，我的邮箱，或者是右下角那个聊天室联系我。</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/06/hexo_font_update/" title="Hexo Butterfly 更换字体时遇到的一些奇怪的问题"><img src="/img/Hexo_blog_logo.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo Butterfly 更换字体时遇到的一些奇怪的问题"/></a><div class="content"><a class="title" href="/2022/06/hexo_font_update/" title="Hexo Butterfly 更换字体时遇到的一些奇怪的问题">Hexo Butterfly 更换字体时遇到的一些奇怪的问题</a><time datetime="2022-06-14T23:18:55.952Z" title="发表于 2022-06-14 19:18:55">2022-06-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/treap_note/" title="Treap（树堆）学习笔记，基于洛谷 P3369"><img src="/img/DS_cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Treap（树堆）学习笔记，基于洛谷 P3369"/></a><div class="content"><a class="title" href="/2022/06/treap_note/" title="Treap（树堆）学习笔记，基于洛谷 P3369">Treap（树堆）学习笔记，基于洛谷 P3369</a><time datetime="2022-06-14T02:56:57.266Z" title="发表于 2022-06-13 22:56:57">2022-06-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/CF1665C/" title="CF1665C题解"><img src="/img/Codeforces_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CF1665C题解"/></a><div class="content"><a class="title" href="/2022/06/CF1665C/" title="CF1665C题解">CF1665C题解</a><time datetime="2022-06-13T21:04:20.376Z" title="发表于 2022-06-13 17:04:20">2022-06-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/function-call/" title="浅谈函数调用的实现"><img src="/img/%E9%9D%9E%E9%80%92%E5%BD%92dfs/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="浅谈函数调用的实现"/></a><div class="content"><a class="title" href="/2022/04/function-call/" title="浅谈函数调用的实现">浅谈函数调用的实现</a><time datetime="2022-04-21T03:53:01.966Z" title="发表于 2022-04-20 23:53:01">2022-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/P8270/" title="洛谷 P8270 [USACO22OPEN] Subset Equality S 题解"><img src="/img/USACO_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="洛谷 P8270 [USACO22OPEN] Subset Equality S 题解"/></a><div class="content"><a class="title" href="/2022/04/P8270/" title="洛谷 P8270 [USACO22OPEN] Subset Equality S 题解">洛谷 P8270 [USACO22OPEN] Subset Equality S 题解</a><time datetime="2022-04-10T14:25:36.000Z" title="发表于 2022-04-10 10:25:36">2022-04-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 By tzyt</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Algolia</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = new Waline(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comment-for-hexo-blog-pi6qofxob-ttzytt.vercel.app/',
+      path: location.pathname,
+      visitor: true,
+      dark: 'html[data-theme="dark"]'
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js').then(initWaline)
+}
+
+if ('Waline' === 'Waline' || !false) {
+  if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="/js/gitter_chat.js"></script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="100,100,100" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
