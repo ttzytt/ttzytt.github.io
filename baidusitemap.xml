@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://ttzytt.com/2022/06/treap_note/</loc>
+    <lastmod>2022-06-17</lastmod>
+  </url>
+  <url>
     <loc>https://ttzytt.com/2022/06/CF1692G/</loc>
     <lastmod>2022-06-17</lastmod>
   </url>
@@ -15,10 +19,6 @@
   <url>
     <loc>https://ttzytt.com/2022/06/CF1665C/</loc>
     <lastmod>2022-06-17</lastmod>
-  </url>
-  <url>
-    <loc>https://ttzytt.com/2022/06/treap_note/</loc>
-    <lastmod>2022-06-14</lastmod>
   </url>
   <url>
     <loc>https://ttzytt.com/%E6%9C%AA%E5%AE%8C%E6%88%90/fake-valarray.html</loc>
