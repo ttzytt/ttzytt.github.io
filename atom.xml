@@ -39,11 +39,11 @@
     <category term="题解" scheme="https://ttzytt.com/categories/%E9%A2%98%E8%A7%A3/"/>
     
     
-    <category term="Codeforces" scheme="https://ttzytt.com/tags/Codeforces/"/>
+    <category term="前缀和" scheme="https://ttzytt.com/tags/%E5%89%8D%E7%BC%80%E5%92%8C/"/>
     
     <category term="2022" scheme="https://ttzytt.com/tags/2022/"/>
     
-    <category term="前缀和" scheme="https://ttzytt.com/tags/%E5%89%8D%E7%BC%80%E5%92%8C/"/>
+    <category term="Codeforces" scheme="https://ttzytt.com/tags/Codeforces/"/>
     
   </entry>
   
@@ -142,13 +142,13 @@
     <category term="题解" scheme="https://ttzytt.com/categories/%E9%A2%98%E8%A7%A3/"/>
     
     
+    <category term="2022" scheme="https://ttzytt.com/tags/2022/"/>
+    
     <category term="Codeforces" scheme="https://ttzytt.com/tags/Codeforces/"/>
     
     <category term="贪心" scheme="https://ttzytt.com/tags/%E8%B4%AA%E5%BF%83/"/>
     
     <category term="树" scheme="https://ttzytt.com/tags/%E6%A0%91/"/>
-    
-    <category term="2022" scheme="https://ttzytt.com/tags/2022/"/>
     
   </entry>
   
@@ -251,9 +251,9 @@
     <category term="题解" scheme="https://ttzytt.com/categories/%E9%A2%98%E8%A7%A3/"/>
     
     
-    <category term="树" scheme="https://ttzytt.com/tags/%E6%A0%91/"/>
-    
     <category term="2022" scheme="https://ttzytt.com/tags/2022/"/>
+    
+    <category term="树" scheme="https://ttzytt.com/tags/%E6%A0%91/"/>
     
     <category term="USACO" scheme="https://ttzytt.com/tags/USACO/"/>
     
@@ -342,9 +342,9 @@
     <category term="题解" scheme="https://ttzytt.com/categories/%E9%A2%98%E8%A7%A3/"/>
     
     
-    <category term="树" scheme="https://ttzytt.com/tags/%E6%A0%91/"/>
-    
     <category term="2022" scheme="https://ttzytt.com/tags/2022/"/>
+    
+    <category term="树" scheme="https://ttzytt.com/tags/%E6%A0%91/"/>
     
     <category term="USACO" scheme="https://ttzytt.com/tags/USACO/"/>
     
