@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ttzytt.com/2022/06/treap_note/</loc>
+    <loc>https://ttzytt.com/2022/07/complexity_GA/</loc>
+    <lastmod>2022-07-02</lastmod>
+  </url>
+  <url>
+    <loc>https://ttzytt.com/2022/04/function-call/</loc>
     <lastmod>2022-07-01</lastmod>
   </url>
   <url>
     <loc>https://ttzytt.com/2022/06/error_compilation/</loc>
-    <lastmod>2022-06-22</lastmod>
+    <lastmod>2022-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://ttzytt.com/2022/06/treap_note/</loc>
+    <lastmod>2022-07-01</lastmod>
   </url>
   <url>
     <loc>https://ttzytt.com/2022/06/CF1695C/</loc>
@@ -18,10 +26,6 @@
   </url>
   <url>
     <loc>https://ttzytt.com/2022/06/hexo_font_update/</loc>
-    <lastmod>2022-06-17</lastmod>
-  </url>
-  <url>
-    <loc>https://ttzytt.com/2022/04/function-call/</loc>
     <lastmod>2022-06-17</lastmod>
   </url>
   <url>
