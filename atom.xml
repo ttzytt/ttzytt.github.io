@@ -6,7 +6,7 @@
   <link href="https://ttzytt.com/atom.xml" rel="self"/>
   
   <link href="https://ttzytt.com/"/>
-  <updated>2022-07-07T00:24:08.513Z</updated>
+  <updated>2022-07-07T18:42:35.343Z</updated>
   <id>https://ttzytt.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Xv6 操作系统学习笔记</title>
+    <link href="https://ttzytt.com/2022/07/xv6_note/"/>
+    <id>https://ttzytt.com/2022/07/xv6_note/</id>
+    <published>2022-07-07T03:09:46.343Z</published>
+    <updated>2022-07-07T18:42:35.343Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>书的链接（中文翻译版）：<a href="https://github.com/ranxian/xv6-chinese">https://github.com/ranxian/xv6-chinese</a></p><h1>第 0 章</h1><p>这章大部分的内容还是能够看懂的，但是在管道的示例程序上卡了很久。最后终于搞懂了，这里把我的理解写一下：</p><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> p<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment">//p[0] 储存管道接收端的文件描述符，p[1] 为管道发送端的描述符</span><span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>argv<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"wc"</span><span class="token punctuation">;</span> <span class="token comment">//第一个参数是命令的名字</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">//stdin</span><span class="token function">pipe</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//子 p[0] &lt;--------- p[1] 父</span><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">dup</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">close</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">close</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token string">"/bin/wc"</span><span class="token punctuation">,</span> argv<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span><span class="token function">write</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"hello world\n"</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">close</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">close</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>首先需要注意的是父子进程的文件描述符是共享的，比如这里的 <code>pipe()</code> 函数，看似是运行子进程后又打开了一个管道，但是因为打开的文件描述符是共享的，实际父进程和子进程中的 <code>p[0]</code> 和 <code>p[1]</code> 指向的是一个文件，方便了进程之间的交流。</p><p>除了文件之外，根据《UNIX环境高级编程》，还有以下的资源也是父子进程共享的（ <s>虽然我基本都不懂</s> ）。</p><div align=center width=60%>  <img width=60% src="/img/xv6笔记/父子进程共享资源.png" ></div><p>而不同的地方则是：</p><div align=center width=60%>  <img width=60% src="/img/xv6笔记/父子进程不同点.png" ></div><p>对于这段程序中的父进程，通过 <code>pipe()</code> 拿到管道的文件标识符后，会往 <code>p[1]</code>，也就是管道的发送端，写入 <code>hello world</code>。然后关闭管道的两端。比较容易理解。</p><p>对于子进程，会先 <code>close(0)</code>，这里的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span> 是代表 stdin 的标识符，然后呢用 <code>dup(p[0])</code> 把 p[0] 这个标识符复制到另一个标识符上。</p><p>比如我们写 <code>x = dup(y)</code>，那么 x 和 y 就会指向相同的文件。可是这里调用 <code>dup()</code> 时并没有接收返回值，那我们如何知道会被复制到哪个标识符上呢？</p><p>其实 <code>dup()</code> 会在所有标识符中从小到大找到第一被关闭的表示符，在子进程的程序中，我们先关闭了 stdin，也就是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>，那么调用这个 <code>dup()</code> 自然会把 <code>p[0]</code> 重定向到 stdin 上，也就是我们读取 stdin 相当于读取了 <code>p[0]</code>。</p><p>接下来在子进程中，调用了 <code>exec()</code> 去执行 <code>wc</code> 命令，这个命令会统计文件的字数。可以发现，我们传给这个命令的参数的 <code>argv[1] = 0</code>。我们希望让 <code>wc</code> 统计标准输入的字数。</p><p>但是因为前面的 <code>dup()</code>， 现在的标准输入已经被重定向到了 <code>p[0]</code>，那么我们实际统计的就是从管道 <code>p[1]</code> 传进来的数据，也就是 <code>write(p[1], &quot;hello world\n&quot;, 12)</code> 里的 <code>hello world</code>。</p><p>还有一点我最初也感到很奇怪。既然父子进程是共享文件标识符的，那么 <code>p[0]</code> 和 <code>p[1]</code> 被关闭两次，不会出问题吗？</p><p>于是我就找到了<a href="https://blog.csdn.net/qq_41822235/article/details/81544503">这篇文章</a>，终于搞懂了。</p><blockquote><p><code>close()</code> 函数关闭文件时，并不是在任何情况下都直接关闭文件，而是找出 <code>file</code> 结构体中 <code>f_count</code> 成员,执行自减操作；直到 <code>f_count</code> 为0，才是真正的关闭文件。这就是著名的技术——引用计数。</p></blockquote>]]></content>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;p&gt;书的链接（中文翻译版）：&lt;a href=&quot;https://github.com/ranxian/xv6-chinese&quot;&gt;https://github.com/ranxian/xv6-chinese&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;第 0 章&lt;/h1&gt;
+&lt;p&gt;这章大部分的内容还是能够看懂的，但是在管道的示例程序上卡了很久。最后终于搞懂了，这里把我的理解写一下：&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="操作系统" scheme="https://ttzytt.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>数学算法学习笔记集合（持续更新）</title>
