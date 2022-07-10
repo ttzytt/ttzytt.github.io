@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://ttzytt.com/2022/07/xv6_lab_record/</loc>
+    
+    <lastmod>2022-07-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://ttzytt.com/2022/07/xv6_note/</loc>
     
     <lastmod>2022-07-10</lastmod>
@@ -21,15 +30,6 @@
   
   <url>
     <loc>https://ttzytt.com/2022/07/complexity_GA/</loc>
-    
-    <lastmod>2022-07-10</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/2022/07/xv6_lab_record/</loc>
     
     <lastmod>2022-07-10</lastmod>
     
