@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://ttzytt.com/2022/07/xv6_note/</loc>
+    <lastmod>2022-07-24</lastmod>
+  </url>
+  <url>
     <loc>https://ttzytt.com/2022/07/CC_STARTERS_48/</loc>
     <lastmod>2022-07-21</lastmod>
   </url>
@@ -15,10 +19,6 @@
   <url>
     <loc>https://ttzytt.com/2022/07/xv6_lab3_record/</loc>
     <lastmod>2022-07-20</lastmod>
-  </url>
-  <url>
-    <loc>https://ttzytt.com/2022/07/xv6_note/</loc>
-    <lastmod>2022-07-19</lastmod>
   </url>
   <url>
     <loc>https://ttzytt.com/2022/07/xv6_lab1_record/</loc>
