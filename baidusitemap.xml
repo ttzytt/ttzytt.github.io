@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://ttzytt.com/2022/07/xv6_lab2_record/</loc>
+    <lastmod>2022-07-26</lastmod>
+  </url>
+  <url>
+    <loc>https://ttzytt.com/2022/07/xv6_lab3_record/</loc>
+    <lastmod>2022-07-26</lastmod>
+  </url>
+  <url>
     <loc>https://ttzytt.com/2022/07/xv6_note/</loc>
-    <lastmod>2022-07-24</lastmod>
+    <lastmod>2022-07-26</lastmod>
+  </url>
+  <url>
+    <loc>https://ttzytt.com/2022/07/xv6_lab4_record/</loc>
+    <lastmod>2022-07-26</lastmod>
+  </url>
+  <url>
+    <loc>https://ttzytt.com/2022/04/function-call/</loc>
+    <lastmod>2022-07-25</lastmod>
   </url>
   <url>
     <loc>https://ttzytt.com/2022/07/CC_STARTERS_48/</loc>
@@ -17,16 +33,8 @@
     <lastmod>2022-07-21</lastmod>
   </url>
   <url>
-    <loc>https://ttzytt.com/2022/07/xv6_lab3_record/</loc>
-    <lastmod>2022-07-20</lastmod>
-  </url>
-  <url>
     <loc>https://ttzytt.com/2022/07/xv6_lab1_record/</loc>
     <lastmod>2022-07-16</lastmod>
-  </url>
-  <url>
-    <loc>https://ttzytt.com/2022/07/xv6_lab2_record/</loc>
-    <lastmod>2022-07-15</lastmod>
   </url>
   <url>
     <loc>https://ttzytt.com/2022/06/error_compilation/</loc>
@@ -51,10 +59,6 @@
   <url>
     <loc>https://ttzytt.com/2022/07/CF1699C/</loc>
     <lastmod>2022-07-05</lastmod>
-  </url>
-  <url>
-    <loc>https://ttzytt.com/2022/04/function-call/</loc>
-    <lastmod>2022-07-01</lastmod>
   </url>
   <url>
     <loc>https://ttzytt.com/2022/06/treap_note/</loc>
