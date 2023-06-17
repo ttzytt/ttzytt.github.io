@@ -1,0 +1,193 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.10) (preloaded format=latex 2021.10.16)  17 JUN 2023 01:21
+entering extended mode
+**./media/Tex/9211b59c0384965e.tex
+(media/Tex/9211b59c0384965e.tex
+LaTeX2e <2021-06-01> patch level 1
+L3 programming layer <2021-10-12> (C:\Program Files\MiKTeX\tex/latex/standalone
+\standalone.cls
+Document Class: standalone 2018/03/26 v1.3a Class to compile TeX sub-files stan
+dalone
+(C:\Program Files\MiKTeX\tex/latex/tools\shellesc.sty
+Package: shellesc 2019/11/08 v1.0c unified shell escape interface for LaTeX
+Package shellesc Info: Restricted shell escape enabled on input line 77.
+) (C:\Program Files\MiKTeX\tex/generic/iftex\ifluatex.sty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+(C:\Program Files\MiKTeX\tex/generic/iftex\iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+)) (C:\Program Files\MiKTeX\tex/latex/xkeyval\xkeyval.sty
+Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
+(C:\Program Files\MiKTeX\tex/generic/xkeyval\xkeyval.tex (C:\Program Files\MiKT
+eX\tex/generic/xkeyval\xkvutils.tex
+\XKV@toks=\toks16
+\XKV@tempa@toks=\toks17
+(C:\Program Files\MiKTeX\tex/generic/xkeyval\keyval.tex))
+\XKV@depth=\count182
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+\sa@internal=\count183
+\c@sapage=\count184
+(C:\Program Files\MiKTeX\tex/latex/standalone\standalone.cfg
+File: standalone.cfg 2018/03/26 v1.3a Default configuration file for 'standalon
+e' class
+) (C:\Program Files\MiKTeX\tex/latex/base\article.cls
+Document Class: article 2021/02/12 v1.4n Standard LaTeX document class
+(C:\Program Files\MiKTeX\tex/latex/base\size10.clo
+File: size10.clo 2021/02/12 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+) (C:\Users\ZYT20\AppData\Roaming\MiKTeX\tex/latex/preview\preview.sty
+Package: preview 2017/04/24 12.3 (AUCTeX/preview-latex)
+(C:\Program Files\MiKTeX\tex/latex/luatex85\luatex85.sty
+Package: luatex85 2016/06/15 v1.4 pdftex aliases for luatex
+) (C:\Users\ZYT20\AppData\Roaming\MiKTeX\tex/latex/preview\prtightpage.def
+\PreviewBorder=\dimen139
+)
+\pr@snippet=\count193
+\pr@box=\box50
+\pr@output=\toks18
+)) (C:\Program Files\MiKTeX\tex/generic/babel\babel.sty
+Package: babel 2021/10/13 3.64 The Babel package
+\babel@savecnt=\count194
+\U@D=\dimen140
+\l@unhyphenated=\language79
+(C:\Program Files\MiKTeX\tex/generic/babel\txtbabel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count195
+*************************************
+* Local config file bblopts.cfg used
+*
+(C:\Program Files\MiKTeX\tex/latex/arabi\bblopts.cfg
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+) (C:\Program Files\MiKTeX\tex/latex/babel-english\english.ldf
+Language: english 2017/06/06 v3.3r English support from the babel system
+Package babel Info: Hyphen rules for 'canadian' set to \l@english
+(babel)             (\language0). Reported on input line 102.
+Package babel Info: Hyphen rules for 'australian' set to \l@ukenglish
+(babel)             (\language73). Reported on input line 105.
+Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
+(babel)             (\language73). Reported on input line 108.
+) (C:\Program Files\MiKTeX\tex/latex/babel-english\english.ldf
+Language: english 2017/06/06 v3.3r English support from the babel system
+)) (C:\Program Files\MiKTeX\tex/latex/amsmath\amsmath.sty
+Package: amsmath 2021/04/20 v2.17j AMS math features
+\@mathmargin=\skip49
+For additional information on amsmath, use the `?' option.
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks19
+\ex@=\dimen141
+)) (C:\Program Files\MiKTeX\tex/latex/amsmath\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen142
+) (C:\Program Files\MiKTeX\tex/latex/amsmath\amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count196
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count197
+\leftroot@=\count198
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count199
+\DOTSCASE@=\count266
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box51
+\strutbox@=\box52
+\big@size=\dimen143
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count267
+\c@MaxMatrixCols=\count268
+\dotsspace@=\muskip16
+\c@parentequation=\count269
+\dspbrk@lvl=\count270
+\tag@help=\toks20
+\row@=\count271
+\column@=\count272
+\maxfields@=\count273
+\andhelp@=\toks21
+\eqnshift@=\dimen144
+\alignsep@=\dimen145
+\tagshift@=\dimen146
+\tagwidth@=\dimen147
+\totwidth@=\dimen148
+\lineht@=\dimen149
+\@envbody=\toks22
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks23
+LaTeX Info: Redefining \[ on input line 2923.
+LaTeX Info: Redefining \] on input line 2924.
+) (C:\Program Files\MiKTeX\tex/latex/amsfonts\amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-dvips.def
+File: l3backend-dvips.def 2021-10-12 L3 backend support: dvips
+\l__pdf_internal_box=\box53
+\g__pdf_backend_object_int=\count274
+\l__pdf_backend_content_box=\box54
+\l__pdf_backend_model_box=\box55
+\g__pdf_backend_annotation_int=\count275
+\g__pdf_backend_link_int=\count276
+\g__pdf_backend_link_sf_int=\count277
+)
+No file 9211b59c0384965e.aux.
+\openout1 = `9211b59c0384965e.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+Preview: Fontsize 10pt
+LaTeX Font Info:    Trying to load font information for U+msa on input line 9.
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 9.
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Preview: Tightpage 0 0 0 0
+[1] (E:\hexo blog\blog\source\garph_code\GAMES101\media\Tex\9211b59c0384965e.au
+x) ) 
+Here is how much of TeX's memory you used:
+ 3167 strings out of 478928
+ 48123 string characters out of 2862417
+ 355183 words of memory out of 3000000
+ 21015 multiletter control sequences out of 15000+600000
+ 405129 words of font info for 35 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 57i,9n,71p,244b,154s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on "E:\hexo blog\blog\source\garph_code\GAMES101\media\Tex\9211b
+59c0384965e.dvi" (1 page, 1624 bytes).
