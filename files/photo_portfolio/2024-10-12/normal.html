@@ -325,12 +325,13 @@
 
   /* For vertical and horizontal centering of all images */
   .centered {
-      position: relative;
       display: flex;
       justify-content: center;  /* Horizontal centering */
       align-items: center;      /* Vertical centering */
       width: 100%;              /* Take full width */
       height: 100vh;            /* Full viewport height */
+      object-fit: contain;         /* Maintain aspect ratio */
+      margin: 0 auto;
   }
 
   /* Ensure the image is scaled to the largest size while maintaining its aspect ratio */
@@ -340,6 +341,10 @@
       width: auto;      /* Allow image to expand horizontally */
       height: auto;     /* Allow image to expand vertically */
       object-fit: contain; /* Maintain aspect ratio */
+  }
+  .centered p {
+      margin: 0;             /* Remove any default margins */
+      display: inline-block;  /* Ensure the image and container act as a block element */
   }
 
   /* Flex layout for columns */
@@ -375,6 +380,15 @@
       max-width: 90%; /* Controls image size */
       max-height: 90vh;
       object-fit: contain;
+  }
+
+  .center-xy {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translateY(-50%), translateX(-50%);
+    transform: translateY(-50%), translateX(-50%);
   }
 
   </style>
@@ -430,34 +444,36 @@
 </section>
 <section id="section" class="slide level2" data-background-color="#f1faee">
 <h2></h2>
-<div class="centered">
-<p><img src="imgs/invasive_species/invasive_species-1.jpg" alt="Centered Image"></p>
-</div>
-</section>
+<!-- <div class="centered">
+  <img src="imgs/invasive_species/invasive_species-1.jpg" alt="Centered Image">
+</div> -->
+
+<img data-src="imgs/invasive_species/invasive_species-1.jpg" class="r-stretch quarto-figure-center"></section>
 <section id="section-1" class="slide level2" data-background-color="#f1faee">
 <h2></h2>
-<div class="centered">
-<p><img src="imgs/invasive_species/invasive_species-3.jpg" alt="Centered Image"></p>
-</div>
-</section>
+
+<img data-src="imgs/invasive_species/invasive_species-3.jpg" class="r-stretch quarto-figure-center"></section>
 <section id="section-2" class="slide level2" data-background-color="#f1faee">
 <h2></h2>
-<div class="centered">
-<p><img src="imgs/invasive_species/invasive_species-4.jpg" alt="Centered Image"></p>
-</div>
-</section>
+<!-- <div class="centered">
+  <img src="imgs/invasive_species/invasive_species-4.jpg" alt="Centered Image">
+</div> -->
+
+<img data-src="imgs/invasive_species/invasive_species-4.jpg" class="r-stretch quarto-figure-center"></section>
 <section id="section-3" class="slide level2" data-background-color="#f1faee">
 <h2></h2>
-<div class="centered">
-<p><img src="imgs/invasive_species/invasive_species-5.jpg" alt="Centered Image"></p>
-</div>
-</section>
+<!-- <div class="centered">
+  <img src="imgs/invasive_species/invasive_species-5.jpg" alt="Centered Image">
+</div> -->
+
+<img data-src="imgs/invasive_species/invasive_species-5.jpg" class="r-stretch quarto-figure-center"></section>
 <section id="section-4" class="slide level2" data-background-color="#f1faee">
 <h2></h2>
-<div class="centered">
-<p><img src="imgs/invasive_species/invasive_species-6.jpg" alt="Centered Image"></p>
-</div>
-</section></section>
+<!-- <div class="centered">
+  <img src="imgs/invasive_species/invasive_species-6.jpg" alt="Centered Image">
+</div> -->
+
+<img data-src="imgs/invasive_species/invasive_species-6.jpg" class="r-stretch quarto-figure-center"></section></section>
 <section>
 <section id="iridescent-cellophane-wrapped-room" class="title-slide slide level1 center">
 <h1>Iridescent Cellophane Wrapped Room</h1>
@@ -465,21 +481,23 @@
 </section>
 <section id="section-5" class="slide level2" data-background-color="#ffe5ec">
 <h2></h2>
-<div class="centered">
-<p><img src="imgs/iridescent_cellophane_wrapped_room/_DSC9085_PSMS.jpg" alt="Centered Image"></p>
-</div>
-</section>
+<!-- <div class="centered">
+  <img src="imgs/iridescent_cellophane_wrapped_room/_DSC9085_PSMS.jpg" alt="Centered Image">
+</div> -->
+
+<img data-src="imgs/iridescent_cellophane_wrapped_room/_DSC9085_PSMS.jpg" class="r-stretch quarto-figure-center"></section>
 <section id="section-6" class="slide level2" data-background-color="#ffe5ec">
 <h2></h2>
-<div class="flex-columns">
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/iridescent_cellophane_wrapped_room/_DSC9815_compose_PSMS.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 48.8%;justify-content: center;">
+<p><img data-src="imgs/iridescent_cellophane_wrapped_room/_DSC9815_compose_PSMS.jpg" class="centered"></p>
 </div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.4%;justify-content: center;">
+<p>&nbsp;</p>
 </div>
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/iridescent_cellophane_wrapped_room/_DSC9876_PSMS_compose.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-cell" style="flex-basis: 48.8%;justify-content: center;">
+<p><img data-src="imgs/iridescent_cellophane_wrapped_room/_DSC9876_PSMS_compose.jpg" class="centered"></p>
 </div>
 </div>
 </div>
@@ -491,61 +509,60 @@
 </section>
 <section id="section-7" class="slide level2" data-background-color="#e2eafc">
 <h2></h2>
-<div class="centered">
-<p><img src="imgs/weekend/coney_island-1.jpg" alt="Centered Image"></p>
-</div>
-</section>
+
+<img data-src="imgs/weekend/coney_island-1.jpg" class="r-stretch quarto-figure-center"></section>
 <section id="section-8" class="slide level2" data-background-color="#e2eafc">
 <h2></h2>
-<div class="flex-columns">
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/weekend/coney_island-2.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 48.8%;justify-content: center;">
+<p><img data-src="imgs/weekend/coney_island-2.jpg" class="centered"></p>
 </div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.4%;justify-content: center;">
+<p>&nbsp;</p>
 </div>
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/weekend/coney_island-5.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-cell" style="flex-basis: 48.8%;justify-content: center;">
+<p><img data-src="imgs/weekend/coney_island-5.jpg" class="centered"></p>
 </div>
 </div>
 </div>
 </section>
 <section id="section-9" class="slide level2" data-background-color="#e2eafc">
 <h2></h2>
-<div class="flex-columns">
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/weekend/coney_island-6.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 48.8%;justify-content: center;">
+<p><img data-src="imgs/weekend/coney_island-6.jpg" class="centered"></p>
 </div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.4%;justify-content: center;">
+<p>&nbsp;</p>
 </div>
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/weekend/coney_island-2.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-cell" style="flex-basis: 48.8%;justify-content: center;">
+<p><img data-src="imgs/weekend/coney_island-7.jpg" class="centered"></p>
 </div>
 </div>
 </div>
 </section>
 <section id="section-10" class="slide level2" data-background-color="#e2eafc">
 <h2></h2>
-<div class="flex-columns">
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/weekend/coney_island-7.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 48.8%;justify-content: center;">
+<p><img data-src="imgs/weekend/coney_island-7.jpg" class="centered"></p>
 </div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.4%;justify-content: center;">
+<p>&nbsp;</p>
 </div>
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/weekend/coney_island-9.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-cell" style="flex-basis: 48.8%;justify-content: center;">
+<p><img data-src="imgs/weekend/coney_island-9.jpg" class="centered"></p>
 </div>
 </div>
 </div>
 </section>
 <section id="section-11" class="slide level2" data-background-color="#e2eafc">
 <h2></h2>
-<div class="centered">
-<p><img src="imgs/weekend/coney_island-8.jpg" alt="Centered Image"></p>
-</div>
-</section></section>
+
+<img data-src="imgs/weekend/coney_island-8.jpg" class="r-stretch quarto-figure-center"></section></section>
 <section>
 <section id="gaze" class="title-slide slide level1 center">
 <h1>Gaze</h1>
@@ -553,40 +570,44 @@
 </section>
 <section id="section-12" class="slide level2" data-background-color="#ffedd8">
 <h2></h2>
-<div class="flex-columns">
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/gaze/1.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 32.3%;justify-content: center;">
+<p><img data-src="imgs/gaze/1.jpg" class="centered"></p>
 </div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 1.6%;justify-content: center;">
+<p>&nbsp;</p>
 </div>
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/gaze/2.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-cell" style="flex-basis: 32.3%;justify-content: center;">
+<p><img data-src="imgs/gaze/2.jpg" class="centered"></p>
 </div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 1.6%;justify-content: center;">
+<p>&nbsp;</p>
 </div>
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/gaze/3.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-cell" style="flex-basis: 32.3%;justify-content: center;">
+<p><img data-src="imgs/gaze/3.jpg" class="centered"></p>
 </div>
 </div>
 </div>
 </section>
 <section id="section-13" class="slide level2" data-background-color="#fff6cc">
 <h2></h2>
-<div class="flex-columns">
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/gaze/_DSC4454.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 32.3%;justify-content: center;">
+<p><img data-src="imgs/gaze/_DSC4454.jpg" class="centered"></p>
 </div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 1.6%;justify-content: center;">
+<p>&nbsp;</p>
 </div>
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/gaze/_DSC4459.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-cell" style="flex-basis: 32.3%;justify-content: center;">
+<p><img data-src="imgs/gaze/_DSC4459.jpg" class="centered"></p>
 </div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 1.6%;justify-content: center;">
+<p>&nbsp;</p>
 </div>
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/gaze/4.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-cell" style="flex-basis: 32.3%;justify-content: center;">
+<p><img data-src="imgs/gaze/4.jpg" class="centered"></p>
 </div>
 </div>
 </div>
@@ -598,10 +619,11 @@
 </section>
 <section id="section-14" class="slide level2" data-background-color="#b8bdb5">
 <h2></h2>
-<div class="centered">
-<p><img src="imgs/hk/Lost in the Mist_DSC1215.jpg" alt="Centered Image"></p>
-</div>
-</section>
+<!-- <div class="centered">
+  <img src="imgs/hk/Lost in the Mist_DSC1215.jpg" alt="Centered Image">
+</div> -->
+
+<img data-src="imgs/hk/Lost%20in%20the%20Mist_DSC1215.jpg" class="r-stretch quarto-figure-center"></section>
 <section id="section-15" class="slide level2 scrollable" data-background-color="#b8bdb5">
 <h2></h2>
 <div class="columns">
@@ -625,10 +647,8 @@
 </section>
 <section id="section-16" class="slide level2" data-background-color="#b8bdb5">
 <h2></h2>
-<div class="centered">
-<p><img src="imgs/hk/_DSC8717_9.jpg" alt="Centered Image"></p>
-</div>
-</section></section>
+
+<img data-src="imgs/hk/_DSC8717_9.jpg" class="r-stretch quarto-figure-center"></section></section>
 <section>
 <section id="industrial-tranquility" class="title-slide slide level1 center">
 <h1>Industrial Tranquility</h1>
@@ -647,23 +667,26 @@
 <section id="misc" class="title-slide slide level1 center">
 <h1>Misc</h1>
 <p>Some miscellaneous photos.</p>
+<!-- ## {background-color="#ecf8f8"} -->
 </section>
-<section id="section-18" class="slide level2" data-background-color="#ecf8f8">
+<section id="section-18" class="slide level2" data-background="linear-gradient(to right, #ecf8f8, #dee2ff ,#cce3de)">
 <h2></h2>
-<div class="flex-columns">
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/misc/1.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 32.3%;justify-content: center;">
+<p><img data-src="imgs/misc/1.jpg" class="centered"></p>
 </div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 1.6%;justify-content: center;">
+<p>&nbsp;</p>
 </div>
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/misc/2.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-cell" style="flex-basis: 32.3%;justify-content: center;">
+<p><img data-src="imgs/misc/2.jpg" class="centered"></p>
 </div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 1.6%;justify-content: center;">
+<p>&nbsp;</p>
 </div>
-<div class="flex-column">
-<div class="centered">
-<p><img src="imgs/misc/3.jpg" alt="Centered Image"></p>
+<div class="quarto-layout-cell" style="flex-basis: 32.3%;justify-content: center;">
+<p><img data-src="imgs/misc/3.jpg" class="centered"></p>
 </div>
 </div>
 </div>
@@ -859,7 +882,7 @@
         margin: 0.1,
 
         // Bounds for smallest/largest possible scale to apply to content
-        minScale: 0.7,
+        minScale: 1.0e-2,
 
         maxScale: 1.3,
 
