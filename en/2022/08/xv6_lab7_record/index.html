@@ -1,0 +1,420 @@
+<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;en&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>[MIT 6.s081] Xv6 Lab7 Multithreading 实验记录 | tzyt的博客</title><meta name="author" content="tzyt"><meta name="copyright" content="tzyt"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="upd@2022&amp;#x2F;9&amp;#x2F;14：最近把实验的代码放到 github 上了，如果需要参考可以查看这里： https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;ttzytt&amp;#x2F;xv6-riscv 里面不同的分支就是不同的实验。  Lab7: Multithreading Uthread   实现用户态线程。  因为我们要实现"><link rel="shortcut icon" href="/img/avatar.png"><link rel="canonical" href="https://ttzytt.com/en/2022/08/xv6_lab7_record/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":700},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '[MIT 6.s081] Xv6 Lab7 Multithreading 实验记录',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-10-15 18:48:32'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/custom_background.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="tzyt的博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 图库</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(to right, #2c3e50, #4ca1af)"><nav id="nav"><span id="blog-info"><a href="/" title="tzyt的博客"><span class="site-name">tzyt的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 图库</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">[MIT 6.s081] Xv6 Lab7 Multithreading 实验记录</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-08-04T04:00:00.000Z" title="Created 2022-08-04 00:00:00">2022-08-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-10-15T22:48:32.023Z" title="Updated 2022-10-15 18:48:32">2022-10-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/">实验记录</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">4.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>15mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="[MIT 6.s081] Xv6 Lab7 Multithreading 实验记录"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>upd@2022/9/14：最近把实验的代码放到 github 上了，如果需要参考可以查看这里：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ttzytt/xv6-riscv">https://github.com/ttzytt/xv6-riscv</a></p>
+<p>里面不同的分支就是不同的实验。</p>
+<hr>
+<h1>Lab7: Multithreading</h1>
+<h2 id="Uthread">Uthread</h2>
+<blockquote>
+<p><img src="/img/xv6/lab/lab7_uthread.png" alt=""><br>
+实现用户态线程。</p>
+</blockquote>
+<p>因为我们要实现用户态的多线程机制，所以很大程度上可以参考内核态中多线程的实现。</p>
+<p>查看 <code>user/uthread.c</code> 后可以发现，基本的框架已经给我们写好了，我们只需要实现一些函数的内容就行了。</p>
+<p>那不如先把函数中要实现的内容写出来：</p>
+<ul>
+<li><code>thread_switch()</code>： 这个函数和内核中的 <code>swtch()</code> 完全一样，用于切换处理器的上下文。和内核中相同（参考<a href="/2022/07/xv6_note/">这篇文章</a>），因为执行这个函数的过程是一个正常的函数调用，所以我们不需要保存和交换调用者保存的寄存器。</li>
+<li><code>thread_create()</code> ：这个函数是用于创建新的用户线程的。参考内核态多线程的实现。我们调用 <code>swtch()</code> 后，决定跳转位置的是 ra 寄存器，决定恢复出来的被调用者保存寄存器的是 sp 寄存器。所以，在这个函数中，我们应该合理的设置 ra 寄存器，使得第一次执行用户函数时，是这个函数的第一条语句。</li>
+<li><code>thread_schedule()</code>：参考内核中的实现，这个函数和内核中的 <code>scheduler()</code> 的作用相同。也就是在当前进程调用 <code>yield()</code> 后，找到一个 RUNNABLE 的进程，然后执行这个进程。在 <code>thread_schedule()</code> 中，我们会需要调用 <code>thread_switch()</code> 来切换处理器的上下文。</li>
+</ul>
+<p>这样我们就大概的把各个函数的功能和实现思路理清楚了，接下来可以从第一个函数开始实际的实现。</p>
+<p>首先我们要注意到，<code>utrhead.c</code> 原本的文件中并没有给 <code>struct thread</code> 加上一个上下文的属性，所以我们给他加上，上下文保存的寄存器和内核态多线程中完全相同：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Context</span>&#123;</span></span><br><span class="line">  uint64 ra;</span><br><span class="line">  uint64 sp;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// callee-saved</span></span><br><span class="line">  uint64 s0;</span><br><span class="line">  uint64 s1;</span><br><span class="line">  uint64 s2;</span><br><span class="line">  uint64 s3;</span><br><span class="line">  uint64 s4;</span><br><span class="line">  uint64 s5;</span><br><span class="line">  uint64 s6;</span><br><span class="line">  uint64 s7;</span><br><span class="line">  uint64 s8;</span><br><span class="line">  uint64 s9;</span><br><span class="line">  uint64 s10;</span><br><span class="line">  uint64 s11;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">thread</span> &#123;</span></span><br><span class="line">  <span class="type">char</span>       <span class="built_in">stack</span>[STACK_SIZE]; <span class="comment">/* the thread&#x27;s stack */</span></span><br><span class="line">  <span class="type">int</span>        state;             <span class="comment">/* FREE, RUNNING, RUNNABLE */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">Context</span> <span class="title">ctx</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>然后 <code>thread_switch()</code> 差不多就可以直接把 <code>swtch()</code> 中的东西抄过来了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"> .text</span><br><span class="line"></span><br><span class="line"> /*</span><br><span class="line">         * save the old thread&#x27;s registers,</span><br><span class="line">         * restore the new thread&#x27;s registers.</span><br><span class="line">         */</span><br><span class="line"></span><br><span class="line"> .globl thread_switch</span><br><span class="line"> // a0 是老的上下文，a1 是新的</span><br><span class="line">thread_switch:</span><br><span class="line"> /* YOUR CODE HERE */</span><br><span class="line"> sd ra, 0(a0)</span><br><span class="line"> sd sp, 8(a0)</span><br><span class="line"> sd s0, 16(a0)</span><br><span class="line"> sd s1, 24(a0)</span><br><span class="line"> sd s2, 32(a0)</span><br><span class="line"> sd s3, 40(a0)</span><br><span class="line"> sd s4, 48(a0)</span><br><span class="line"> sd s5, 56(a0)</span><br><span class="line"> sd s6, 64(a0)</span><br><span class="line"> sd s7, 72(a0)</span><br><span class="line"> sd s8, 80(a0)</span><br><span class="line"> sd s9, 88(a0)</span><br><span class="line"> sd s10, 96(a0)</span><br><span class="line"> sd s11, 104(a0)</span><br><span class="line"></span><br><span class="line"> ld ra, 0(a1)</span><br><span class="line"> ld sp, 8(a1)</span><br><span class="line"> ld s0, 16(a1)</span><br><span class="line"> ld s1, 24(a1)</span><br><span class="line"> ld s2, 32(a1)</span><br><span class="line"> ld s3, 40(a1)</span><br><span class="line"> ld s4, 48(a1)</span><br><span class="line"> ld s5, 56(a1)</span><br><span class="line"> ld s6, 64(a1)</span><br><span class="line"> ld s7, 72(a1)</span><br><span class="line"> ld s8, 80(a1)</span><br><span class="line"> ld s9, 88(a1)</span><br><span class="line"> ld s10, 96(a1)</span><br><span class="line"> ld s11, 104(a1)</span><br><span class="line"></span><br><span class="line"> ret    /* return to ra */</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>那这个函数我们就写完了。</p>
+<p>接下来是 <code>thread_create()</code>。实现这个函数主要需要思考如何设置 ra 和 sp 寄存器。因为用户进程一开始的时候是没有使用寄存器的，所以如何设置上下文中的其他寄存器是无所谓的。</p>
+<p>首先，在 <code>thread_create()</code> 之后，如果我们调用了 <code>thread_schedule()</code> ，应该执行的是线程函数的第一个语句。所以我们可以这么设置 ra：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t-&gt;ctx.ra = (uint64) func;</span><br></pre></td></tr></table></figure>
+<p>对于 sp，我们需要注意的是栈是从高地址到低地址增长的（<s>我一开始没想到</s>），那么 sp 应该被设置在栈的最高地址：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t-&gt;ctx.sp = (uint64) &amp;t-&gt;<span class="built_in">stack</span> + (STACK_SIZE - <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>那么这个 <code>thread_create()</code> 就写完了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> </span><br><span class="line"><span class="title function_">thread_create</span><span class="params">(<span class="type">void</span> (*func)())</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">thread</span> *<span class="title">t</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (t = all_thread; t &lt; all_thread + MAX_THREAD; t++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (t-&gt;state == FREE) <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  t-&gt;state = RUNNABLE;</span><br><span class="line">  <span class="comment">// YOUR CODE HERE</span></span><br><span class="line">  t-&gt;ctx.ra = (uint64) func;</span><br><span class="line">  t-&gt;ctx.sp = (uint64) &amp;t-&gt;<span class="built_in">stack</span> + (STACK_SIZE - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来可以处理 <code>thread_schedule()</code>：</p>
+<p>观察原来函数的代码可以看到，最开始的循环找到了第一个为 RUNNABLE 的线程，然后把这个线程赋值到 <code>next_thread()</code>。所以很明显，我们应该交换 <code>current_thread</code> 和 <code>next_thread()</code> 的上下文。</p>
+<p>不过这个函数有个比较坑的地方，就是在交换前写了这个东西：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t = current_thread;</span><br><span class="line">current_thread = next_thread; <span class="comment">// 当前线程变成下一个线程了</span></span><br></pre></td></tr></table></figure>
+<p>那我们就需要交换 t 和 next_thread 了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thread_switch((uint64) &amp;t-&gt;ctx, (uint64) &amp;next_thread-&gt;ctx);</span><br></pre></td></tr></table></figure>
+<p>完整代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> </span><br><span class="line"><span class="title function_">thread_schedule</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">thread</span> *<span class="title">t</span>, *<span class="title">next_thread</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Find another runnable thread. */</span></span><br><span class="line">  next_thread = <span class="number">0</span>;</span><br><span class="line">  t = current_thread + <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; MAX_THREAD; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(t &gt;= all_thread + MAX_THREAD)</span><br><span class="line">      t = all_thread; <span class="comment">// 循环</span></span><br><span class="line">    <span class="keyword">if</span>(t-&gt;state == RUNNABLE) &#123;</span><br><span class="line">      next_thread = t;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    t = t + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (next_thread == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;thread_schedule: no runnable threads\n&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (current_thread != next_thread) &#123;         <span class="comment">/* switch threads?  */</span></span><br><span class="line">    next_thread-&gt;state = RUNNING;</span><br><span class="line">    t = current_thread;</span><br><span class="line">    current_thread = next_thread; <span class="comment">// 当前线程变成下一个线程了</span></span><br><span class="line">    <span class="comment">/* YOUR CODE HERE</span></span><br><span class="line"><span class="comment">     * Invoke thread_switch to switch from t to next_thread:</span></span><br><span class="line"><span class="comment">     * thread_switch(??, ??);</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    thread_switch((uint64) &amp;t-&gt;ctx, (uint64) &amp;next_thread-&gt;ctx);</span><br><span class="line">  &#125; <span class="keyword">else</span></span><br><span class="line">    next_thread = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看了别人的一些博客<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://blog.miigon.net/posts/s081-lab7-multithreading/>
+">[1]</span></a></sup>后发现，这里实现的用户态多线程其实更接近协程。因为这里的线程是自愿交出处理器资源的，而不是靠定时器中断，同时，使用的核心也只有一个。</p>
+<p>或者说，这里的函数可以把自己挂起，然后过一段时间再通过 <code>thread_schedule()</code> 来恢复执行。</p>
+<p>以前看了一些协程的东西，基本上只能理解为什么协程被称作“可以被挂起的函数”，而不能理解，为什么协程是“用户态线程”，更搞不懂协程是怎么实现的。</p>
+<p>这个感觉还是挺奇怪也挺爽的，就是在学另一个知识的时候，把以前一直都搞不懂的，看似不相关的东西给搞懂了。所以花了很久时间没学懂的时候可以先放一放，说不定以后不知道什么时候就搞懂了。</p>
+<h2 id="Using-threads">Using threads</h2>
+<p>这个 lab 的描述还是挺长的，所以我就不放图片了。大概就是让我们阅读一个散列表（哈希表）的程序，然后做一些更改，使得这个程序在多线程的环境下也可用。</p>
+<p>可以尝试运行下提供给我们的程序，如果只使用一个线程，那么一切正常。如果改成两个及以上，就会发现某些在散列表中插入的键值对直接消失不见了。</p>
+<p>为了解决这个问题，我们可以先看一遍这个散列表，找一找问题出现的地方。这个程序中，最关键的有三个函数 <code>insert()</code>，<code>put()</code> 和 <code>get()</code>。我们可以一个接一个看：</p>
+<p>首先是 <code>insert()</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> </span><br><span class="line"><span class="title function_">insert</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value, <span class="keyword">struct</span> entry **p, <span class="keyword">struct</span> entry *n)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">entry</span> *<span class="title">e</span> =</span> <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> entry));</span><br><span class="line">  e-&gt;key = key;</span><br><span class="line">  e-&gt;value = value;</span><br><span class="line">  e-&gt;next = n;</span><br><span class="line">  *p = e; <span class="comment">// 把 p table[i] 的起始点改成 e</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们知道，在散列表中，如果哈希函数把多个不同的键映射到了同一个位置，就会需要把这个当作链表的形式，在查找时遍历这个链表来找到正确的键值对。</p>
+<p>这个 <code>insert()</code> 函数做的就是在链表中插入元素的工作。其中，<code>e</code> 是一个新被插入链表 <code>*p</code> 中的元素，我们先利用参数初始化了 <code>e</code> 的各个属性。</p>
+<p>特别需要注意的是 <code>e-&gt;next = n</code> 这句话，这里的 <code>n</code> 是链表 <code>table[i]</code> 或者说 <code>*p</code> 的第一个元素，那么 <code>e-&gt;next = n</code> 就意味着现在把 <code>e</code> 插入在 <code>*p</code> 的前面。</p>
+<p>下一个函数是 <code>put()</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> </span><br><span class="line"><span class="type">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// is the key already present?</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">entry</span> *<span class="title">e</span> =</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (e = table[i]; e != <span class="number">0</span>; e = e-&gt;next) &#123;</span><br><span class="line">    <span class="keyword">if</span> (e-&gt;key == key)</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(e)&#123;</span><br><span class="line">    <span class="comment">// update the existing key.</span></span><br><span class="line">    e-&gt;value = value;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// the new is new.</span></span><br><span class="line">    insert(key, value, &amp;table[i], table[i]); <span class="comment">// 在 table[i] 的最前面插入一个 key val 对</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其实就是尝试在散列表中添加一个键值对。这个函数会先尝试查找散列表中是否存在某个 <code>key</code> 如果存在，就用 <code>value</code> 替代掉原来和 <code>key</code> 对应的值。</p>
+<p>如果不存在，就调用 <code>insert()</code> 函数插入该键值对。</p>
+<p>最后一个重要的函数是 <code>get()</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="keyword">struct</span> entry*</span><br><span class="line"><span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> i = key % NBUCKET;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">entry</span> *<span class="title">e</span> =</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (e = table[i]; e != <span class="number">0</span>; e = e-&gt;next) &#123;</span><br><span class="line">    <span class="keyword">if</span> (e-&gt;key == key) <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> e;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也就是说，遍历散列表中的对应链表，来查找值对应的键。</p>
+<p>总的来说，这是一个比较常规的散列表实现，看似没有任何问题，但是在多线程环境下会出现一些 bug。</p>
+<p>考虑这样一种情况<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://blog.miigon.net/posts/s081-lab7-multithreading/>
+">[1]</span></a></sup>：</p>
+<p>有两个键 k1 和 k2，他们属于散列表中的同一链表，并且链表中都还不存在这两个键值对。现在有两个线程 t1 和 t2，它们分别尝试在该链表中插入这两个键值。</p>
+<p>那么有如下的可能情况：</p>
+<p>t1 先检查了链表中不存在 k1，于是准备调用 <code>insert()</code> 在链表前插入键值对。</p>
+<p>这个时候，线程调度器切换到了 t2（也可能是在多核环境下，两个线程并行执行，但是 t2 比 t1 快）。</p>
+<p>然后 t2 也发现了链表中不存在 k2，所以调用 <code>insert()</code> 插入。插入之后，k2 成了链表的第一个元素。</p>
+<p>随后 t1 也真正的插入了 k1。但是，因为 t1 并不知道 t2 已经把 k2 插入到了开头，于是在其认为的链表开头（k2 所处位置）插入了 k1，k2 就被覆盖掉了，于是造成了键值对丢失。</p>
+<p>这样的情况下，我们需要通过加锁来解决问题。</p>
+<p>观察前面的情况，可以发现，对于每一个散列表，在每一个时刻，只能由一个线程来操作，这里的操作包括了读取和修改。因为如果有多个线程，可能会造成某些线程获到的信息是滞后的（如前面的情况）。</p>
+<p>所以我们可以对于散列表中的每个链表都创建一个互斥锁，然后在 <code>put()</code> 和 <code>get()</code> 的开头和结尾加锁和解锁。</p>
+<p>那为啥不在 <code>insert()</code> 里加锁呢？因为 <code>insert()</code> 都是 <code>put()</code> 调用的，对于一个互斥锁，这样就会造成死锁。</p>
+<p>所以就可以这样修改 <code>put()</code> 和 <code>get()</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">pthread_mutex_t</span> bkt_lock[NBUCKET];</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> </span><br><span class="line"><span class="type">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> i = key % NBUCKET;</span><br><span class="line">  </span><br><span class="line">  pthread_mutex_lock(&amp;bkt_lock[i]);</span><br><span class="line">  <span class="comment">// is the key already present?</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">entry</span> *<span class="title">e</span> =</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (e = table[i]; e != <span class="number">0</span>; e = e-&gt;next) &#123;</span><br><span class="line">    <span class="keyword">if</span> (e-&gt;key == key)</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(e)&#123;</span><br><span class="line">    <span class="comment">// update the existing key.</span></span><br><span class="line">    e-&gt;value = value;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// the new is new.</span></span><br><span class="line">    insert(key, value, &amp;table[i], table[i]); <span class="comment">// 在 table[i] 的最前面插入一个键值对</span></span><br><span class="line">  &#125;</span><br><span class="line">  pthread_mutex_unlock(&amp;bkt_lock[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="keyword">struct</span> entry*</span><br><span class="line"><span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> i = key % NBUCKET;</span><br><span class="line"></span><br><span class="line">  pthread_mutex_lock(&amp;bkt_lock[i]);</span><br><span class="line">  </span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">entry</span> *<span class="title">e</span> =</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (e = table[i]; e != <span class="number">0</span>; e = e-&gt;next) &#123;</span><br><span class="line">    <span class="keyword">if</span> (e-&gt;key == key) <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  pthread_mutex_unlock(&amp;bkt_lock[i]);</span><br><span class="line">  <span class="keyword">return</span> e;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Barrier">Barrier</h2>
+<blockquote>
+<p><img src="/img/xv6/lab/lab7_barrier.png" alt=""><br>
+实现同步屏障。</p>
+</blockquote>
+<p>先简单解释一下同步屏障是个什么东西。根据维基百科：</p>
+<blockquote>
+<p>同步屏障(Barrier)是并行计算中的一种同步方法。对于一群进程或线程，程序中的一个同步屏障意味着任何线程/进程执行到此后必须等待，直到所有线程/进程都到达此点才可继续执行下文。</p>
+</blockquote>
+<p>那么一个朴素的实现方法就是在一个线程到达屏障时把某个变量 +1，最后如果这个变量等于线程总数量，就可以执行了。</p>
+<p>当然，在变量到达总数量前，我们需要让线程阻塞在屏障的位置。同时，当变量符合条件后，阻塞的线程就可以越过屏障了。</p>
+<p>我们当然可以使用互斥锁加上轮询的方式来检查变量是否符合条件，但是这样对性能的损失是比较大的。</p>
+<p>这样轮询的方法是被动的，也就是每个线程都去询问，那为何不让最后一个到达屏障的线程去通知其他线程呢？</p>
+<p>pthread 库函中的条件变量实现的就是这样的功能。</p>
+<p>举个例子，如果我们调用了 <code>pthread_cond_wait(&amp;cond, &amp;mutex)</code>，那么在最后一个线程调用 <code>pthread_cond_broadcast(&amp;cond)</code> 之前，程序就会一直阻塞。</p>
+<p>更具体的，<code>pthread_cond_wait(&amp;cond, &amp;mutex)</code> 按照顺序干了下面的事情：</p>
+<ol>
+<li>pthread_mutex_unlock(&amp;mutex);</li>
+<li>把线程放入等待条件的线程列表上</li>
+<li>阻塞线程（直到别的线程发送信号）。</li>
+</ol>
+<p>注意 1 和 2 是原子的操作。</p>
+<p>如果有线程用条件变量发出了信号，那么：</p>
+<ol>
+<li>内核会唤醒等待的线程（唤醒的数量取决于用的是 signal 还是 broadcast）</li>
+<li>被唤醒的线程中，<code>pthread_cond_wait()</code> 会返回。</li>
+<li><code>mutex</code> 再次被锁住</li>
+</ol>
+<p>至于为什么条件变量一定要和一个互斥锁配合，在这里把我自己目前的认识写一下。</p>
+<p>条件变量通常是要和一个别的变量配合着使用的，我们这里就叫这个变量 x 吧。</p>
+<p>在调用 <code>wait()</code> 之前，我们肯定会先判断以下 x 是否符合一定的条件，如果符合了，那我们也没必要用 <code>wait()</code> 了。</p>
+<p>如果不符合，我们会调用 <code>wait()</code>，这样一旦 x 符合了条件，我们就会知道。</p>
+<p>但是这里这个普通变量 x 一定是在多线程的环境下被使用的。那么我们在调用 <code>wait()</code> 之前，检查 x 的时候，就要确保我们拿到了一个保护 x 的锁。</p>
+<p>然后调用 <code>wait()</code> 后，发现 x 不符合条件，那肯定是要把锁释放出来的，要不然，别的线程也没办法修改 x 使其符合条件。</p>
+<p>相同的，如果 x 符合了条件，<code>wait()</code> 会返回，这个时候会拿到保护 x 的锁。因为我们也许会修改 x ，或者使用 x，如果这个时候 x 被改变了，会出问题。</p>
+<p>那为啥要把解锁和加入等待队列做成原子操作呢？</p>
+<p>假设有这样一个使用条件变量的程序，并且其使用的条件变量没有把解锁和加入等待队列做成原子操作<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://blog.csdn.net/weixin_37822792/article/details/112430570>">[2]</span></a></sup>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">lock(x_lock) <span class="comment">// 拿到保护 x 的锁</span></span><br><span class="line"><span class="keyword">if</span> (x 满足条件)&#123;</span><br><span class="line">    unlock(x_lock); <span class="comment">// 释放保护 x 的锁</span></span><br><span class="line">    pthread_cond_wait(&amp;cond); <span class="comment">// 等待信号</span></span><br><span class="line">    lock(x_lock); <span class="comment">// dosomething 可能会更改 x</span></span><br><span class="line">    dosomething();</span><br><span class="line">&#125;</span><br><span class="line">unlock();</span><br></pre></td></tr></table></figure>
+<p>那么万一，在 <code>unlock(x_lock)</code> 之后，把当前线程放入 <code>cond</code> 的等待队列之前。有一个线程更改了 x 的值，并且发出了信号，当前线程就因为没被加入到等待队列，错过了这个信号。</p>
+<p>所以必须要把放入队列和解锁做成原子操作。</p>
+<p>艹，没想到写着写着光条件变量就扯了这么多，同步屏障倒是一点没讲。现在进入正题，来具体实现同步屏障。</p>
+<p>我们观察一下 <code>barrier.c</code> 中提供的 <code>barrier</code> 结构体：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">barrier</span> &#123;</span></span><br><span class="line">  <span class="type">pthread_mutex_t</span> barrier_mutex;</span><br><span class="line">  <span class="type">pthread_cond_t</span> barrier_cond;</span><br><span class="line">  <span class="type">int</span> nthread;      <span class="comment">// Number of threads that have reached this round of the barrier</span></span><br><span class="line">  <span class="type">int</span> round;     <span class="comment">// Barrier round</span></span><br><span class="line">&#125; bstate;</span><br></pre></td></tr></table></figure>
+<p>可以看到这里的 <code>nthread</code> 就是之前我们提到的 “x”，因为只有不符合 <code>nthread</code>，我们才会调用条件变量的 <code>wait()</code>。</p>
+<p>然后，对应的，保护 x 的锁就是 <code>barrier_mutex</code>。这样的话，就可以写出下面的程序了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> </span><br><span class="line"><span class="title function_">barrier</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// YOUR CODE HERE</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  <span class="comment">// Block until all threads have called barrier() and</span></span><br><span class="line">  <span class="comment">// then increment bstate.round.</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  pthread_mutex_lock(&amp;bstate.barrier_mutex);</span><br><span class="line">  bstate.nthread++;</span><br><span class="line">  <span class="keyword">if</span>(bstate.nthread &lt; nthread)&#123;</span><br><span class="line">    pthread_cond_wait(&amp;bstate.barrier_cond, &amp;bstate.barrier_mutex);</span><br><span class="line">    <span class="comment">// 如果没有全部到达 barrier 的位置，就等待</span></span><br><span class="line">    <span class="comment">// 在收到信号之前，这里是阻塞的</span></span><br><span class="line">  &#125;<span class="keyword">else</span>&#123; <span class="comment">// 如果这是最后一个线程。</span></span><br><span class="line">    bstate.nthread = <span class="number">0</span>;</span><br><span class="line">    bstate.round++;</span><br><span class="line">    pthread_cond_broadcast(&amp;bstate.barrier_cond);</span><br><span class="line">  &#125;</span><br><span class="line">  pthread_mutex_unlock(&amp;bstate.barrier_mutex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里需要注意一个细节，就是 <code>pthread_cond_broadcast()</code> 和 <code>pthread_cond_signal()</code> 的区别。</p>
+<p>如果我们用了 <code>broadcast()</code>，那所有在等待列表中的线程都会被唤醒，反之，<code>signal()</code> 只会唤醒列表中的一个线程。</p>
+<p>在我们的情况中，如果最后一个线程执行到了屏障，那所有的线程都可以继续往下执行，所以用了 <code>broadcast()</code>。</p>
+<p>然后我们就可以愉快的 AC 了，也祝在做这个 lab 的人尽快 AC：</p>
+<p><img src="/img/xv6/lab/lab7_AC.png" alt=""></p>
+<h2 id="总结">总结</h2>
+<p>发现写博客还是挺重要的。有的时候把代码搞出来了不一定代表完全懂了。比如最后一个 lab 的条件变量。写的时候只是懂了他干的事情，感觉没问题。但是写博客时，就发现不知道如何解释，于是只能去查更多的资料。这大概说明了，如果想给别人讲清楚某个知识，需要对这个知识有更深刻的理解。</p>
+<p>其次，这个 lab 的代码量是比较小的（说实话到目前为止还没做到过码量特别多的 lab）。如果没有完全理解 xv6 中线程调度和切换的原理，也能做出来。但完全理解后再做这个 lab，就能有更好的理解（特别是 uthread 那个实验，剩下两个还是跟 pthread 库的关系更多点）。</p>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://blog.miigon.net/posts/s081-lab7-multithreading/">https://blog.miigon.net/posts/s081-lab7-multithreading/</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_37822792/article/details/112430570">https://blog.csdn.net/weixin_37822792/article/details/112430570</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li></ol></div></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://ttzytt.com">tzyt</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://ttzytt.com/2022/08/xv6_lab7_record/">https://ttzytt.com/2022/08/xv6_lab7_record/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/2022/">2022</a><a class="post-meta__tags" href="/tags/xv6/">xv6</a><a class="post-meta__tags" href="/tags/UNIX/">UNIX</a><a class="post-meta__tags" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><a class="post-meta__tags" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><a class="post-meta__tags" href="/tags/%E5%8D%8F%E7%A8%8B/">协程</a></div><div class="post_share"><div class="social-share" data-image="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/xv6_lab8_record/" title="[MIT 6.s081] Xv6 Lab8 Networking 实验记录"><img class="cover" src="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">[MIT 6.s081] Xv6 Lab8 Networking 实验记录</div></div></a></div><div class="next-post pull-right"><a href="/2022/07/xv6_lab6_record/" title="[MIT 6.s081] Xv6 Lab6 COW 实验记录"><img class="cover" src="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">[MIT 6.s081] Xv6 Lab6 COW 实验记录</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2022/08/xv6_lab7_record/" title="[MIT 6.s081] Xv6 Lab7 Multithreading 实验记录"><img class="cover" src="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-04</div><div class="title">[MIT 6.s081] Xv6 Lab7 Multithreading 实验记录</div></div></a></div><div><a href="/2022/08/xv6_lab9_record/" title="[MIT 6.s081] Xv6 Lab9 Lockss 实验记录"><img class="cover" src="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-12</div><div class="title">[MIT 6.s081] Xv6 Lab9 Lockss 实验记录</div></div></a></div><div><a href="/2022/08/math_reports/" title="龙格-库塔法求解常微分方程"><img class="cover" src="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-08</div><div class="title">龙格-库塔法求解常微分方程</div></div></a></div><div><a href="/2022/08/xv6_lab11_record/" title="[MIT 6.s081] Xv6 Lab11 Mmap 实验记录"><img class="cover" src="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-21</div><div class="title">[MIT 6.s081] Xv6 Lab11 Mmap 实验记录</div></div></a></div><div><a href="/2022/08/xv6_lab10_record/" title="[MIT 6.s081] Xv6 Lab10 File System 实验记录"><img class="cover" src="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-18</div><div class="title">[MIT 6.s081] Xv6 Lab10 File System 实验记录</div></div></a></div><div><a href="/2022/07/xv6_lab3_record/" title="[MIT 6.s081] Xv6 Lab3 (2021) Page Tables 实验记录"><img class="cover" src="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-14</div><div class="title">[MIT 6.s081] Xv6 Lab3 (2021) Page Tables 实验记录</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Giscus</span><span id="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">tzyt</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/394488"><i class="fa-solid fa-up-right-from-square"></i><span>洛谷</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ttzytt" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/Zyt2006613@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a><a class="social-icon" href="https://stackoverflow.com/users/20080946/ttzytt?tab=profile" target="_blank" title="stack overflow"><i class="fa-brands fa-stack-overflow"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">如果有想交换友链的，可以通过洛谷的私信，我的邮箱，或者是右下角那个聊天室联系我。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Lab7: Multithreading</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Uthread"><span class="toc-number">1.1.</span> <span class="toc-text">Uthread</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-threads"><span class="toc-number">1.2.</span> <span class="toc-text">Using threads</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Barrier"><span class="toc-number">1.3.</span> <span class="toc-text">Barrier</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/least_square/" title="从微积分和线性代数的角度理解最小二乘法"><img src="/img/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/Linear_regression.svg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从微积分和线性代数的角度理解最小二乘法"/></a><div class="content"><a class="title" href="/2023/12/least_square/" title="从微积分和线性代数的角度理解最小二乘法">从微积分和线性代数的角度理解最小二乘法</a><time datetime="2023-12-09T01:48:06.814Z" title="发表于 2023-12-08 20:48:06">2023-12-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/GAMES101_note1/" title="GAMES101 学习笔记1"><img src="/img/GAMES101/games101.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GAMES101 学习笔记1"/></a><div class="content"><a class="title" href="/2023/06/GAMES101_note1/" title="GAMES101 学习笔记1">GAMES101 学习笔记1</a><time datetime="2023-06-16T23:30:42.507Z" title="发表于 2023-06-16 19:30:42">2023-06-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/USACO23JAN%20Find%20and%20Replace%20S/" title="USACO23JAN Find and Replace S（洛谷 P9013）题解"><img src="/img/USACO_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="USACO23JAN Find and Replace S（洛谷 P9013）题解"/></a><div class="content"><a class="title" href="/2023/02/USACO23JAN%20Find%20and%20Replace%20S/" title="USACO23JAN Find and Replace S（洛谷 P9013）题解">USACO23JAN Find and Replace S（洛谷 P9013）题解</a><time datetime="2023-02-06T02:15:37.710Z" title="发表于 2023-02-05 21:15:37">2023-02-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/CS144_lab4_rec/" title="[Stanford CS144] Lab4 实验记录"><img src="/img/CS144/tcp%E7%8A%B6%E6%80%81%E6%B5%81%E8%BD%AC%E5%9B%BE.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Stanford CS144] Lab4 实验记录"/></a><div class="content"><a class="title" href="/2023/01/CS144_lab4_rec/" title="[Stanford CS144] Lab4 实验记录">[Stanford CS144] Lab4 实验记录</a><time datetime="2023-01-30T05:00:00.000Z" title="发表于 2023-01-30 00:00:00">2023-01-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/CS144_lab0-3_rec/" title="[Stanford CS144] Lab0-Lab3 实验记录"><img src="/img/CS144/sponge%E7%BB%93%E6%9E%84%E5%9B%BE.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Stanford CS144] Lab0-Lab3 实验记录"/></a><div class="content"><a class="title" href="/2022/12/CS144_lab0-3_rec/" title="[Stanford CS144] Lab0-Lab3 实验记录">[Stanford CS144] Lab0-Lab3 实验记录</a><time datetime="2022-12-25T05:00:00.000Z" title="发表于 2022-12-25 00:00:00">2022-12-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By tzyt</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="Toggle Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="/js/tw_cn.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(()=>{
+  const getGiscusTheme = theme => {
+    return theme === 'dark' ? 'dark' : 'light'
+  }
+
+  const loadGiscus = () => {
+    const config = Object.assign({
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'ttzytt/ttzytt.github.io',
+      'data-repo-id': 'R_kgDOHL2ORg',
+      'data-category-id': 'DIC_kwDOHL2ORs4CQ-4Q',
+      'data-mapping': 'pathname',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true
+    },null)
+
+    const ele = document.createElement('script')
+    for (let key in config) {
+      ele.setAttribute(key, config[key])
+    }
+    document.getElementById('giscus-wrap').appendChild(ele)
+  }
+
+  const changeGiscusTheme = theme => {
+    const sendMessage = message => {
+      const iframe = document.querySelector('iframe.giscus-frame')
+      if (!iframe) return
+      iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
+    }
+
+    sendMessage({
+      setConfig: {
+        theme: getGiscusTheme(theme)
+      }
+    });
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment= loadGiscus
+  }
+})()</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-comment-for-hexo-blog-pi6qofxob-ttzytt.vercel.app/',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: true,
+    }, null))
+
+    const destroyWaline = () => {
+      waline.destroy()
+    }
+
+    btf.addGlobalFn('pjax', destroyWaline, 'destroyWaline')
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/@waline/client@3.1.2/dist/waline.min.css')
+      const { init } = await import('https://cdn.jsdelivr.net/npm/@waline/client@3.1.2/dist/waline.min.js')
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if ('Giscus' === 'Waline' || !false) {
+    if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script></div><script src="/js/gitter_chat.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gitter-sidecar/1.3.3/sidecar.js" async defer></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="100,100,100" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

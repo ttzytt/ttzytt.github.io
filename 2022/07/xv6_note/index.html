@@ -1,10 +1,10 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>[MIT 6.s081] Xv6 操作系统学习笔记 | tzyt的博客</title><meta name="author" content="tzyt"><meta name="copyright" content="tzyt"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="书的链接（中文翻译版）：https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;duguosheng&amp;#x2F;6.S081-All-in-one 第零章 这章大部分的内容还是能够看懂的，但是在管道的示例程序上卡了很久。最后终于搞懂了，这里把我的理解写一下： int p[2];&amp;#x2F;&amp;#x2F;p[0] 储存管道接收端的文件描述符，p[1]"><link rel="shortcut icon" href="/img/avatar.png"><link rel="canonical" href="https://ttzytt.com/2022/07/xv6_note/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;en&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>[MIT 6.s081] Xv6 操作系统学习笔记 | tzyt的博客</title><meta name="author" content="tzyt"><meta name="copyright" content="tzyt"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="书的链接（中文翻译版）：https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;duguosheng&amp;#x2F;6.S081-All-in-one 第零章 这章大部分的内容还是能够看懂的，但是在管道的示例程序上卡了很久。最后终于搞懂了，这里把我的理解写一下： 1234567891011121314151617int p[2];"><link rel="shortcut icon" href="/img/avatar.png"><link rel="canonical" href="https://ttzytt.com/2022/07/xv6_note/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
   localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
   translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
   noticeOutdate: undefined,
-  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":700},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":700},
   copy: {
     success: '复制成功',
     error: '复制错误',
@@ -25,11 +25,9 @@
   copyright: undefined,
   lightbox: 'fancybox',
   Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
   },
   isPhotoFigcaption: false,
   islazyload: false,
@@ -45,85 +43,78 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2022-10-16 06:55:58'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
+  postUpdate: '2022-10-15 18:55:58'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
         }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
         }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
 
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
         }
-        return item.value
-      }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
         document.documentElement.setAttribute('data-theme', 'dark')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
         }
       }
-      win.activateLightMode = function () {
+      win.activateLightMode = () => {
         document.documentElement.setAttribute('data-theme', 'light')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
@@ -145,7 +136,7 @@
               const isNight = hour <= 6 || hour >= 18
               isNight ? activateDarkMode() : activateLightMode()
             }
-            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
               if (saveToLocal.get('theme') === undefined) {
                 e.matches ? activateDarkMode() : activateLightMode()
               }
@@ -162,33 +153,17 @@
         }
       }
     
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
       }
-    }
-    detectApple()
-    })(window)</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/custom_background.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="tzyt的博客" type="application/atom+xml">
-</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">45</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 图库</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(to right, #2c3e50, #4ca1af)"><nav id="nav"><span id="blog-info"><a href="/" title="tzyt的博客"><span class="site-name">tzyt的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 图库</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">[MIT 6.s081] Xv6 操作系统学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-07-07T03:09:46.343Z" title="发表于 2022-07-07 11:09:46">2022-07-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-10-15T22:55:58.965Z" title="更新于 2022-10-16 06:55:58">2022-10-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">10.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>38分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="[MIT 6.s081] Xv6 操作系统学习笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>书的链接（中文翻译版）：<a target="_blank" rel="noopener" href="https://github.com/duguosheng/6.S081-All-in-one">https://github.com/duguosheng/6.S081-All-in-one</a></p>
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/custom_background.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="tzyt的博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 图库</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(to right, #2c3e50, #4ca1af)"><nav id="nav"><span id="blog-info"><a href="/" title="tzyt的博客"><span class="site-name">tzyt的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 图库</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">[MIT 6.s081] Xv6 操作系统学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-07-07T03:09:46.343Z" title="发表于 2022-07-06 23:09:46">2022-07-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-10-15T22:55:58.965Z" title="更新于 2022-10-15 18:55:58">2022-10-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">10.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>39分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="[MIT 6.s081] Xv6 操作系统学习笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>书的链接（中文翻译版）：<a target="_blank" rel="noopener" href="https://github.com/duguosheng/6.S081-All-in-one">https://github.com/duguosheng/6.S081-All-in-one</a></p>
 <h1>第零章</h1>
 <p>这章大部分的内容还是能够看懂的，但是在管道的示例程序上卡了很久。最后终于搞懂了，这里把我的理解写一下：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> p<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment">//p[0] 储存管道接收端的文件描述符，p[1] 为管道发送端的描述符</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-argv<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"wc"</span><span class="token punctuation">;</span> <span class="token comment">//第一个参数是命令的名字</span>
-argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">//stdin</span>
-<span class="token function">pipe</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//子 p[0] &lt;--------- p[1] 父</span>
-<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
- <span class="token function">close</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token function">dup</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token function">close</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token function">close</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token function">exec</span><span class="token punctuation">(</span><span class="token string">"/bin/wc"</span><span class="token punctuation">,</span> argv<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
- <span class="token function">write</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"hello world\n"</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token function">close</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token function">close</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> p[<span class="number">2</span>];<span class="comment">//p[0] 储存管道接收端的文件描述符，p[1] 为管道发送端的描述符</span></span><br><span class="line"><span class="type">char</span> *argv[<span class="number">2</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">&quot;wc&quot;</span>; <span class="comment">//第一个参数是命令的名字</span></span><br><span class="line">argv[<span class="number">1</span>] = <span class="number">0</span>; <span class="comment">//stdin</span></span><br><span class="line"><span class="built_in">pipe</span>(p);</span><br><span class="line"><span class="comment">//子 p[0] &lt;--------- p[1] 父</span></span><br><span class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>) &#123;</span><br><span class="line"> <span class="built_in">close</span>(<span class="number">0</span>);</span><br><span class="line"> <span class="built_in">dup</span>(p[<span class="number">0</span>]);</span><br><span class="line"> <span class="built_in">close</span>(p[<span class="number">0</span>]);</span><br><span class="line"> <span class="built_in">close</span>(p[<span class="number">1</span>]);</span><br><span class="line"> <span class="built_in">exec</span>(<span class="string">&quot;/bin/wc&quot;</span>, argv);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"> <span class="built_in">write</span>(p[<span class="number">1</span>], <span class="string">&quot;hello world\n&quot;</span>, <span class="number">12</span>);</span><br><span class="line"> <span class="built_in">close</span>(p[<span class="number">0</span>]);</span><br><span class="line"> <span class="built_in">close</span>(p[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>首先需要注意的是父子进程的文件描述符是共享的，比如这里的 <code>pipe()</code> 函数，看似是运行子进程后又打开了一个管道，但是因为打开的文件描述符是共享的，实际父进程和子进程中的 <code>p[0]</code> 和 <code>p[1]</code> 指向的是一个文件，方便了进程之间的交流。</p>
 <p>除了文件之外，根据《UNIX环境高级编程》，还有以下的资源也是父子进程共享的（ <s>虽然我基本都不懂</s> ）。</p>
 <div align=center width=60%>
@@ -298,137 +273,31 @@ argv<span class="token punctuation">[</span><span class="token number">1</span><
 <p>前面说 ecall 之后会跳到 stvec 指向的位置，在 xv6 中的用户态，这个位置指向的是 <code>kernel/trampoline.S</code> 中的 uservec。在内核态时，指向的是 <code>kernel/kernelvec.S</code>。</p>
 <p>更具体的，这个 kernelvec 最早是在 main 函数中被设置的，也就是 main 的 <code>trapinithart()</code>。</p>
 <p>这个函数干了以下的事情：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// set up to take exceptions and traps while in the kernel.</span>
-<span class="token keyword">void</span>
-<span class="token function">trapinithart</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-  <span class="token function">w_stvec</span><span class="token punctuation">(</span><span class="token punctuation">(</span>uint64<span class="token punctuation">)</span>kernelvec<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// set up to take exceptions and traps while in the kernel.</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">trapinithart</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  w_stvec((uint64)kernelvec);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>也就是把 kernelvec 的地址写入 stvec。</p>
 <p>不过我们现在的例子是从用户态陷入，所以先放一下 <code>kernel/trampoline.S</code> 中 uservec 的代码：</p>
 <h3 id="uservec">uservec</h3>
-<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm"><span class="token label function">uservec:</span>    
- #
-        # trap.c sets stvec to point here, so
-        # traps from user space start here,
-        # in supervisor mode, but with a
-        # user page table.
-        #
-        # sscratch points to where the process's p<span class="token operator">-</span><span class="token operator">></span>trapframe is
-        # mapped into user space, at TRAPFRAME.
-        #
-        
- # swap a0 and sscratch
-        # so that a0 is TRAPFRAME
-        csrrw a0, sscratch, a0
-
-        # save the user registers in TRAPFRAME
-
-        sd ra, <span class="token number">40</span>(a0)
-        sd <span class="token register variable">sp</span>, <span class="token number">48</span>(a0)
-        sd gp, <span class="token number">56</span>(a0)
-        sd tp, <span class="token number">64</span>(a0)
-        sd t0, <span class="token number">72</span>(a0)
-        sd t1, <span class="token number">80</span>(a0)
-        sd t2, <span class="token number">88</span>(a0)
-        sd s0, <span class="token number">96</span>(a0)
-        sd s1, <span class="token number">104</span>(a0)
-        sd a1, <span class="token number">120</span>(a0)
-        sd a2, <span class="token number">128</span>(a0)
-        sd a3, <span class="token number">136</span>(a0)
-        sd a4, <span class="token number">144</span>(a0)
-        sd a5, <span class="token number">152</span>(a0)
-        sd a6, <span class="token number">160</span>(a0)
-        sd a7, <span class="token number">168</span>(a0)
-        sd s2, <span class="token number">176</span>(a0)
-        sd s3, <span class="token number">184</span>(a0)
-        sd s4, <span class="token number">192</span>(a0)
-        sd s5, <span class="token number">200</span>(a0)
-        sd s6, <span class="token number">208</span>(a0)
-        sd s7, <span class="token number">216</span>(a0)
-        sd s8, <span class="token number">224</span>(a0)
-        sd s9, <span class="token number">232</span>(a0)
-        sd s10, <span class="token number">240</span>(a0)
-        sd s11, <span class="token number">248</span>(a0)
-        sd t3, <span class="token number">256</span>(a0)
-        sd t4, <span class="token number">264</span>(a0)
-        sd t5, <span class="token number">272</span>(a0)
-        sd t6, <span class="token number">280</span>(a0)
-
- # save the user a0 in p<span class="token operator">-</span><span class="token operator">></span>trapframe<span class="token operator">-</span><span class="token operator">></span>a0
-        csrr t0, sscratch
-        sd t0, <span class="token number">112</span>(a0)
-
-        # restore kernel stack pointer from p<span class="token operator">-</span><span class="token operator">></span>trapframe<span class="token operator">-</span><span class="token operator">></span>kernel_sp
-        ld <span class="token register variable">sp</span>, <span class="token number">8</span>(a0)
-
-        # make tp hold the current hartid, from p<span class="token operator">-</span><span class="token operator">></span>trapframe<span class="token operator">-</span><span class="token operator">></span>kernel_hartid
-        ld tp, <span class="token number">32</span>(a0)
-
-        # load the address of usertrap(), p<span class="token operator">-</span><span class="token operator">></span>trapframe<span class="token operator">-</span><span class="token operator">></span>kernel_trap
-        ld t0, <span class="token number">16</span>(a0)
-
-        # restore kernel page table from p<span class="token operator">-</span><span class="token operator">></span>trapframe<span class="token operator">-</span><span class="token operator">></span>kernel_satp
-        ld t1, <span class="token number">0</span>(a0)
-        csrw satp, t1
-        sfence.vma zero, zero
-
-        # a0 is no longer valid, since the kernel page
-        # table does not specially map p<span class="token operator">-</span><span class="token operator">></span>tf.
-
-        # jump to usertrap(), which does not return
-        jr t0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">uservec:    </span><br><span class="line"> #</span><br><span class="line">        # trap.c sets stvec to point here, so</span><br><span class="line">        # traps from user space start here,</span><br><span class="line">        # in supervisor mode, but with a</span><br><span class="line">        # user page table.</span><br><span class="line">        #</span><br><span class="line">        # sscratch points to where the process&#x27;s p-&gt;trapframe is</span><br><span class="line">        # mapped into user space, at TRAPFRAME.</span><br><span class="line">        #</span><br><span class="line">        </span><br><span class="line"> # swap a0 and sscratch</span><br><span class="line">        # so that a0 is TRAPFRAME</span><br><span class="line">        csrrw a0, sscratch, a0</span><br><span class="line"></span><br><span class="line">        # save the user registers in TRAPFRAME</span><br><span class="line"></span><br><span class="line">        sd ra, 40(a0)</span><br><span class="line">        sd sp, 48(a0)</span><br><span class="line">        sd gp, 56(a0)</span><br><span class="line">        sd tp, 64(a0)</span><br><span class="line">        sd t0, 72(a0)</span><br><span class="line">        sd t1, 80(a0)</span><br><span class="line">        sd t2, 88(a0)</span><br><span class="line">        sd s0, 96(a0)</span><br><span class="line">        sd s1, 104(a0)</span><br><span class="line">        sd a1, 120(a0)</span><br><span class="line">        sd a2, 128(a0)</span><br><span class="line">        sd a3, 136(a0)</span><br><span class="line">        sd a4, 144(a0)</span><br><span class="line">        sd a5, 152(a0)</span><br><span class="line">        sd a6, 160(a0)</span><br><span class="line">        sd a7, 168(a0)</span><br><span class="line">        sd s2, 176(a0)</span><br><span class="line">        sd s3, 184(a0)</span><br><span class="line">        sd s4, 192(a0)</span><br><span class="line">        sd s5, 200(a0)</span><br><span class="line">        sd s6, 208(a0)</span><br><span class="line">        sd s7, 216(a0)</span><br><span class="line">        sd s8, 224(a0)</span><br><span class="line">        sd s9, 232(a0)</span><br><span class="line">        sd s10, 240(a0)</span><br><span class="line">        sd s11, 248(a0)</span><br><span class="line">        sd t3, 256(a0)</span><br><span class="line">        sd t4, 264(a0)</span><br><span class="line">        sd t5, 272(a0)</span><br><span class="line">        sd t6, 280(a0)</span><br><span class="line"></span><br><span class="line"> # save the user a0 in p-&gt;trapframe-&gt;a0</span><br><span class="line">        csrr t0, sscratch</span><br><span class="line">        sd t0, 112(a0)</span><br><span class="line"></span><br><span class="line">        # restore kernel stack pointer from p-&gt;trapframe-&gt;kernel_sp</span><br><span class="line">        ld sp, 8(a0)</span><br><span class="line"></span><br><span class="line">        # make tp hold the current hartid, from p-&gt;trapframe-&gt;kernel_hartid</span><br><span class="line">        ld tp, 32(a0)</span><br><span class="line"></span><br><span class="line">        # load the address of usertrap(), p-&gt;trapframe-&gt;kernel_trap</span><br><span class="line">        ld t0, 16(a0)</span><br><span class="line"></span><br><span class="line">        # restore kernel page table from p-&gt;trapframe-&gt;kernel_satp</span><br><span class="line">        ld t1, 0(a0)</span><br><span class="line">        csrw satp, t1</span><br><span class="line">        sfence.vma zero, zero</span><br><span class="line"></span><br><span class="line">        # a0 is no longer valid, since the kernel page</span><br><span class="line">        # table does not specially map p-&gt;tf.</span><br><span class="line"></span><br><span class="line">        # jump to usertrap(), which does not return</span><br><span class="line">        jr t0</span><br></pre></td></tr></table></figure>
 <p>其中有几个比较重要的地方，第一个是</p>
-<pre class="line-numbers language-none"><code class="language-none">csrrw a0, sscratch, a0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">csrrw a0, sscratch, a0</span><br></pre></td></tr></table></figure>
 <p>这行代码交换了 <code>a0</code> 和 <code>sscratch</code> 的值，也就是从这句话开始，<code>a0</code> 就指向了 trapframe。我们不能直接使用 sscratch，而是交换后使用的原因是：sscratch 是特权级的寄存器，而 sd 和 ld 等命令只能操作通用寄存器，特权寄存器一般是 csr 开头的指令操作（这块我也不太懂）。</p>
 <p>接下来，我们通过 <code>sd ra, 40(a0)</code> 这样的命令，把寄存器中的值复制到内存的 trapframe 中。在内核态的 c 代码中，我们可以通过 trapframe 结构体访问这个 trapframe：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">struct</span> <span class="token class-name">trapframe</span> <span class="token punctuation">&#123;</span>
-  <span class="token comment">/*   0 */</span> uint64 kernel_satp<span class="token punctuation">;</span>   <span class="token comment">// kernel page table</span>
-  <span class="token comment">/*   8 */</span> uint64 kernel_sp<span class="token punctuation">;</span>     <span class="token comment">// top of process's kernel stack</span>
-  <span class="token comment">/*  16 */</span> uint64 kernel_trap<span class="token punctuation">;</span>   <span class="token comment">// usertrap()</span>
-  <span class="token comment">/*  24 */</span> uint64 epc<span class="token punctuation">;</span>           <span class="token comment">// saved user program counter</span>
-  <span class="token comment">/*  32 */</span> uint64 kernel_hartid<span class="token punctuation">;</span> <span class="token comment">// saved kernel tp</span>
-  <span class="token comment">/*  40 */</span> uint64 ra<span class="token punctuation">;</span>
-  ……
-  <span class="token comment">/* 264 */</span> uint64 t4<span class="token punctuation">;</span>
-  <span class="token comment">/* 272 */</span> uint64 t5<span class="token punctuation">;</span>
-  <span class="token comment">/* 280 */</span> uint64 t6<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">trapframe</span> &#123;</span></span><br><span class="line">  <span class="comment">/*   0 */</span> uint64 kernel_satp;   <span class="comment">// kernel page table</span></span><br><span class="line">  <span class="comment">/*   8 */</span> uint64 kernel_sp;     <span class="comment">// top of process&#x27;s kernel stack</span></span><br><span class="line">  <span class="comment">/*  16 */</span> uint64 kernel_trap;   <span class="comment">// usertrap()</span></span><br><span class="line">  <span class="comment">/*  24 */</span> uint64 epc;           <span class="comment">// saved user program counter</span></span><br><span class="line">  <span class="comment">/*  32 */</span> uint64 kernel_hartid; <span class="comment">// saved kernel tp</span></span><br><span class="line">  <span class="comment">/*  40 */</span> uint64 ra;</span><br><span class="line">  ……</span><br><span class="line">  <span class="comment">/* 264 */</span> uint64 t4;</span><br><span class="line">  <span class="comment">/* 272 */</span> uint64 t5;</span><br><span class="line">  <span class="comment">/* 280 */</span> uint64 t6;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>其中，<code>sd</code> 的意思是 store，也就是储存 <code>ra</code> 的值到 a0 寄存器中的地址偏移 40 个字节的位置。</p>
 <p>接下来，我们除了 a0 以外的所有寄存器都被复制了一遍，所以要再来复制一遍 a0：</p>
-<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm"># save the user a0 in p<span class="token operator">-</span><span class="token operator">></span>trapframe<span class="token operator">-</span><span class="token operator">></span>a0
-    csrr t0, sscratch
-    sd t0, <span class="token number">112</span>(a0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># save the user a0 in p-&gt;trapframe-&gt;a0</span><br><span class="line">    csrr t0, sscratch</span><br><span class="line">    sd t0, 112(a0)</span><br></pre></td></tr></table></figure>
 <p>注意因为前面交换过，现在这个 sscratch 储存着用户态 a0 的值，然后这个寄存器又和 t0 交换了下，t0 就成了用户态的 a0。因此 <code>sd t0, 112(a0)</code> 就保存了 用户态 a0 的值。</p>
 <p>接下来，我们需要把处理器的环境完全的切换到内核中。因为我们之前用的是用户态的页表以及栈指针等，所以要更新相关寄存器的值。</p>
 <p>然后就有了如下的代码，其中 ld 命令表示 load，及从内存中复制值到寄存器中：</p>
-<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm"># restore kernel stack pointer from p<span class="token operator">-</span><span class="token operator">></span>trapframe<span class="token operator">-</span><span class="token operator">></span>kernel_sp
-ld <span class="token register variable">sp</span>, <span class="token number">8</span>(a0)
-
-# make tp hold the current hartid, from p<span class="token operator">-</span><span class="token operator">></span>trapframe<span class="token operator">-</span><span class="token operator">></span>kernel_hartid
-ld tp, <span class="token number">32</span>(a0)
-
-# load the address of usertrap(), p<span class="token operator">-</span><span class="token operator">></span>trapframe<span class="token operator">-</span><span class="token operator">></span>kernel_trap
-ld t0, <span class="token number">16</span>(a0)
-
-# restore kernel page table from p<span class="token operator">-</span><span class="token operator">></span>trapframe<span class="token operator">-</span><span class="token operator">></span>kernel_satp
-ld t1, <span class="token number">0</span>(a0)
-csrw satp, t1
-sfence.vma zero, zero<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># restore kernel stack pointer from p-&gt;trapframe-&gt;kernel_sp</span><br><span class="line">ld sp, 8(a0)</span><br><span class="line"></span><br><span class="line"># make tp hold the current hartid, from p-&gt;trapframe-&gt;kernel_hartid</span><br><span class="line">ld tp, 32(a0)</span><br><span class="line"></span><br><span class="line"># load the address of usertrap(), p-&gt;trapframe-&gt;kernel_trap</span><br><span class="line">ld t0, 16(a0)</span><br><span class="line"></span><br><span class="line"># restore kernel page table from p-&gt;trapframe-&gt;kernel_satp</span><br><span class="line">ld t1, 0(a0)</span><br><span class="line">csrw satp, t1</span><br><span class="line">sfence.vma zero, zero</span><br></pre></td></tr></table></figure>
 <p>这里有个比较有意思的点，就是 trampoline 页（uservec 就放在 trampoline 页）在内核态和用户态的虚拟地址都是一样的，也就是同一个物理地址被映射了两次（页表部分有讲）。这样的设计允许使用 <code>csrw satp, t1</code> 命令更换页表后继续执行 uservec 的程序，不得不说还是很巧妙的。</p>
 <p>trapframe 中的这些值（及内核态的根页表，内核态的栈指针等）其实是内核态第一次进入用户态时存下来的。</p>
 <p>可以在 <code>kernel/trap.c</code> 的 <code>usertrapret()</code> 函数中找到：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// set up trapframe values that uservec will need when</span>
-<span class="token comment">// the process next re-enters the kernel.</span>
-p<span class="token operator">-></span>trapframe<span class="token operator">-></span>kernel_satp <span class="token operator">=</span> <span class="token function">r_satp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// kernel page table</span>
-p<span class="token operator">-></span>trapframe<span class="token operator">-></span>kernel_sp <span class="token operator">=</span> p<span class="token operator">-></span>kstack <span class="token operator">+</span> PGSIZE<span class="token punctuation">;</span> <span class="token comment">// process's kernel stack</span>
-p<span class="token operator">-></span>trapframe<span class="token operator">-></span>kernel_trap <span class="token operator">=</span> <span class="token punctuation">(</span>uint64<span class="token punctuation">)</span>usertrap<span class="token punctuation">;</span>
-p<span class="token operator">-></span>trapframe<span class="token operator">-></span>kernel_hartid <span class="token operator">=</span> <span class="token function">r_tp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// hartid for cpuid()</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// set up trapframe values that uservec will need when</span></span><br><span class="line"><span class="comment">// the process next re-enters the kernel.</span></span><br><span class="line">p-&gt;trapframe-&gt;kernel_satp = r_satp();         <span class="comment">// kernel page table</span></span><br><span class="line">p-&gt;trapframe-&gt;kernel_sp = p-&gt;kstack + PGSIZE; <span class="comment">// process&#x27;s kernel stack</span></span><br><span class="line">p-&gt;trapframe-&gt;kernel_trap = (uint64)usertrap;</span><br><span class="line">p-&gt;trapframe-&gt;kernel_hartid = r_tp();         <span class="comment">// hartid for cpuid()</span></span><br></pre></td></tr></table></figure>
 <p>然后就到了 uservec 的最后一条代码：</p>
-<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm">jr t0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jr t0</span><br></pre></td></tr></table></figure>
 <p>也就是跳转到 t0 寄存器的位置。注意前面的这句话：</p>
-<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm"># load the address of usertrap(), p<span class="token operator">-</span><span class="token operator">></span>trapframe<span class="token operator">-</span><span class="token operator">></span>kernel_trap
-ld t0, <span class="token number">16</span>(a0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># load the address of usertrap(), p-&gt;trapframe-&gt;kernel_trap</span><br><span class="line">ld t0, 16(a0)</span><br></pre></td></tr></table></figure>
 <p>我们把 usertrap 函数的值加载到了 t0 中，那么 <code>jr</code> 之后就会跳转到 usertrap 函数中。</p>
 <p>总结一下，uservec 一共干了下面这些事情：</p>
 <ol>
@@ -438,65 +307,14 @@ ld t0, <span class="token number">16</span>(a0)<span aria-hidden="true" class="l
 </ol>
 <h3 id="usertrap">usertrap</h3>
 <p>接下来，就到了 usertrap，代码如下：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span>
-<span class="token function">usertrap</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-  <span class="token keyword">int</span> which_dev <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">r_sstatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> SSTATUS_SPP<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
-    <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"usertrap: not from user mode"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// send interrupts and exceptions to kerneltrap(),</span>
-  <span class="token comment">// since we're now in the kernel.</span>
-  <span class="token function">w_stvec</span><span class="token punctuation">(</span><span class="token punctuation">(</span>uint64<span class="token punctuation">)</span>kernelvec<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">struct</span> <span class="token class-name">proc</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token function">myproc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  
-  <span class="token comment">// save user program counter.</span>
-  p<span class="token operator">-></span>trapframe<span class="token operator">-></span>epc <span class="token operator">=</span> <span class="token function">r_sepc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  
-  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">r_scause</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token comment">// scause 储存陷入原因</span>
-    <span class="token comment">// system call</span>
-
-    <span class="token keyword">if</span><span class="token punctuation">(</span>p<span class="token operator">-></span>killed<span class="token punctuation">)</span>
-      <span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// sepc points to the ecall instruction,</span>
-    <span class="token comment">// but we want to return to the next instruction.</span>
-    p<span class="token operator">-></span>trapframe<span class="token operator">-></span>epc <span class="token operator">+=</span> <span class="token number">4</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// an interrupt will change sstatus &amp;c registers,</span>
-    <span class="token comment">// so don't enable until done with those registers.</span>
-    <span class="token function">intr_on</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token function">syscall</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>which_dev <span class="token operator">=</span> <span class="token function">devintr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token comment">// ok</span>
-  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"usertrap(): unexpected scause %p pid=%d\n"</span><span class="token punctuation">,</span> <span class="token function">r_scause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> p<span class="token operator">-></span>pid<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"            sepc=%p stval=%p\n"</span><span class="token punctuation">,</span> <span class="token function">r_sepc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">r_stval</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    p<span class="token operator">-></span>killed <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">if</span><span class="token punctuation">(</span>p<span class="token operator">-></span>killed<span class="token punctuation">)</span>
-    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// give up the CPU if this is a timer interrupt.</span>
-  <span class="token keyword">if</span><span class="token punctuation">(</span>which_dev <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>    
-    <span class="token function">yield</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token function">usertrapret</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">usertrap</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> which_dev = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>((r_sstatus() &amp; SSTATUS_SPP) != <span class="number">0</span>)</span><br><span class="line">    panic(<span class="string">&quot;usertrap: not from user mode&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// send interrupts and exceptions to kerneltrap(),</span></span><br><span class="line">  <span class="comment">// since we&#x27;re now in the kernel.</span></span><br><span class="line">  w_stvec((uint64)kernelvec);</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// save user program counter.</span></span><br><span class="line">  p-&gt;trapframe-&gt;epc = r_sepc();</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span>(r_scause() == <span class="number">8</span>)&#123;</span><br><span class="line">    <span class="comment">// scause 储存陷入原因</span></span><br><span class="line">    <span class="comment">// system call</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(p-&gt;killed)</span><br><span class="line">      <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// sepc points to the ecall instruction,</span></span><br><span class="line">    <span class="comment">// but we want to return to the next instruction.</span></span><br><span class="line">    p-&gt;trapframe-&gt;epc += <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// an interrupt will change sstatus &amp;c registers,</span></span><br><span class="line">    <span class="comment">// so don&#x27;t enable until done with those registers.</span></span><br><span class="line">    intr_on();</span><br><span class="line"></span><br><span class="line">    syscall();</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>((which_dev = devintr()) != <span class="number">0</span>)&#123;</span><br><span class="line">    <span class="comment">// ok</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;usertrap(): unexpected scause %p pid=%d\n&quot;</span>, r_scause(), p-&gt;pid);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;            sepc=%p stval=%p\n&quot;</span>, r_sepc(), r_stval());</span><br><span class="line">    p-&gt;killed = <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(p-&gt;killed)</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// give up the CPU if this is a timer interrupt.</span></span><br><span class="line">  <span class="keyword">if</span>(which_dev == <span class="number">2</span>)&#123;    </span><br><span class="line">    yield();</span><br><span class="line">  &#125;</span><br><span class="line">  usertrapret();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>首先用一下代码判断中断是用户态来的还是从内核态来的：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">r_sstatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> SSTATUS_SPP<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
- <span class="token comment">// sstatus 的 spp 为储存是用户态中断还是内核态中断</span>
-    <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"usertrap: not from user mode"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>((r_sstatus() &amp; SSTATUS_SPP) != <span class="number">0</span>)</span><br><span class="line"> <span class="comment">// sstatus 的 spp 为储存是用户态中断还是内核态中断</span></span><br><span class="line">    panic(<span class="string">&quot;usertrap: not from user mode&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p>如果是内核态来的，就……就……处理不了了，直接来个 panic 摆烂了。</p>
 <p>如果是用户态的话，那会先用如下代码把 stvec 改成 kernelvec：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">w_stvec</span><span class="token punctuation">(</span><span class="token punctuation">(</span>uint64<span class="token punctuation">)</span>kernelvec<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w_stvec((uint64)kernelvec);</span><br></pre></td></tr></table></figure>
 <p>因为万一在内核中发生中断，处理逻辑是不一样的，所以不能用 uservec 的程序。</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">p<span class="token operator">-></span>trapframe<span class="token operator">-></span>epc <span class="token operator">=</span> <span class="token function">r_sepc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p-&gt;trapframe-&gt;epc = r_sepc();</span><br></pre></td></tr></table></figure>
 <p>注意我们这里把 sepc 储存起来是因为，在内核态处理时，可能会切换到另一个进程，而这个进程也可能会去调用系统调用。这个时候 sepc 寄存器的值会被覆盖，那么我们现在把他存起来了，就算中途去处理另一个进程的系统调用，回来的时候也没问题。</p>
 <p>并且我们是在这些都保存好后，才去调用 <code>intr_on()</code> 打开中断的，这样只有保存好信息后在可能去在别的进程中执行中断。（打开中断时因为系统调用可能比较费时间，这段时间中，cpu 可以同时处理别的进程）</p>
 <p>后面的话基本上就是按照产生陷入的原因，去做不同的处理。如，如果是因为系统调用产生的陷入，那么一定使用了 ecall 指令，这时候我们就希望系统调用执行好了后在用户态执行的是 ecall 的下一条指令，所以要把 sepc 改成 sepc + 4。</p>
@@ -510,60 +328,13 @@ ld t0, <span class="token number">16</span>(a0)<span aria-hidden="true" class="l
 <p>这段代码的最后一行调用了 <code>usertrapret()</code> 这个函数，做了一些返回前的工作。</p>
 <h3 id="usertrapret">usertrapret</h3>
 <p>代码如下：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span>
-<span class="token function">usertrapret</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-  <span class="token keyword">struct</span> <span class="token class-name">proc</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token function">myproc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// we're about to switch the destination of traps from</span>
-  <span class="token comment">// kerneltrap() to usertrap(), so turn off interrupts until</span>
-  <span class="token comment">// we're back in user space, where usertrap() is correct.</span>
-  <span class="token function">intr_off</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// send syscalls, interrupts, and exceptions to trampoline.S</span>
-  <span class="token function">w_stvec</span><span class="token punctuation">(</span>TRAMPOLINE <span class="token operator">+</span> <span class="token punctuation">(</span>uservec <span class="token operator">-</span> trampoline<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// set up trapframe values that uservec will need when</span>
-  <span class="token comment">// the process next re-enters the kernel.</span>
-  p<span class="token operator">-></span>trapframe<span class="token operator">-></span>kernel_satp <span class="token operator">=</span> <span class="token function">r_satp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// kernel page table</span>
-  p<span class="token operator">-></span>trapframe<span class="token operator">-></span>kernel_sp <span class="token operator">=</span> p<span class="token operator">-></span>kstack <span class="token operator">+</span> PGSIZE<span class="token punctuation">;</span> <span class="token comment">// process's kernel stack</span>
-  p<span class="token operator">-></span>trapframe<span class="token operator">-></span>kernel_trap <span class="token operator">=</span> <span class="token punctuation">(</span>uint64<span class="token punctuation">)</span>usertrap<span class="token punctuation">;</span>
-  p<span class="token operator">-></span>trapframe<span class="token operator">-></span>kernel_hartid <span class="token operator">=</span> <span class="token function">r_tp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// hartid for cpuid()</span>
-
-  <span class="token comment">// set up the registers that trampoline.S's sret will use</span>
-  <span class="token comment">// to get to user space.</span>
-  
-  <span class="token comment">// set S Previous Privilege mode to User.</span>
-  <span class="token keyword">unsigned</span> <span class="token keyword">long</span> x <span class="token operator">=</span> <span class="token function">r_sstatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  x <span class="token operator">&amp;=</span> <span class="token operator">~</span>SSTATUS_SPP<span class="token punctuation">;</span> <span class="token comment">// clear SPP to 0 for user mode</span>
-  x <span class="token operator">|=</span> SSTATUS_SPIE<span class="token punctuation">;</span> <span class="token comment">// enable interrupts in user mode</span>
-  <span class="token function">w_sstatus</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// set S Exception Program Counter to the saved user pc.</span>
-  <span class="token function">w_sepc</span><span class="token punctuation">(</span>p<span class="token operator">-></span>trapframe<span class="token operator">-></span>epc<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// tell trampoline.S the user page table to switch to.</span>
-  uint64 satp <span class="token operator">=</span> <span class="token function">MAKE_SATP</span><span class="token punctuation">(</span>p<span class="token operator">-></span>pagetable<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// jump to trampoline.S at the top of memory, which </span>
-  <span class="token comment">// switches to the user page table, restores user registers,</span>
-  <span class="token comment">// and switches to user mode with sret.</span>
-  uint64 fn <span class="token operator">=</span> TRAMPOLINE <span class="token operator">+</span> <span class="token punctuation">(</span>userret <span class="token operator">-</span> trampoline<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>uint64<span class="token punctuation">,</span>uint64<span class="token punctuation">)</span><span class="token punctuation">)</span>fn<span class="token punctuation">)</span><span class="token punctuation">(</span>TRAPFRAME<span class="token punctuation">,</span> satp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">usertrapret</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// we&#x27;re about to switch the destination of traps from</span></span><br><span class="line">  <span class="comment">// kerneltrap() to usertrap(), so turn off interrupts until</span></span><br><span class="line">  <span class="comment">// we&#x27;re back in user space, where usertrap() is correct.</span></span><br><span class="line">  intr_off();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// send syscalls, interrupts, and exceptions to trampoline.S</span></span><br><span class="line">  w_stvec(TRAMPOLINE + (uservec - trampoline));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// set up trapframe values that uservec will need when</span></span><br><span class="line">  <span class="comment">// the process next re-enters the kernel.</span></span><br><span class="line">  p-&gt;trapframe-&gt;kernel_satp = r_satp();         <span class="comment">// kernel page table</span></span><br><span class="line">  p-&gt;trapframe-&gt;kernel_sp = p-&gt;kstack + PGSIZE; <span class="comment">// process&#x27;s kernel stack</span></span><br><span class="line">  p-&gt;trapframe-&gt;kernel_trap = (uint64)usertrap;</span><br><span class="line">  p-&gt;trapframe-&gt;kernel_hartid = r_tp();         <span class="comment">// hartid for cpuid()</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// set up the registers that trampoline.S&#x27;s sret will use</span></span><br><span class="line">  <span class="comment">// to get to user space.</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">// set S Previous Privilege mode to User.</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">long</span> x = r_sstatus();</span><br><span class="line">  x &amp;= ~SSTATUS_SPP; <span class="comment">// clear SPP to 0 for user mode</span></span><br><span class="line">  x |= SSTATUS_SPIE; <span class="comment">// enable interrupts in user mode</span></span><br><span class="line">  w_sstatus(x);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// set S Exception Program Counter to the saved user pc.</span></span><br><span class="line">  w_sepc(p-&gt;trapframe-&gt;epc);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// tell trampoline.S the user page table to switch to.</span></span><br><span class="line">  uint64 satp = MAKE_SATP(p-&gt;pagetable);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// jump to trampoline.S at the top of memory, which </span></span><br><span class="line">  <span class="comment">// switches to the user page table, restores user registers,</span></span><br><span class="line">  <span class="comment">// and switches to user mode with sret.</span></span><br><span class="line">  uint64 fn = TRAMPOLINE + (userret - trampoline);</span><br><span class="line">  ((<span class="type">void</span> (*)(uint64,uint64))fn)(TRAPFRAME, satp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这个函数中，我们会先关掉中断，然后把 stvec 从 kernelvec 改回 uservec。</p>
 <p>接下来，为了之后用户态发生陷入时，能成功恢复内核态的一些上下文，会把一些寄存器的值存入 trapframe（见 uservec 的部分，uservec 会用到这些）：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">p<span class="token operator">-></span>trapframe<span class="token operator">-></span>kernel_satp <span class="token operator">=</span> <span class="token function">r_satp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// kernel page table</span>
-p<span class="token operator">-></span>trapframe<span class="token operator">-></span>kernel_sp <span class="token operator">=</span> p<span class="token operator">-></span>kstack <span class="token operator">+</span> PGSIZE<span class="token punctuation">;</span> <span class="token comment">// process's kernel stack</span>
-p<span class="token operator">-></span>trapframe<span class="token operator">-></span>kernel_trap <span class="token operator">=</span> <span class="token punctuation">(</span>uint64<span class="token punctuation">)</span>usertrap<span class="token punctuation">;</span>
-p<span class="token operator">-></span>trapframe<span class="token operator">-></span>kernel_hartid <span class="token operator">=</span> <span class="token function">r_tp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// hartid for cpuid()</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p-&gt;trapframe-&gt;kernel_satp = r_satp();         <span class="comment">// kernel page table</span></span><br><span class="line">p-&gt;trapframe-&gt;kernel_sp = p-&gt;kstack + PGSIZE; <span class="comment">// process&#x27;s kernel stack</span></span><br><span class="line">p-&gt;trapframe-&gt;kernel_trap = (uint64)usertrap;</span><br><span class="line">p-&gt;trapframe-&gt;kernel_hartid = r_tp();         <span class="comment">// hartid for cpuid()</span></span><br></pre></td></tr></table></figure>
 <p>然后我们又重置了 sepc，因为从陷入返回时会根据这个寄存器的内容来重置 pc，以执行用户态陷入之后的程序。</p>
 <p>函数的最后两行：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// jump to trampoline.S at the top of memory, which </span>
-<span class="token comment">// switches to the user page table, restores user registers,</span>
-<span class="token comment">// and switches to user mode with sret.</span>
-uint64 fn <span class="token operator">=</span> TRAMPOLINE <span class="token operator">+</span> <span class="token punctuation">(</span>userret <span class="token operator">-</span> trampoline<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>uint64<span class="token punctuation">,</span>uint64<span class="token punctuation">)</span><span class="token punctuation">)</span>fn<span class="token punctuation">)</span><span class="token punctuation">(</span>TRAPFRAME<span class="token punctuation">,</span> satp<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// jump to trampoline.S at the top of memory, which </span></span><br><span class="line"><span class="comment">// switches to the user page table, restores user registers,</span></span><br><span class="line"><span class="comment">// and switches to user mode with sret.</span></span><br><span class="line">uint64 fn = TRAMPOLINE + (userret - trampoline);</span><br><span class="line">((<span class="type">void</span> (*)(uint64,uint64))fn)(TRAPFRAME, satp);</span><br></pre></td></tr></table></figure>
 <p>用这个骚操作跳到了 trampoline 页中的另一个函数 —— userret。</p>
 <p>总结一下，usertrapret 干了下面的事情：</p>
 <ol>
@@ -575,64 +346,7 @@ uint64 fn <span class="token operator">=</span> TRAMPOLINE <span class="token op
 <h3 id="userret">userret</h3>
 <p>基本上就是 uservec 的“反函数”，代码如下：</p>
 <p>要注意这个函数是有两个参数的，即 trapframe 的地址和用户态页表的地址，按照 xv6 的函数调用规则，分别放在 a0 和 a1 寄存器。</p>
-<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm"><span class="token label function">userret:</span>
-        # userret(TRAPFRAME, pagetable)
-        # switch from kernel to user.
-        # usertrapret() calls here.
-        # a0: TRAPFRAME, in user page table.
-        # a1: user page table, for satp.
-
-        # switch to the user page table.
-        csrw satp, a1
-        sfence.vma zero, zero
-
-        # put the saved user a0 in sscratch, so we
-        # can swap it with our a0 (TRAPFRAME) in the last step.
-        ld t0, <span class="token number">112</span>(a0)
-        # ld 之后 t0 储存用户的 a0
-        # <span class="token number">112</span>(a0) 是用户的 a0
-        # 现在的 a0 是传进来的参数（trapframe）的地址
-        csrw sscratch, t0
-        # 交换 t0 和 sscratch，也就是 sscratch  储存用户 a0
-
-        # restore all but a0 from TRAPFRAME
-        ld ra, <span class="token number">40</span>(a0)
-        ld <span class="token register variable">sp</span>, <span class="token number">48</span>(a0)
-        ld gp, <span class="token number">56</span>(a0)
-        ld tp, <span class="token number">64</span>(a0)
-        ld t0, <span class="token number">72</span>(a0)
-        ld t1, <span class="token number">80</span>(a0)
-        ld t2, <span class="token number">88</span>(a0)
-        ld s0, <span class="token number">96</span>(a0)
-        ld s1, <span class="token number">104</span>(a0)
-        ld a1, <span class="token number">120</span>(a0)
-        ld a2, <span class="token number">128</span>(a0)
-        ld a3, <span class="token number">136</span>(a0)
-        ld a4, <span class="token number">144</span>(a0)
-        ld a5, <span class="token number">152</span>(a0)
-        ld a6, <span class="token number">160</span>(a0)
-        ld a7, <span class="token number">168</span>(a0)
-        ld s2, <span class="token number">176</span>(a0)
-        ld s3, <span class="token number">184</span>(a0)
-        ld s4, <span class="token number">192</span>(a0)
-        ld s5, <span class="token number">200</span>(a0)
-        ld s6, <span class="token number">208</span>(a0)
-        ld s7, <span class="token number">216</span>(a0)
-        ld s8, <span class="token number">224</span>(a0)
-        ld s9, <span class="token number">232</span>(a0)
-        ld s10, <span class="token number">240</span>(a0)
-        ld s11, <span class="token number">248</span>(a0)
-        ld t3, <span class="token number">256</span>(a0)
-        ld t4, <span class="token number">264</span>(a0)
-        ld t5, <span class="token number">272</span>(a0)
-        ld t6, <span class="token number">280</span>(a0)
-
- # restore user a0, and save TRAPFRAME in sscratch
-        csrrw a0, sscratch, a0
-        
-        # return to user mode and user pc.
-        # usertrapret() set up sstatus and sepc.
-        sret # 和 ecall 相对应<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">userret:</span><br><span class="line">        # userret(TRAPFRAME, pagetable)</span><br><span class="line">        # switch from kernel to user.</span><br><span class="line">        # usertrapret() calls here.</span><br><span class="line">        # a0: TRAPFRAME, in user page table.</span><br><span class="line">        # a1: user page table, for satp.</span><br><span class="line"></span><br><span class="line">        # switch to the user page table.</span><br><span class="line">        csrw satp, a1</span><br><span class="line">        sfence.vma zero, zero</span><br><span class="line"></span><br><span class="line">        # put the saved user a0 in sscratch, so we</span><br><span class="line">        # can swap it with our a0 (TRAPFRAME) in the last step.</span><br><span class="line">        ld t0, 112(a0)</span><br><span class="line">        # ld 之后 t0 储存用户的 a0</span><br><span class="line">        # 112(a0) 是用户的 a0</span><br><span class="line">        # 现在的 a0 是传进来的参数（trapframe）的地址</span><br><span class="line">        csrw sscratch, t0</span><br><span class="line">        # 交换 t0 和 sscratch，也就是 sscratch  储存用户 a0</span><br><span class="line"></span><br><span class="line">        # restore all but a0 from TRAPFRAME</span><br><span class="line">        ld ra, 40(a0)</span><br><span class="line">        ld sp, 48(a0)</span><br><span class="line">        ld gp, 56(a0)</span><br><span class="line">        ld tp, 64(a0)</span><br><span class="line">        ld t0, 72(a0)</span><br><span class="line">        ld t1, 80(a0)</span><br><span class="line">        ld t2, 88(a0)</span><br><span class="line">        ld s0, 96(a0)</span><br><span class="line">        ld s1, 104(a0)</span><br><span class="line">        ld a1, 120(a0)</span><br><span class="line">        ld a2, 128(a0)</span><br><span class="line">        ld a3, 136(a0)</span><br><span class="line">        ld a4, 144(a0)</span><br><span class="line">        ld a5, 152(a0)</span><br><span class="line">        ld a6, 160(a0)</span><br><span class="line">        ld a7, 168(a0)</span><br><span class="line">        ld s2, 176(a0)</span><br><span class="line">        ld s3, 184(a0)</span><br><span class="line">        ld s4, 192(a0)</span><br><span class="line">        ld s5, 200(a0)</span><br><span class="line">        ld s6, 208(a0)</span><br><span class="line">        ld s7, 216(a0)</span><br><span class="line">        ld s8, 224(a0)</span><br><span class="line">        ld s9, 232(a0)</span><br><span class="line">        ld s10, 240(a0)</span><br><span class="line">        ld s11, 248(a0)</span><br><span class="line">        ld t3, 256(a0)</span><br><span class="line">        ld t4, 264(a0)</span><br><span class="line">        ld t5, 272(a0)</span><br><span class="line">        ld t6, 280(a0)</span><br><span class="line"></span><br><span class="line"> # restore user a0, and save TRAPFRAME in sscratch</span><br><span class="line">        csrrw a0, sscratch, a0</span><br><span class="line">        </span><br><span class="line">        # return to user mode and user pc.</span><br><span class="line">        # usertrapret() set up sstatus and sepc.</span><br><span class="line">        sret # 和 ecall 相对应</span><br></pre></td></tr></table></figure>
 <p>所以这个函数基本就是把所有的通用寄存器从 trapframe 里恢复了一遍，并且切换了页表，最后使用了 sret 指令。</p>
 <p>注意这个 sret 指令，也和 ecall 指令一样，能同时做很多事情，具体的，有以下几个：</p>
 <ul>
@@ -680,98 +394,16 @@ uint64 fn <span class="token operator">=</span> TRAMPOLINE <span class="token op
 <h3 id="中断">中断</h3>
 <p>大部分进程切换的开始其实是一个硬件引发的计时器中断。在 xv6 中，我们会设置 rsicv 的处理器来产生计时器中断，也就是，每过一段时间，都会产生一个中断来提醒我们某个进程已经占用处理器够多的时间了，需要切换进程。</p>
 <p>如果产生这个中断的时候，我们正在跑用户态的程序（也就是上图展示的），那么处理这个中断的函数就是 <code>kernel/trap.c</code> 中的 <code>usertrap()</code>：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">……
- <span class="token keyword">if</span><span class="token punctuation">(</span>p<span class="token operator">-></span>killed<span class="token punctuation">)</span>
-    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// give up the CPU if this is a timer interrupt.</span>
-  <span class="token keyword">if</span><span class="token punctuation">(</span>which_dev <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token comment">// which_dev 为 2 代表产生中断的是计时器</span>
-    <span class="token function">yield</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token function">usertrapret</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line"> <span class="keyword">if</span>(p-&gt;killed)</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// give up the CPU if this is a timer interrupt.</span></span><br><span class="line">  <span class="keyword">if</span>(which_dev == <span class="number">2</span>) <span class="comment">// which_dev 为 2 代表产生中断的是计时器</span></span><br><span class="line">    yield();</span><br><span class="line"></span><br><span class="line">  usertrapret();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果我们发现产生中断的外部设备是计时器，就会调用下面的 <code>yield()</code> 函数：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// Give up the CPU for one scheduling round.</span>
-<span class="token keyword">void</span>
-<span class="token function">yield</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-  <span class="token keyword">struct</span> <span class="token class-name">proc</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token function">myproc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">acquire</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>p<span class="token operator">-></span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  p<span class="token operator">-></span>state <span class="token operator">=</span> RUNNABLE<span class="token punctuation">;</span>
-  <span class="token function">sched</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">release</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>p<span class="token operator">-></span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Give up the CPU for one scheduling round.</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">yield</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line">  acquire(&amp;p-&gt;lock);</span><br><span class="line">  p-&gt;state = RUNNABLE;</span><br><span class="line">  sched();</span><br><span class="line">  release(&amp;p-&gt;lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这个 <code>yield()</code> 除了给进程上锁和解锁，就调用了 <code>sched()</code>。</p>
 <p>而 <code>sched()</code> 其实也是给 <code>swtch()</code> 套了层皮：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// Switch to scheduler.  Must hold only p->lock</span>
-<span class="token comment">// and have changed proc->state. Saves and restores</span>
-<span class="token comment">// intena because intena is a property of this</span>
-<span class="token comment">// kernel thread, not this CPU. It should</span>
-<span class="token comment">// be proc->intena and proc->noff, but that would</span>
-<span class="token comment">// break in the few places where a lock is held but</span>
-<span class="token comment">// there's no process.</span>
-<span class="token keyword">void</span>
-<span class="token function">sched</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-  <span class="token keyword">int</span> intena<span class="token punctuation">;</span>
-  <span class="token keyword">struct</span> <span class="token class-name">proc</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token function">myproc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">holding</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>p<span class="token operator">-></span>lock<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"sched p->lock"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">mycpu</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span>noff <span class="token operator">!=</span> <span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"sched locks"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">if</span><span class="token punctuation">(</span>p<span class="token operator">-></span>state <span class="token operator">==</span> RUNNING<span class="token punctuation">)</span>
-    <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"sched running"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">intr_get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"sched interruptible"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  intena <span class="token operator">=</span> <span class="token function">mycpu</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span>intena<span class="token punctuation">;</span>
-  <span class="token function">swtch</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>p<span class="token operator">-></span>context<span class="token punctuation">,</span> <span class="token operator">&amp;</span><span class="token function">mycpu</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">mycpu</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span>intena <span class="token operator">=</span> intena<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Switch to scheduler.  Must hold only p-&gt;lock</span></span><br><span class="line"><span class="comment">// and have changed proc-&gt;state. Saves and restores</span></span><br><span class="line"><span class="comment">// intena because intena is a property of this</span></span><br><span class="line"><span class="comment">// kernel thread, not this CPU. It should</span></span><br><span class="line"><span class="comment">// be proc-&gt;intena and proc-&gt;noff, but that would</span></span><br><span class="line"><span class="comment">// break in the few places where a lock is held but</span></span><br><span class="line"><span class="comment">// there&#x27;s no process.</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">sched</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> intena;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(!holding(&amp;p-&gt;lock))</span><br><span class="line">    panic(<span class="string">&quot;sched p-&gt;lock&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span>(mycpu()-&gt;noff != <span class="number">1</span>)</span><br><span class="line">    panic(<span class="string">&quot;sched locks&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span>(p-&gt;state == RUNNING)</span><br><span class="line">    panic(<span class="string">&quot;sched running&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span>(intr_get())</span><br><span class="line">    panic(<span class="string">&quot;sched interruptible&quot;</span>);</span><br><span class="line"></span><br><span class="line">  intena = mycpu()-&gt;intena;</span><br><span class="line">  swtch(&amp;p-&gt;context, &amp;mycpu()-&gt;context);</span><br><span class="line">  mycpu()-&gt;intena = intena;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="切换">切换</h3>
 <p>函数中前面的一堆判断加 panic 其实都是一些合法性检查，我们先不用关注，主要看这里的 <code>swtch()</code> 函数。顺便提一嘴，这函数因为跟 c 语言关键重了，所以少了个 i（乐 。</p>
 <p><code>swtch</code> 函数是用汇编实现的，在 <code>kernel/swtch.S</code> 文件中，如下：</p>
-<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm"># Context switch
-#
-#   void swtch(struct context <span class="token operator">*</span>old, struct context <span class="token operator">*</span>new)<span class="token comment">;</span>
-# 
-# Save current registers in old. Load from new. 
-
-
-.globl swtch
-<span class="token label function">swtch:</span>
-        sd ra, <span class="token number">0</span>(a0)
-        sd <span class="token register variable">sp</span>, <span class="token number">8</span>(a0)
-        sd s0, <span class="token number">16</span>(a0)
-        sd s1, <span class="token number">24</span>(a0)
-        sd s2, <span class="token number">32</span>(a0)
-        sd s3, <span class="token number">40</span>(a0)
-        sd s4, <span class="token number">48</span>(a0)
-        sd s5, <span class="token number">56</span>(a0)
-        sd s6, <span class="token number">64</span>(a0)
-        sd s7, <span class="token number">72</span>(a0)
-        sd s8, <span class="token number">80</span>(a0)
-        sd s9, <span class="token number">88</span>(a0)
-        sd s10, <span class="token number">96</span>(a0)
-        sd s11, <span class="token number">104</span>(a0)
-
-        ld ra, <span class="token number">0</span>(a1)
-        ld <span class="token register variable">sp</span>, <span class="token number">8</span>(a1)
-        ld s0, <span class="token number">16</span>(a1)
-        ld s1, <span class="token number">24</span>(a1)
-        ld s2, <span class="token number">32</span>(a1)
-        ld s3, <span class="token number">40</span>(a1)
-        ld s4, <span class="token number">48</span>(a1)
-        ld s5, <span class="token number">56</span>(a1)
-        ld s6, <span class="token number">64</span>(a1)
-        ld s7, <span class="token number">72</span>(a1)
-        ld s8, <span class="token number">80</span>(a1)
-        ld s9, <span class="token number">88</span>(a1)
-        ld s10, <span class="token number">96</span>(a1)
-        ld s11, <span class="token number">104</span>(a1)
-        
-        ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"># Context switch</span><br><span class="line">#</span><br><span class="line">#   void swtch(struct context *old, struct context *new);</span><br><span class="line"># </span><br><span class="line"># Save current registers in old. Load from new. </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.globl swtch</span><br><span class="line">swtch:</span><br><span class="line">        sd ra, 0(a0)</span><br><span class="line">        sd sp, 8(a0)</span><br><span class="line">        sd s0, 16(a0)</span><br><span class="line">        sd s1, 24(a0)</span><br><span class="line">        sd s2, 32(a0)</span><br><span class="line">        sd s3, 40(a0)</span><br><span class="line">        sd s4, 48(a0)</span><br><span class="line">        sd s5, 56(a0)</span><br><span class="line">        sd s6, 64(a0)</span><br><span class="line">        sd s7, 72(a0)</span><br><span class="line">        sd s8, 80(a0)</span><br><span class="line">        sd s9, 88(a0)</span><br><span class="line">        sd s10, 96(a0)</span><br><span class="line">        sd s11, 104(a0)</span><br><span class="line"></span><br><span class="line">        ld ra, 0(a1)</span><br><span class="line">        ld sp, 8(a1)</span><br><span class="line">        ld s0, 16(a1)</span><br><span class="line">        ld s1, 24(a1)</span><br><span class="line">        ld s2, 32(a1)</span><br><span class="line">        ld s3, 40(a1)</span><br><span class="line">        ld s4, 48(a1)</span><br><span class="line">        ld s5, 56(a1)</span><br><span class="line">        ld s6, 64(a1)</span><br><span class="line">        ld s7, 72(a1)</span><br><span class="line">        ld s8, 80(a1)</span><br><span class="line">        ld s9, 88(a1)</span><br><span class="line">        ld s10, 96(a1)</span><br><span class="line">        ld s11, 104(a1)</span><br><span class="line">        </span><br><span class="line">        ret</span><br></pre></td></tr></table></figure>
 <p>可以看到，这个函数其实是把一些当前的寄存器储存在了 <code>old-&gt;context</code> 里面。然后读取 <code>new-&gt;context</code> 里读取了数据，并用这些值给寄存器赋值。</p>
 <p>这个函数的实际作用是切换内核线程的上下文，也就是如一开始那张图所示的，从 kstack shell 切换到 kstack scheduler 的线程。</p>
 <div class="note info flat"><p>看到这里，你可能会感到很奇怪，既然 <code>swtch()</code> 函数切换的是不同线程的上下文，那为啥没有像 trapframe 一样，保存所有 32 个通用寄存器的值，而只保存了 14 个呢？</p>
@@ -784,129 +416,22 @@ uint64 fn <span class="token operator">=</span> TRAMPOLINE <span class="token op
 <p>其中 ra 寄存器表明了 <code>swtch()</code> 函数结束时会返回到哪个地址，而 <code>sp</code> 则表明了当前栈的位置。这意味着，在 <code>swtch()</code> 返回的时候，不会返回到 <code>sched()</code> 的最后一个语句，而是返回到 <code>mycpu()-&gt;context.ra</code> 指向的位置。</p>
 <h3 id="调度">调度</h3>
 <p>而 <code>mycpu()-&gt;context</code> 中的 ra 指向的是 <code>scheduler()</code> 函数的一个位置（和上图演示的切换过程一样）：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// Per-CPU process scheduler.</span>
-<span class="token comment">// Each CPU calls scheduler() after setting itself up.</span>
-<span class="token comment">// Scheduler never returns.  It loops, doing:</span>
-<span class="token comment">//  - choose a process to run.</span>
-<span class="token comment">//  - swtch to start running that process.</span>
-<span class="token comment">//  - eventually that process transfers control</span>
-<span class="token comment">//    via swtch back to the scheduler.</span>
-<span class="token keyword">void</span>
-<span class="token function">scheduler</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-  <span class="token keyword">struct</span> <span class="token class-name">proc</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
-  <span class="token keyword">struct</span> <span class="token class-name">cpu</span> <span class="token operator">*</span>c <span class="token operator">=</span> <span class="token function">mycpu</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  
-  c<span class="token operator">-></span>proc <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token comment">// Avoid deadlock by ensuring that devices can interrupt.</span>
-    <span class="token function">intr_on</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">for</span><span class="token punctuation">(</span>p <span class="token operator">=</span> proc<span class="token punctuation">;</span> p <span class="token operator">&lt;</span> <span class="token operator">&amp;</span>proc<span class="token punctuation">[</span>NPROC<span class="token punctuation">]</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token function">acquire</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>p<span class="token operator">-></span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">if</span><span class="token punctuation">(</span>p<span class="token operator">-></span>state <span class="token operator">==</span> RUNNABLE<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// Switch to chosen process.  It is the process's job</span>
-        <span class="token comment">// to release its lock and then reacquire it</span>
-        <span class="token comment">// before jumping back to us.</span>
-        p<span class="token operator">-></span>state <span class="token operator">=</span> RUNNING<span class="token punctuation">;</span>
-        c<span class="token operator">-></span>proc <span class="token operator">=</span> p<span class="token punctuation">;</span>
-        <span class="token function">swtch</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>c<span class="token operator">-></span>context<span class="token punctuation">,</span> <span class="token operator">&amp;</span>p<span class="token operator">-></span>context<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回的是这里</span>
-
-        <span class="token comment">// Process is done running for now.</span>
-        <span class="token comment">// It should have changed its p->state before coming back.</span>
-        c<span class="token operator">-></span>proc <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-      <span class="token function">release</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>p<span class="token operator">-></span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Per-CPU process scheduler.</span></span><br><span class="line"><span class="comment">// Each CPU calls scheduler() after setting itself up.</span></span><br><span class="line"><span class="comment">// Scheduler never returns.  It loops, doing:</span></span><br><span class="line"><span class="comment">//  - choose a process to run.</span></span><br><span class="line"><span class="comment">//  - swtch to start running that process.</span></span><br><span class="line"><span class="comment">//  - eventually that process transfers control</span></span><br><span class="line"><span class="comment">//    via swtch back to the scheduler.</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">scheduler</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">cpu</span> *<span class="title">c</span> =</span> mycpu();</span><br><span class="line">  </span><br><span class="line">  c-&gt;proc = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(;;)&#123;</span><br><span class="line">    <span class="comment">// Avoid deadlock by ensuring that devices can interrupt.</span></span><br><span class="line">    intr_on();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(p = proc; p &lt; &amp;proc[NPROC]; p++) &#123;</span><br><span class="line">      acquire(&amp;p-&gt;lock);</span><br><span class="line">      <span class="keyword">if</span>(p-&gt;state == RUNNABLE) &#123;</span><br><span class="line">        <span class="comment">// Switch to chosen process.  It is the process&#x27;s job</span></span><br><span class="line">        <span class="comment">// to release its lock and then reacquire it</span></span><br><span class="line">        <span class="comment">// before jumping back to us.</span></span><br><span class="line">        p-&gt;state = RUNNING;</span><br><span class="line">        c-&gt;proc = p;</span><br><span class="line">        swtch(&amp;c-&gt;context, &amp;p-&gt;context); <span class="comment">// 返回的是这里</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Process is done running for now.</span></span><br><span class="line">        <span class="comment">// It should have changed its p-&gt;state before coming back.</span></span><br><span class="line">        c-&gt;proc = <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      release(&amp;p-&gt;lock);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>那为啥返回的是这里呢？我们可以看 <code>kernel/main.c</code> 的内容：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"types.h"</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"param.h"</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"memlayout.h"</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"riscv.h"</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"defs.h"</span></span>
-
-<span class="token keyword">volatile</span> <span class="token keyword">static</span> <span class="token keyword">int</span> started <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-
-<span class="token comment">// start() jumps here in supervisor mode on all CPUs.</span>
-<span class="token keyword">void</span>
-<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">cpuid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token function">consoleinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printfinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"xv6 kernel is booting\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">kinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// physical page allocator</span>
-    <span class="token function">kvminit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">// create kernel page table</span>
-    <span class="token function">kvminithart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// turn on paging</span>
-    <span class="token function">procinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// process table</span>
-    <span class="token function">trapinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// trap vectors</span>
-    <span class="token function">trapinithart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// install kernel trap vector</span>
-    <span class="token function">plicinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// set up interrupt controller</span>
-    <span class="token function">plicinithart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// ask PLIC for device interrupts</span>
-    <span class="token function">binit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// buffer cache</span>
-    <span class="token function">iinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// inode table</span>
-    <span class="token function">fileinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// file table</span>
-    <span class="token function">virtio_disk_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// emulated hard disk</span>
-    <span class="token function">userinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// first user process</span>
-    <span class="token function">__sync_synchronize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    started <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>started <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-      <span class="token punctuation">;</span>
-    <span class="token function">__sync_synchronize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"hart %d starting\n"</span><span class="token punctuation">,</span> <span class="token function">cpuid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">kvminithart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// turn on paging</span>
-    <span class="token function">trapinithart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// install kernel trap vector</span>
-    <span class="token function">plicinithart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// ask PLIC for device interrupts</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token function">scheduler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 注意这里</span>
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;types.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;param.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;memlayout.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;riscv.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;defs.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">volatile</span> <span class="type">static</span> <span class="type">int</span> started = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// start() jumps here in supervisor mode on all CPUs.</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span>(cpuid() == <span class="number">0</span>)&#123;</span><br><span class="line">    consoleinit();</span><br><span class="line">    printfinit();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;xv6 kernel is booting\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    kinit();         <span class="comment">// physical page allocator</span></span><br><span class="line">    kvminit();       <span class="comment">// create kernel page table</span></span><br><span class="line">    kvminithart();   <span class="comment">// turn on paging</span></span><br><span class="line">    procinit();      <span class="comment">// process table</span></span><br><span class="line">    trapinit();      <span class="comment">// trap vectors</span></span><br><span class="line">    trapinithart();  <span class="comment">// install kernel trap vector</span></span><br><span class="line">    plicinit();      <span class="comment">// set up interrupt controller</span></span><br><span class="line">    plicinithart();  <span class="comment">// ask PLIC for device interrupts</span></span><br><span class="line">    binit();         <span class="comment">// buffer cache</span></span><br><span class="line">    iinit();         <span class="comment">// inode table</span></span><br><span class="line">    fileinit();      <span class="comment">// file table</span></span><br><span class="line">    virtio_disk_init(); <span class="comment">// emulated hard disk</span></span><br><span class="line">    userinit();      <span class="comment">// first user process</span></span><br><span class="line">    __sync_synchronize();</span><br><span class="line">    started = <span class="number">1</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">while</span>(started == <span class="number">0</span>)</span><br><span class="line">      ;</span><br><span class="line">    __sync_synchronize();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hart %d starting\n&quot;</span>, cpuid());</span><br><span class="line">    kvminithart();    <span class="comment">// turn on paging</span></span><br><span class="line">    trapinithart();   <span class="comment">// install kernel trap vector</span></span><br><span class="line">    plicinithart();   <span class="comment">// ask PLIC for device interrupts</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  scheduler(); <span class="comment">// 注意这里</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>在初始化工作完成后，第一个执行的函数就是 <code>scheduler()</code>。那在 <code>scheduler()</code> 函数中，我们找到了一个 RUNNABLE 的进程，然后执行了 <code>swtch(&amp;c-&gt;context, &amp;p-&gt;context);</code>。</p>
 <p>这个时候的 sp 寄存器和 ra 寄存器指向的自然是 <code>scheduler()</code> 函数，所以 <code>mycpu()-&gt;context</code> 中的 ra 也是 <code>scheduler()</code> 中 <code>swtch()</code> 后面的地址。</p>
 <p>这个感觉就很奇妙，像是一个传送门和 “时光机”，相当于我们在某个地方调用了 <code>swtch()</code> 后，返回的是另一个地方很久（对计算机来说）之前调用 <code>swtch()</code> 的地方。或者说，这个函数的调用和返回是分离开的，我们调用的 <code>swtch</code> ，一定是通过另一个地方调用的 <code>swtch</code> 返回的<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://zhuanlan.zhihu.com/p/353580321>
 ">[4]</span></a></sup>。</p>
 <p>在 <code>sched()</code> 函数调用 <code>swtch()</code> 后，我们会从 <code>scheduler()</code> 函数调用 <code>swtch()</code> 的后面开始，继续执行 <code>scheduler()</code> 函数。这个函数的主要用处就是找到一个 RUNNABLE 的进程，然后执行 <code>swtch()</code>。</p>
 <p>在 <code>swtch()</code> 之前，会先执行下面的操作：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">p<span class="token operator">-></span>state <span class="token operator">=</span> RUNNING<span class="token punctuation">;</span>
-c<span class="token operator">-></span>proc <span class="token operator">=</span> p<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p-&gt;state = RUNNING;</span><br><span class="line">c-&gt;proc = p;</span><br></pre></td></tr></table></figure>
 <p>也就是把进程结构体的状态改成 RUNNING，以及把 <code>mycpu()</code> 的 <code>proc</code> 属性改成 <code>p</code>。</p>
 <p>这样我们在切换进程后调用 <code>myproc()</code> 就能得知当前处理器正在执行的进程。如下：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// Return the current struct proc *, or zero if none.</span>
-<span class="token keyword">struct</span> <span class="token class-name">proc</span><span class="token operator">*</span>
-<span class="token function">myproc</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">push_off</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">struct</span> <span class="token class-name">cpu</span> <span class="token operator">*</span>c <span class="token operator">=</span> <span class="token function">mycpu</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">struct</span> <span class="token class-name">proc</span> <span class="token operator">*</span>p <span class="token operator">=</span> c<span class="token operator">-></span>proc<span class="token punctuation">;</span>
-  <span class="token function">pop_off</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> p<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Return the current struct proc *, or zero if none.</span></span><br><span class="line"><span class="keyword">struct</span> proc*</span><br><span class="line"><span class="title function_">myproc</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">  push_off();</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">cpu</span> *<span class="title">c</span> =</span> mycpu();</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> c-&gt;proc;</span><br><span class="line">  pop_off();</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>其实就是返回了处理器上下文中的 proc 属性。</p>
 <p>和前面讲的一样，<code>swtch()</code> 像是一个传送门，这个函数的调用和返回是分开的，调用后，会返回另一个地方之前调用 <code>swtch()</code> 的位置。在 <code>scheduler()</code> 函数中，这个位置就是进程 p 的 <code>sched()</code> ：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// Switch to scheduler.  Must hold only p->lock</span>
-<span class="token comment">// and have changed proc->state. Saves and restores</span>
-<span class="token comment">// intena because intena is a property of this</span>
-<span class="token comment">// kernel thread, not this CPU. It should</span>
-<span class="token comment">// be proc->intena and proc->noff, but that would</span>
-<span class="token comment">// break in the few places where a lock is held but</span>
-<span class="token comment">// there's no process.</span>
-<span class="token keyword">void</span>
-<span class="token function">sched</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-  <span class="token keyword">int</span> intena<span class="token punctuation">;</span>
-  <span class="token keyword">struct</span> <span class="token class-name">proc</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token function">myproc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-  ……
-  
-  intena <span class="token operator">=</span> <span class="token function">mycpu</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span>intena<span class="token punctuation">;</span>
-  <span class="token function">swtch</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>p<span class="token operator">-></span>context<span class="token punctuation">,</span> <span class="token operator">&amp;</span><span class="token function">mycpu</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">mycpu</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span>intena <span class="token operator">=</span> intena<span class="token punctuation">;</span> <span class="token comment">// 返回后从这里接着执行。</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Switch to scheduler.  Must hold only p-&gt;lock</span></span><br><span class="line"><span class="comment">// and have changed proc-&gt;state. Saves and restores</span></span><br><span class="line"><span class="comment">// intena because intena is a property of this</span></span><br><span class="line"><span class="comment">// kernel thread, not this CPU. It should</span></span><br><span class="line"><span class="comment">// be proc-&gt;intena and proc-&gt;noff, but that would</span></span><br><span class="line"><span class="comment">// break in the few places where a lock is held but</span></span><br><span class="line"><span class="comment">// there&#x27;s no process.</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">sched</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> intena;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line"> </span><br><span class="line">  ……</span><br><span class="line">  </span><br><span class="line">  intena = mycpu()-&gt;intena;</span><br><span class="line">  swtch(&amp;p-&gt;context, &amp;mycpu()-&gt;context);</span><br><span class="line">  mycpu()-&gt;intena = intena; <span class="comment">// 返回后从这里接着执行。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>总结一下，我们在 <code>sched()</code> 中调用的 <code>swtch()</code> 会返回到 <code>scheduler()</code> 中。相应的，在 <code>scheduler()</code> 中调用 <code>swtch()</code> 会返回到 <code>sched()</code> 中。</p>
 <p>这样发生定时器中断后，就会到 <code>scheduler()</code> 中找到可用进程。然后通过 <code>swtch()</code> 把这个可用进程的上下文恢复出来。</p>
 <p>这样就可以大致的把进程的切换和调度过程搞清楚了，不过还有一些小细节没有提到。</p>
@@ -925,47 +450,11 @@ c<span class="token operator">-></span>proc <span class="token operator">=</span
 <p>通过之前的代码，可以发现，在 <code>scheduler()</code> 中调用 <code>swtch()</code> 会跳转到 <code>sched()</code> 中，是因为这个进程之前因为定时器中断，执行过 <code>sched()</code> 中的 <code>swtch()</code>，而现在这个跳转，实际上是 <code>shced()</code> 中 <code>swtch()</code> 的返回。</p>
 <p>但对于第一个进程，或者说刚刚被创建出来的进程来说，以前并没有发生定时器中断。并且我们在 <code>main.c</code> 执行完初始化后就执行了 <code>scheduler()</code>，那么 <code>scheduler()</code> 中的第一次 <code>swtch()</code> 会切换到哪里呢？</p>
 <p>这就需要看 <code>allocproc()</code> 函数中的内容了：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// Look in the process table for an UNUSED proc.</span>
-<span class="token comment">// If found, initialize state required to run in the kernel,</span>
-<span class="token comment">// and return with p->lock held.</span>
-<span class="token comment">// If there are no free procs, or a memory allocation fails, return 0.</span>
-<span class="token keyword">static</span> <span class="token keyword">struct</span> <span class="token class-name">proc</span><span class="token operator">*</span>
-<span class="token function">allocproc</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-  ……
-
-  <span class="token comment">// Set up new context to start executing at forkret,</span>
-  <span class="token comment">// which returns to user space.</span>
-  <span class="token function">memset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>p<span class="token operator">-></span>context<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>p<span class="token operator">-></span>context<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  p<span class="token operator">-></span>context<span class="token punctuation">.</span>ra <span class="token operator">=</span> <span class="token punctuation">(</span>uint64<span class="token punctuation">)</span>forkret<span class="token punctuation">;</span> <span class="token comment">// 注意这里</span>
-  p<span class="token operator">-></span>context<span class="token punctuation">.</span>sp <span class="token operator">=</span> p<span class="token operator">-></span>kstack <span class="token operator">+</span> PGSIZE<span class="token punctuation">;</span>
-
-  <span class="token keyword">return</span> p<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Look in the process table for an UNUSED proc.</span></span><br><span class="line"><span class="comment">// If found, initialize state required to run in the kernel,</span></span><br><span class="line"><span class="comment">// and return with p-&gt;lock held.</span></span><br><span class="line"><span class="comment">// If there are no free procs, or a memory allocation fails, return 0.</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">struct</span> proc*</span><br><span class="line"><span class="title function_">allocproc</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  ……</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Set up new context to start executing at forkret,</span></span><br><span class="line">  <span class="comment">// which returns to user space.</span></span><br><span class="line">  <span class="built_in">memset</span>(&amp;p-&gt;context, <span class="number">0</span>, <span class="keyword">sizeof</span>(p-&gt;context));</span><br><span class="line">  p-&gt;context.ra = (uint64)forkret; <span class="comment">// 注意这里</span></span><br><span class="line">  p-&gt;context.sp = p-&gt;kstack + PGSIZE;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>可以看到，进程刚刚被创建的时候，ra 被设成了 forkret。也就是说，第一次被 <code>scheduler()</code> 找到并执行的时候，<code>swtch()</code> 不会跳转到 <code>sched()</code> 中的 <code>swtch()</code> 而是跳转到 <code>forkret()</code> 中。</p>
 <p><code>forkret()</code> 干的事情很简单，其实就是直接返回到用户空间：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// A fork child's very first scheduling by scheduler()</span>
-<span class="token comment">// will swtch to forkret.</span>
-<span class="token keyword">void</span>
-<span class="token function">forkret</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-  <span class="token keyword">static</span> <span class="token keyword">int</span> first <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// Still holding p->lock from scheduler.</span>
-  <span class="token function">release</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token function">myproc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>first<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// File system initialization must be run in the context of a</span>
-    <span class="token comment">// regular process (e.g., because it calls sleep), and thus cannot</span>
-    <span class="token comment">// be run from main().</span>
-    first <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token function">fsinit</span><span class="token punctuation">(</span>ROOTDEV<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token function">usertrapret</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 注意这里是返回用户空间</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.baeldung.com/cs/os-trap-vs-interrupt">https://www.baeldung.com/cs/os-trap-vs-interrupt</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://tarplkpqsm.feishu.cn/docs/doccnoBgv1TQlj4ZtVnP0hNRETd#">https://tarplkpqsm.feishu.cn/docs/doccnoBgv1TQlj4ZtVnP0hNRETd#</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/lec11-thread-switching-robert/11.1-thread">https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/lec11-thread-switching-robert/11.1-thread</a><a href="#fnref:3" rev="footnote"> ↩</a></span></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/353580321">https://zhuanlan.zhihu.com/p/353580321</a><a href="#fnref:4" rev="footnote"> ↩</a></span></li></ol></div></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ttzytt.com">tzyt</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ttzytt.com/2022/07/xv6_note/">https://ttzytt.com/2022/07/xv6_note/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ttzytt.com" target="_blank">tzyt的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/07/xv6_lab1_record/" title="[MIT 6.s081] Xv6 Lab1 Util 实验记录"><img class="cover" src="/img/xv6/lab/lab1_primes_pipeline_transfer.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">[MIT 6.s081] Xv6 Lab1 Util 实验记录</div></div></a></div><div class="next-post pull-right"><a href="/2022/07/math_algos_notes/" title="数学算法学习笔记集合"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数学算法学习笔记集合</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Giscus</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">tzyt</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">45</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/394488"><i class="fa-solid fa-up-right-from-square"></i><span>洛谷</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ttzytt" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/Zyt2006613@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a><a class="social-icon" href="https://stackoverflow.com/users/20080946/ttzytt?tab=profile" target="_blank" title="stack overflow"><i class="fa-brands fa-stack-overflow"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">如果有想交换友链的，可以通过洛谷的私信，我的邮箱，或者是右下角那个聊天室联系我。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">第零章</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">页表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B5%E8%A1%A8%E7%9A%84%E7%AE%80%E4%BB%8B"><span class="toc-text">页表的简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#risc-v-%E7%9A%84%E9%A1%B5%E8%A1%A8%E5%AE%9E%E7%8E%B0"><span class="toc-text">risc-v 的页表实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xv6-%E5%86%85%E6%A0%B8%E6%80%81%E7%9A%84%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="toc-text">xv6 内核态的虚拟内存布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xv6-%E7%94%A8%E6%88%B7%E6%80%81%E7%9A%84%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="toc-text">xv6 用户态的虚拟内存布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81"><span class="toc-text">一些代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">陷入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%B7%E5%85%A5%E6%9C%BA%E5%88%B6%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">陷入机制的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E7%94%A8%E6%88%B7%E6%80%81%E9%99%B7%E5%85%A5"><span class="toc-text">从用户态陷入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uservec"><span class="toc-text">uservec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#usertrap"><span class="toc-text">usertrap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#usertrapret"><span class="toc-text">usertrapret</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#userret"><span class="toc-text">userret</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">中断</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">线程调度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD"><span class="toc-text">中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E6%8D%A2"><span class="toc-text">切换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6"><span class="toc-text">调度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81"><span class="toc-text">锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%B0%83%E5%BA%A6"><span class="toc-text">第一次调度</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/least_square/" title="从微积分和线性代数的角度理解最小二乘法"><img src="/img/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/Linear_regression.svg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从微积分和线性代数的角度理解最小二乘法"/></a><div class="content"><a class="title" href="/2023/12/least_square/" title="从微积分和线性代数的角度理解最小二乘法">从微积分和线性代数的角度理解最小二乘法</a><time datetime="2023-12-09T01:48:06.814Z" title="发表于 2023-12-09 09:48:06">2023-12-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/GAMES101_note1/" title="GAMES101 学习笔记1"><img src="/img/GAMES101/games101.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GAMES101 学习笔记1"/></a><div class="content"><a class="title" href="/2023/06/GAMES101_note1/" title="GAMES101 学习笔记1">GAMES101 学习笔记1</a><time datetime="2023-06-16T23:30:42.507Z" title="发表于 2023-06-17 07:30:42">2023-06-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/USACO23JAN%20Find%20and%20Replace%20S/" title="USACO23JAN Find and Replace S（洛谷 P9013）题解"><img src="/img/USACO_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="USACO23JAN Find and Replace S（洛谷 P9013）题解"/></a><div class="content"><a class="title" href="/2023/02/USACO23JAN%20Find%20and%20Replace%20S/" title="USACO23JAN Find and Replace S（洛谷 P9013）题解">USACO23JAN Find and Replace S（洛谷 P9013）题解</a><time datetime="2023-02-06T02:15:37.710Z" title="发表于 2023-02-06 10:15:37">2023-02-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/CS144_lab4_rec/" title="[Stanford CS144] Lab4 实验记录"><img src="/img/CS144/tcp%E7%8A%B6%E6%80%81%E6%B5%81%E8%BD%AC%E5%9B%BE.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Stanford CS144] Lab4 实验记录"/></a><div class="content"><a class="title" href="/2023/01/CS144_lab4_rec/" title="[Stanford CS144] Lab4 实验记录">[Stanford CS144] Lab4 实验记录</a><time datetime="2023-01-29T16:00:00.000Z" title="发表于 2023-01-30 00:00:00">2023-01-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/CS144_lab0-3_rec/" title="[Stanford CS144] Lab0-Lab3 实验记录"><img src="/img/CS144/sponge%E7%BB%93%E6%9E%84%E5%9B%BE.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Stanford CS144] Lab0-Lab3 实验记录"/></a><div class="content"><a class="title" href="/2022/12/CS144_lab0-3_rec/" title="[Stanford CS144] Lab0-Lab3 实验记录">[Stanford CS144] Lab0-Lab3 实验记录</a><time datetime="2022-12-24T16:00:00.000Z" title="发表于 2022-12-25 00:00:00">2022-12-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By tzyt</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A fork child&#x27;s very first scheduling by scheduler()</span></span><br><span class="line"><span class="comment">// will swtch to forkret.</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">forkret</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">static</span> <span class="type">int</span> first = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Still holding p-&gt;lock from scheduler.</span></span><br><span class="line">  release(&amp;myproc()-&gt;lock);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (first) &#123;</span><br><span class="line">    <span class="comment">// File system initialization must be run in the context of a</span></span><br><span class="line">    <span class="comment">// regular process (e.g., because it calls sleep), and thus cannot</span></span><br><span class="line">    <span class="comment">// be run from main().</span></span><br><span class="line">    first = <span class="number">0</span>;</span><br><span class="line">    fsinit(ROOTDEV);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  usertrapret(); <span class="comment">// 注意这里是返回用户空间</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.baeldung.com/cs/os-trap-vs-interrupt">https://www.baeldung.com/cs/os-trap-vs-interrupt</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://tarplkpqsm.feishu.cn/docs/doccnoBgv1TQlj4ZtVnP0hNRETd#">https://tarplkpqsm.feishu.cn/docs/doccnoBgv1TQlj4ZtVnP0hNRETd#</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/lec11-thread-switching-robert/11.1-thread">https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/lec11-thread-switching-robert/11.1-thread</a><a href="#fnref:3" rev="footnote"> ↩</a></span></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/353580321">https://zhuanlan.zhihu.com/p/353580321</a><a href="#fnref:4" rev="footnote"> ↩</a></span></li></ol></div></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ttzytt.com">tzyt</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ttzytt.com/2022/07/xv6_note/">https://ttzytt.com/2022/07/xv6_note/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ttzytt.com" target="_blank">tzyt的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/07/xv6_lab1_record/" title="[MIT 6.s081] Xv6 Lab1 Util 实验记录"><img class="cover" src="/img/xv6/lab/lab1_primes_pipeline_transfer.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">[MIT 6.s081] Xv6 Lab1 Util 实验记录</div></div></a></div><div class="next-post pull-right"><a href="/2022/07/math_algos_notes/" title="数学算法学习笔记集合"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数学算法学习笔记集合</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Giscus</span><span id="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">tzyt</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/394488"><i class="fa-solid fa-up-right-from-square"></i><span>洛谷</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ttzytt" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/Zyt2006613@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a><a class="social-icon" href="https://stackoverflow.com/users/20080946/ttzytt?tab=profile" target="_blank" title="stack overflow"><i class="fa-brands fa-stack-overflow"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">如果有想交换友链的，可以通过洛谷的私信，我的邮箱，或者是右下角那个聊天室联系我。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">第零章</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">页表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B5%E8%A1%A8%E7%9A%84%E7%AE%80%E4%BB%8B"><span class="toc-number">2.1.</span> <span class="toc-text">页表的简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#risc-v-%E7%9A%84%E9%A1%B5%E8%A1%A8%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.2.</span> <span class="toc-text">risc-v 的页表实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xv6-%E5%86%85%E6%A0%B8%E6%80%81%E7%9A%84%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="toc-number">2.3.</span> <span class="toc-text">xv6 内核态的虚拟内存布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xv6-%E7%94%A8%E6%88%B7%E6%80%81%E7%9A%84%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="toc-number">2.4.</span> <span class="toc-text">xv6 用户态的虚拟内存布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81"><span class="toc-number">2.5.</span> <span class="toc-text">一些代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">陷入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%B7%E5%85%A5%E6%9C%BA%E5%88%B6%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">3.1.</span> <span class="toc-text">陷入机制的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E7%94%A8%E6%88%B7%E6%80%81%E9%99%B7%E5%85%A5"><span class="toc-number">3.2.</span> <span class="toc-text">从用户态陷入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uservec"><span class="toc-number">3.2.1.</span> <span class="toc-text">uservec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#usertrap"><span class="toc-number">3.2.2.</span> <span class="toc-text">usertrap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#usertrapret"><span class="toc-number">3.2.3.</span> <span class="toc-text">usertrapret</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#userret"><span class="toc-number">3.2.4.</span> <span class="toc-text">userret</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">中断</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">线程调度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">5.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">5.2.</span> <span class="toc-text">代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD"><span class="toc-number">5.2.1.</span> <span class="toc-text">中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E6%8D%A2"><span class="toc-number">5.2.2.</span> <span class="toc-text">切换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6"><span class="toc-number">5.2.3.</span> <span class="toc-text">调度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81"><span class="toc-number">5.2.4.</span> <span class="toc-text">锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%B0%83%E5%BA%A6"><span class="toc-number">5.2.5.</span> <span class="toc-text">第一次调度</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/least_square/" title="从微积分和线性代数的角度理解最小二乘法"><img src="/img/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/Linear_regression.svg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从微积分和线性代数的角度理解最小二乘法"/></a><div class="content"><a class="title" href="/2023/12/least_square/" title="从微积分和线性代数的角度理解最小二乘法">从微积分和线性代数的角度理解最小二乘法</a><time datetime="2023-12-09T01:48:06.814Z" title="发表于 2023-12-08 20:48:06">2023-12-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/GAMES101_note1/" title="GAMES101 学习笔记1"><img src="/img/GAMES101/games101.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GAMES101 学习笔记1"/></a><div class="content"><a class="title" href="/2023/06/GAMES101_note1/" title="GAMES101 学习笔记1">GAMES101 学习笔记1</a><time datetime="2023-06-16T23:30:42.507Z" title="发表于 2023-06-16 19:30:42">2023-06-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/USACO23JAN%20Find%20and%20Replace%20S/" title="USACO23JAN Find and Replace S（洛谷 P9013）题解"><img src="/img/USACO_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="USACO23JAN Find and Replace S（洛谷 P9013）题解"/></a><div class="content"><a class="title" href="/2023/02/USACO23JAN%20Find%20and%20Replace%20S/" title="USACO23JAN Find and Replace S（洛谷 P9013）题解">USACO23JAN Find and Replace S（洛谷 P9013）题解</a><time datetime="2023-02-06T02:15:37.710Z" title="发表于 2023-02-05 21:15:37">2023-02-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/CS144_lab4_rec/" title="[Stanford CS144] Lab4 实验记录"><img src="/img/CS144/tcp%E7%8A%B6%E6%80%81%E6%B5%81%E8%BD%AC%E5%9B%BE.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Stanford CS144] Lab4 实验记录"/></a><div class="content"><a class="title" href="/2023/01/CS144_lab4_rec/" title="[Stanford CS144] Lab4 实验记录">[Stanford CS144] Lab4 实验记录</a><time datetime="2023-01-30T05:00:00.000Z" title="发表于 2023-01-30 00:00:00">2023-01-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/CS144_lab0-3_rec/" title="[Stanford CS144] Lab0-Lab3 实验记录"><img src="/img/CS144/sponge%E7%BB%93%E6%9E%84%E5%9B%BE.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Stanford CS144] Lab0-Lab3 实验记录"/></a><div class="content"><a class="title" href="/2022/12/CS144_lab0-3_rec/" title="[Stanford CS144] Lab0-Lab3 实验记录">[Stanford CS144] Lab0-Lab3 实验记录</a><time datetime="2022-12-25T05:00:00.000Z" title="发表于 2022-12-25 00:00:00">2022-12-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By tzyt</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="/js/tw_cn.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/copy-tex.min.js"></script><script>(() => {
   document.querySelectorAll('#article-container span.katex-display').forEach(item => {
     btf.wrap(item, 'div', { class: 'katex-wrap'})
   })
@@ -999,62 +488,64 @@ c<span class="token operator">-></span>proc <span class="token operator">=</span
   }
 
   const loadMermaid = () => {
-    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
   }
 
-  btf.addModeChange('mermaid', runMermaid)
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
 
   window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
-})()</script><script>function getGiscusTheme (theme) {
-  return theme === 'dark' ? 'dark' : 'light'
-}
-
-function loadGiscus () {
-  const config = Object.assign({
-    src: 'https://giscus.app/client.js',
-    'data-repo': 'ttzytt/ttzytt.github.io',
-    'data-repo-id': 'R_kgDOHL2ORg',
-    'data-category-id': 'DIC_kwDOHL2ORs4CQ-4Q',
-    'data-mapping': 'pathname',
-    'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
-    'data-reactions-enabled': '1',
-    crossorigin: 'anonymous',
-    async: true
-  },null)
-
-  let ele = document.createElement('script')
-  for (let key in config) {
-    ele.setAttribute(key, config[key])
-  }
-  document.getElementById('giscus-wrap').insertAdjacentElement('afterbegin',ele)
-}
-
-function changeGiscusTheme (theme) {
-  function sendMessage(message) {
-    const iframe = document.querySelector('iframe.giscus-frame')
-    if (!iframe) return
-    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
+})()</script><script>(()=>{
+  const getGiscusTheme = theme => {
+    return theme === 'dark' ? 'dark' : 'light'
   }
 
-  sendMessage({
-    setConfig: {
-      theme: getGiscusTheme(theme)
+  const loadGiscus = () => {
+    const config = Object.assign({
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'ttzytt/ttzytt.github.io',
+      'data-repo-id': 'R_kgDOHL2ORg',
+      'data-category-id': 'DIC_kwDOHL2ORs4CQ-4Q',
+      'data-mapping': 'pathname',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true
+    },null)
+
+    const ele = document.createElement('script')
+    for (let key in config) {
+      ele.setAttribute(key, config[key])
     }
-  });
-}
-
-btf.addModeChange('giscus', changeGiscusTheme)
-
-if ('Giscus' === 'Giscus' || !false) {
-  if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
-  else loadGiscus()
-} else {
-  function loadOtherComment () {
-    loadGiscus()
+    document.getElementById('giscus-wrap').appendChild(ele)
   }
-}</script><script>function loadWaline () {
-  function initWaline () {
-    const waline = Waline.init(Object.assign({
+
+  const changeGiscusTheme = theme => {
+    const sendMessage = message => {
+      const iframe = document.querySelector('iframe.giscus-frame')
+      if (!iframe) return
+      iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
+    }
+
+    sendMessage({
+      setConfig: {
+        theme: getGiscusTheme(theme)
+      }
+    });
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment= loadGiscus
+  }
+})()</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
       el: '#waline-wrap',
       serverURL: 'https://waline-comment-for-hexo-blog-pi6qofxob-ttzytt.vercel.app/',
       pageview: false,
@@ -1062,25 +553,33 @@ if ('Giscus' === 'Giscus' || !false) {
       path: window.location.pathname,
       comment: true,
     }, null))
+
+    const destroyWaline = () => {
+      waline.destroy()
+    }
+
+    btf.addGlobalFn('pjax', destroyWaline, 'destroyWaline')
   }
 
-  if (typeof Waline === 'object') initWaline()
-  else {
-    getCSS('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.css').then(() => {
-      getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js').then(initWaline)
-    })
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/@waline/client@3.1.2/dist/waline.min.css')
+      const { init } = await import('https://cdn.jsdelivr.net/npm/@waline/client@3.1.2/dist/waline.min.js')
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
   }
-}
 
-if ('Giscus' === 'Waline' || !false) {
-  if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
-  else setTimeout(loadWaline, 0)
-} else {
-  function loadOtherComment () {
-    loadWaline()
+  if ('Giscus' === 'Waline' || !false) {
+    if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
   }
-}</script></div><script src="/js/gitter_chat.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gitter-sidecar/1.3.3/sidecar.js" async defer></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="100,100,100" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+})()</script></div><script src="/js/gitter_chat.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gitter-sidecar/1.3.3/sidecar.js" async defer></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="100,100,100" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
 POWERMODE.shake = false;
 POWERMODE.mobile = false;
 document.body.addEventListener('input', POWERMODE);
-</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
