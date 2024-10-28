@@ -354,9 +354,9 @@ upd@2024/6/8：修正了推导中的一个下标错误&lt;/p&gt;
     
     <category term="光线追踪" scheme="https://ttzytt.com/tags/%E5%85%89%E7%BA%BF%E8%BF%BD%E8%B8%AA/"/>
     
-    <category term="辐射度量学" scheme="https://ttzytt.com/tags/%E8%BE%90%E5%B0%84%E5%BA%A6%E9%87%8F%E5%AD%A6/"/>
-    
     <category term="RTOW" scheme="https://ttzytt.com/tags/RTOW/"/>
+    
+    <category term="辐射度量学" scheme="https://ttzytt.com/tags/%E8%BE%90%E5%B0%84%E5%BA%A6%E9%87%8F%E5%AD%A6/"/>
     
   </entry>
   
@@ -747,11 +747,11 @@ upd@2024/6/8：修正了推导中的一个下标错误&lt;/p&gt;
     <category term="题解" scheme="https://ttzytt.com/categories/%E9%A2%98%E8%A7%A3/"/>
     
     
+    <category term="树" scheme="https://ttzytt.com/tags/%E6%A0%91/"/>
+    
     <category term="Codechef" scheme="https://ttzytt.com/tags/Codechef/"/>
     
     <category term="堆" scheme="https://ttzytt.com/tags/%E5%A0%86/"/>
-    
-    <category term="树" scheme="https://ttzytt.com/tags/%E6%A0%91/"/>
     
     <category term="位运算" scheme="https://ttzytt.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
@@ -822,11 +822,11 @@ upd@2024/6/8：修正了推导中的一个下标错误&lt;/p&gt;
     <category term="题解" scheme="https://ttzytt.com/categories/%E9%A2%98%E8%A7%A3/"/>
     
     
-    <category term="位运算" scheme="https://ttzytt.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
-    
     <category term="Codeforces" scheme="https://ttzytt.com/tags/Codeforces/"/>
     
     <category term="2022" scheme="https://ttzytt.com/tags/2022/"/>
+    
+    <category term="位运算" scheme="https://ttzytt.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
@@ -1313,11 +1313,11 @@ upd@2024/6/8：修正了推导中的一个下标错误&lt;/p&gt;
     <category term="题解" scheme="https://ttzytt.com/categories/%E9%A2%98%E8%A7%A3/"/>
     
     
-    <category term="树" scheme="https://ttzytt.com/tags/%E6%A0%91/"/>
-    
     <category term="Codeforces" scheme="https://ttzytt.com/tags/Codeforces/"/>
     
     <category term="贪心" scheme="https://ttzytt.com/tags/%E8%B4%AA%E5%BF%83/"/>
+    
+    <category term="树" scheme="https://ttzytt.com/tags/%E6%A0%91/"/>
     
     <category term="2022" scheme="https://ttzytt.com/tags/2022/"/>
     
