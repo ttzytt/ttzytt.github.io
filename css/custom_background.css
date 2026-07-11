@@ -1,0 +1,177 @@
+:root {
+    /* Sidebar card opacity in light mode. */
+    --custom-card-bg-light: hsla(0, 0%, 100%, .5);
+    /* Main article/list opacity in light mode. */
+    --custom-page-bg-light: hsla(0, 0%, 100%, .87);
+    /* Sidebar card opacity in dark mode. */
+    --custom-card-bg-dark: hsla(0, 0%, 7%, .5);
+    /* Main article/list opacity in dark mode. */
+    --custom-page-bg-dark: hsla(0, 0%, 7%, .5);
+
+    /* Related-card corner radius. Also applies to previous/next cards. */
+    --related-card-radius: 6px;
+    /* Related-card shadow in light mode. */
+    --related-card-shadow-light: 0 4px 12px rgba(0, 0, 0, .12);
+    /* Related-card shadow in dark mode. */
+    --related-card-shadow-dark: 0 4px 12px rgba(0, 0, 0, .4);
+    /* Cover visibility before hover: 0 is invisible, 1 is the original image. */
+    --related-cover-opacity: .32;
+    /* Cover visibility while hovering. */
+    --related-cover-hover-opacity: .5;
+    /* Cover blur before hover. Set to 0px to disable blur. */
+    --related-cover-blur: 3px;
+    /* Cover blur while hovering. Set to 0px for a completely sharp image. */
+    --related-cover-hover-blur: .5px;
+    /* Slight enlargement that hides blur around the image edges. */
+    --related-cover-scale: 1.03;
+    /* Space above the related-post section. */
+    --related-section-margin-top: 48px;
+    /* Space inside the top of the related-post section. */
+    --related-section-padding-top: 20px;
+    /* Separator color above related posts in light mode. */
+    --related-separator-light: rgba(0, 0, 0, .08);
+    /* Separator color above related posts in dark mode. */
+    --related-separator-dark: rgba(255, 255, 255, .1);
+    /* Gap between previous and next post cards. */
+    --post-pagination-gap: 10px;
+
+    /* Default canvas behind transparent images and Fancybox previews. */
+    --transparent-image-background: #fff;
+    /* Optional padding around images. Set to 0px to disable it. */
+    --transparent-image-padding: 0px;
+
+    /* Footer gradient colors and direction. */
+    --footer-gradient: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    /* Footer gradient animation duration. */
+    --footer-gradient-duration: 15s;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#content-inner {
+    --custom-card-bg: var(--custom-card-bg-light);
+    --custom-page-bg: var(--custom-page-bg-light);
+}
+
+[data-theme='dark'] #content-inner {
+    --custom-card-bg: var(--custom-card-bg-dark);
+    --custom-page-bg: var(--custom-page-bg-dark);
+}
+
+#aside-content .card-widget {
+    background: var(--custom-card-bg);
+}
+
+#recent-posts > .recent-post-item,
+main.layout > div:first-child:not(.nc) {
+    background: var(--custom-page-bg);
+}
+
+/* Related posts and previous/next cards share the same visual treatment. */
+.pagination-related {
+    border: none;
+    border-radius: var(--related-card-radius);
+    background: var(--card-bg);
+    box-shadow: var(--related-card-shadow-light);
+}
+
+[data-theme='dark'] .pagination-related {
+    background: #000;
+    box-shadow: var(--related-card-shadow-dark);
+}
+
+.pagination-related > img.cover {
+    opacity: var(--related-cover-opacity);
+    filter: blur(var(--related-cover-blur));
+    transform: scale(var(--related-cover-scale));
+}
+
+.pagination-related:hover > img.cover {
+    opacity: var(--related-cover-hover-opacity);
+    filter: blur(var(--related-cover-hover-blur));
+}
+
+.pagination-related:has(> img.cover[src*='.svg' i]) > img.cover {
+    object-fit: contain;
+}
+
+/* Butterfly uses light text by default; light cards need dark theme text. */
+html:not([data-theme='dark']) .pagination-related .info .info-1 .info-item-1,
+html:not([data-theme='dark']) .pagination-related .info .info-1 .info-item-2,
+html:not([data-theme='dark']) .pagination-related .info .info-2 .info-item-1 {
+    color: var(--font-color);
+    text-shadow: 0 1px 3px var(--card-bg), 0 0 8px var(--card-bg);
+}
+
+.relatedPosts {
+    margin-top: var(--related-section-margin-top);
+    padding-top: var(--related-section-padding-top);
+    border-top: 1px solid var(--related-separator-light);
+}
+
+[data-theme='dark'] .relatedPosts {
+    border-top-color: var(--related-separator-dark);
+}
+
+#pagination.pagination-post {
+    overflow: visible;
+    gap: var(--post-pagination-gap);
+}
+
+/*
+ * Every article image gets a white canvas by default. Opaque images cover it,
+ * while transparent PNG, GIF, WebP, SVG, and other formats reveal it.
+ * Add ?image-bg=transparent to preserve transparency, for example:
+ * ![Diagram](/img/diagram.png?image-bg=transparent)
+ */
+#article-container img:not([src*='image-bg=transparent' i]):not([data-lazy-src*='image-bg=transparent' i]) {
+    box-sizing: border-box;
+    padding: var(--transparent-image-padding);
+    background-color: var(--transparent-image-background);
+}
+
+/*
+ * Fancybox recreates the image inside a Panzoom content layer. Set both the
+ * image and its content canvas so transparent pixels cannot reveal the overlay.
+ */
+.fancybox__container .fancybox__content,
+.fancybox__container .f-panzoom__content {
+    background-color: var(--transparent-image-background) !important;
+}
+
+.fancybox__content img:not([src*='image-bg=transparent' i]),
+.fancybox__container .f-image:not([src*='image-bg=transparent' i]),
+img.fancybox__image:not([src*='image-bg=transparent' i]),
+img.fancybox-image:not([src*='image-bg=transparent' i]),
+.fancybox__container .f-panzoom__content:not([src*='image-bg=transparent' i]) {
+    box-sizing: border-box;
+    padding: var(--transparent-image-padding);
+    background-color: var(--transparent-image-background) !important;
+}
+
+/* Restore a transparent Fancybox canvas when the image URL opts out. */
+.fancybox__container .fancybox__content:has([src*='image-bg=transparent' i]),
+.fancybox__container .fancybox__content[src*='image-bg=transparent' i],
+.fancybox__container .f-panzoom__content[src*='image-bg=transparent' i],
+.fancybox__container .f-image[src*='image-bg=transparent' i] {
+    background-color: transparent !important;
+}
+
+#footer,
+#footer .footer-other {
+    background: var(--footer-gradient);
+    background-size: 400% 400%;
+    animation: gradientBG var(--footer-gradient-duration) ease infinite;
+}
