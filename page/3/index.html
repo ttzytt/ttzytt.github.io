@@ -1,20 +1,127 @@
-<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;en&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>tzyt的博客</title><meta name="author" content="tzyt"><meta name="copyright" content="tzyt"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description"><link rel="shortcut icon" href="/img/avatar.png"><link rel="canonical" href="https://ttzytt.com/page/3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>tzyt的博客</title><meta name="author" content="tzyt"><meta name="copyright" content="tzyt"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/avatar.png"><link rel="canonical" href="https://ttzytt.com/page/3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.5"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><link rel="stylesheet" href="/css/font.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  localSearch: undefined,
   translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":700},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
   copy: {
     success: '复制成功',
-    error: '复制错误',
+    error: '复制失败',
     noSupport: '浏览器不支持'
   },
   relativeDate: {
     homepage: false,
     post: false
   },
-  runtime: '天',
+  runtime: '',
   dateSuffix: {
     just: '刚刚',
     min: '分钟前',
@@ -23,14 +130,14 @@
     month: '个月前'
   },
   copyright: undefined,
-  lightbox: 'fancybox',
+  lightbox: 'null',
   Snackbar: undefined,
   infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
     buttonText: '加载更多'
   },
   isPhotoFigcaption: false,
-  islazyload: false,
+  islazyloadPlugin: false,
   isAnchor: false,
   percent: {
     toc: true,
@@ -39,260 +146,104 @@
   autoDarkmode: true
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
   title: 'tzyt的博客',
-  isPost: false,
-  isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2025-01-27 21:14:21'
-}</script><script>(win=>{
-      win.saveToLocal = {
-        set: (key, value, ttl) => {
-          if (ttl === 0) return
-          const now = Date.now()
-          const expiry = now + ttl * 86400000
-          const item = {
-            value,
-            expiry
-          }
-          localStorage.setItem(key, JSON.stringify(item))
-        },
-      
-        get: key => {
-          const itemStr = localStorage.getItem(key)
-      
-          if (!itemStr) {
-            return undefined
-          }
-          const item = JSON.parse(itemStr)
-          const now = Date.now()
-      
-          if (now > item.expiry) {
-            localStorage.removeItem(key)
-            return undefined
-          }
-          return item.value
-        }
-      }
-    
-      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        script.onerror = reject
-        script.onload = script.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          script.onload = script.onreadystatechange = null
-          resolve()
-        }
-
-        Object.keys(attr).forEach(key => {
-          script.setAttribute(key, attr[key])
-        })
-
-        document.head.appendChild(script)
-      })
-    
-      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onerror = reject
-        link.onload = link.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          link.onload = link.onreadystatechange = null
-          resolve()
-        }
-        document.head.appendChild(link)
-      })
-    
-      win.activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
-          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
-          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
-
-          if (t === undefined) {
-            if (isLightMode) activateLightMode()
-            else if (isDarkMode) activateDarkMode()
-            else if (isNotSpecified || hasNoSupport) {
-              const now = new Date()
-              const hour = now.getHours()
-              const isNight = hour <= 6 || hour >= 18
-              isNight ? activateDarkMode() : activateLightMode()
-            }
-            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
-              if (saveToLocal.get('theme') === undefined) {
-                e.matches ? activateDarkMode() : activateLightMode()
-              }
-            })
-          } else if (t === 'light') activateLightMode()
-          else activateDarkMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-      const detectApple = () => {
-        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-          document.documentElement.classList.add('apple')
-        }
-      }
-      detectApple()
-    })(window)</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/custom_background.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="tzyt的博客" type="application/atom+xml">
-</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 图库</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('/img/idx_img.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="tzyt的博客"><span class="site-name">tzyt的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 图库</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">tzyt的博客</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/ttzytt" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/Zyt2006613@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a><a class="social-icon" href="https://stackoverflow.com/users/20080946/ttzytt?tab=profile" target="_blank" title="stack overflow"><i class="fa-brands fa-stack-overflow"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2022/07/xv6_lab2_record/" title="[MIT 6.s081] Xv6 Lab2 System Calls 实验记录"><img class="post-bg" src="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[MIT 6.s081] Xv6 Lab2 System Calls 实验记录"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/07/xv6_lab2_record/" title="[MIT 6.s081] Xv6 Lab2 System Calls 实验记录">[MIT 6.s081] Xv6 Lab2 System Calls 实验记录</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-11T03:50:41.028Z" title="发表于 2022-07-10 23:50:41">2022-07-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/">实验记录</a></span></div><div class="content">upd@2022/7/14：添加了 sysinfo 这个 lab，至此为止，lab2 已经全部写完。
-upd@2022/9/14：最近把实验的代码放到 github 上了，如果需要参考可以查看这里：
-https://github.com/ttzytt/xv6-riscv
-里面不同的分支就是不同的实验。
-
-Lab2: system calls
-系统调用过程
-跟名字一样，这个 lab 需要我们往内核里增加两个系统调用。而要增加这些系统调用，我们首先需要了解系统调用的过程。
-首先，用户态的系统调用函数被声明（没有实现）在 user/user.h 中。
-12345678910111213141516171819202122// system callsint fork(void);int exit(int) __attribute__((noreturn));int wait(int*);int pipe(int*);int write(int, const void*, int);int read(int, void*, int);int close(int);int kill(int);i ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/07/CF1702/" title="CF1702 C, D, E, F 题解"><img class="post-bg" src="/img/Codeforces_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CF1702 C, D, E, F 题解"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/07/CF1702/" title="CF1702 C, D, E, F 题解">CF1702 C, D, E, F 题解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-10T23:56:38.026Z" title="发表于 2022-07-10 19:56:38">2022-07-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a></span></div><div class="content">C. Train and Queries
-题意：
-题目链接（CF，洛谷）
-给你一个长度为 n(1≤n≤2⋅105)n (1\le n \le 2 \cdot 10 ^ 5)n(1≤n≤2⋅105) 的数组 uuu。代表所有的火车站。火车只能从左边的站台开到右边的站台。也就是从 u1u_1u1​ 开始，再到 u2, u3u_2, \ u_3u2​, u3​，最后到 unu_nun​。
-现在给你 k(1≤k≤2⋅105)k (1\le k \le 2 \cdot 10 ^ 5)k(1≤k≤2⋅105) 个询问，每个包含两个整数 aia_iai​ 和 bib_ibi​，问你是否可以从 aia_iai​ 这个站台开始，坐火车到 bib_ibi​。
-比如：uuu 数组为 [3,7,1,5,1,4][3,7,1,5,1,4][3,7,1,5,1,4]，有以下三个询问：
-
-a1=3,b1=5a_1 = 3, b_1 = 5a1​=3,b1​=5。
-从 333 号站台坐车到 555 号站台是可能的，有以下路径：[3,7,1,5][3,7,1,5][3,7,1,5]。
-a2=1,b2=7a_2 = 1, ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/07/xv6_lab1_record/" title="[MIT 6.s081] Xv6 Lab1 Util 实验记录"><img class="post-bg" src="/img/xv6/lab/lab1_primes_pipeline_transfer.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[MIT 6.s081] Xv6 Lab1 Util 实验记录"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/07/xv6_lab1_record/" title="[MIT 6.s081] Xv6 Lab1 Util 实验记录">[MIT 6.s081] Xv6 Lab1 Util 实验记录</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-09T23:04:29.023Z" title="发表于 2022-07-09 19:04:29">2022-07-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/">实验记录</a></span></div><div class="content">upd@2022/9/14：最近把实验的代码放到 github 上了，如果需要参考可以查看这里：
-https://github.com/ttzytt/xv6-riscv
-里面不同的分支就是不同的实验。
-
-开始之前先吐槽一句，为什么 xv6 源码的码风这么怪啊？？？函数的返回类型居然跟函数名不在同一行？？
-123intmain(int argc, char* argv[])&#123;&#125;
-像这样……
-然后就是建议阅读时关闭暗黑模式（右下角齿轮标），因为有些图片上的字是黑的，开了暗黑模式就看不清了。
-Lab 1: utils
-实验说明地址：https://pdos.csail.mit.edu/6.828/2020/labs/util.html
-sleep
-
-
-实现一个 sleep 命令，唯一的参数是休眠的时间。
-
-因为有系统调用，所以实现起来还是比较简单的，可以直接调用提供的 sleep 系统调用。
-唯一需要注意的是要在 #include user/user.h 之前先 #include kernel/types.h。这个文件里面包含了一些类型的定义，而 user.h 需要用到这 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/07/xv6_note/" title="[MIT 6.s081] Xv6 操作系统学习笔记"><img class="post-bg" src="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[MIT 6.s081] Xv6 操作系统学习笔记"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/07/xv6_note/" title="[MIT 6.s081] Xv6 操作系统学习笔记">[MIT 6.s081] Xv6 操作系统学习笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-07T03:09:46.343Z" title="发表于 2022-07-06 23:09:46">2022-07-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="content">书的链接（中文翻译版）：https://github.com/duguosheng/6.S081-All-in-one
-第零章
-这章大部分的内容还是能够看懂的，但是在管道的示例程序上卡了很久。最后终于搞懂了，这里把我的理解写一下：
-1234567891011121314151617int p[2];//p[0] 储存管道接收端的文件描述符，p[1] 为管道发送端的描述符char *argv[2];argv[0] = &quot;wc&quot;; //第一个参数是命令的名字argv[1] = 0; //stdinpipe(p);//子 p[0] &lt;--------- p[1] 父if(fork() == 0) &#123; close(0); dup(p[0]); close(p[0]); close(p[1]); exec(&quot;/bin/wc&quot;, argv);&#125; else &#123; write(p[1], &quot;hello world\n&quot;, 12); close(p[0]); close(p[1]);&#125;
-首先需要注意的 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2022/07/math_algos_notes/" title="数学算法学习笔记集合">数学算法学习笔记集合</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-05T21:54:12.234Z" title="发表于 2022-07-05 17:54:12">2022-07-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="content">辗转相除法（欧几里得算法）：
-求最大公约数 (a,b),a&gt;b(a, b), a &gt; b(a,b),a&gt;b。
-有：
-a÷b=q…ra=bq+rr=a−bqa \div b = q \ldots r\\
-a = bq + r \\
-r = a - bq
-a÷b=q…ra=bq+rr=a−bq
-辗转相除法指出： gcd⁡(a,b)=gcd⁡(b,r)\gcd(a, b) = \gcd(b, r)gcd(a,b)=gcd(b,r)
-我们设
-ddd 为 aaa 和 bbb 的任意一个公约数。
-以及
-m=a÷d, n=b÷dm = a \div d,\ n = b \div d
-m=a÷d, n=b÷d
-那么：
-a=dm, b=dnr=a−bq=dm−(dn)q=d(m−nq)a = dm,\ b = dn\\
-\begin{align*}
-r &amp;= a - bq\\
-&amp;= dm - (dn)q\\
-&amp;= d(m - nq)
-\end{align*}
-a=dm, b=dnr​=a−bq=dm−(dn)q=d(m−nq)​
-因为 r=d(m−nq)r =  ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/07/CF1699C/" title="CF1699C题解"><img class="post-bg" src="/img/Codeforces_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CF1699C题解"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/07/CF1699C/" title="CF1699C题解">CF1699C题解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-04T23:41:07.074Z" title="发表于 2022-07-04 19:41:07">2022-07-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a></span></div><div class="content">题目链接（CF，洛谷） | 强烈推荐博客中观看。
-这题是真的难想，我 cf 的题解看了好久才搞明白（我太菜了）。
-题意
-给你一个长度为 nnn 的排列 aaa，请你找出有多少个相同长度的排列 bbb 和 aaa 相似。
-如果对于所有区间 [l,r](1≤l≤r≤n)[l, r] (1 \le l \le r \le n)[l,r](1≤l≤r≤n)，下面的条件满足：
-MEX⁡(al,al+1,…,ar)=MEX⁡(bl,bl+1,…,br)\operatorname{MEX}(a_l, a_{l + 1}, \ldots , a_r) = \operatorname{MEX}(b_l, b_{l + 1}, \ldots , b_r)
-MEX(al​,al+1​,…,ar​)=MEX(bl​,bl+1​,…,br​)
-我们就称排列 aaa 和 bbb 是相似的。
-其中 MEX⁡\operatorname{MEX}MEX 对于数组 ccc 的定义是：最小的，没有出现在 ccc 中的非负整数 xxx。
-例如 MEX⁡([1,2,3,4,5])=0 MEX⁡([0,1,2,4,5])=3\o ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/06/complexity_GA/" title="《复杂》中遗传算法的 C++ 实现"><img class="post-bg" src="/img/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95_%E5%A4%8D%E6%9D%82/crossover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《复杂》中遗传算法的 C++ 实现"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/06/complexity_GA/" title="《复杂》中遗传算法的 C++ 实现">《复杂》中遗传算法的 C++ 实现</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-30T04:00:00.000Z" title="发表于 2022-06-30 00:00:00">2022-06-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/">实验记录</a></span></div><div class="content">背景
-大概一年多之前看了《复杂》这本书，最近因为一个比赛又想起了书里面介绍过的遗传算法，书里提供了详细的思路，所以想自己实现以下。
-关于《复杂》这本书：不过多介绍内容，看完了只感觉非常牛逼，下面的介绍摘自豆瓣，自己加了一些标点符号：
-
-蚂蚁在组成群体时为何会表现出如此的精密性和具有目的性？数以亿计的神经元是如何产生出像意识这样极度复杂的事物？是什么在引导免疫系统、互联网、全球经济和人类基因组等自组织结构？这些都是复杂系统科学尝试回答的迷人而令人费解的问题的一部分。
-
-
-理解复杂系统需要有全新的方法。需要超越传统的科学还原论，并重新划定学科的疆域。借助于圣塔菲研究所的工作经历和交叉学科方法，复杂系统的前沿科学家米歇尔以清晰的思路介绍了复杂系统的研究，横跨生物、技术和社会学等领域，并探寻复杂系统的普遍规律，与此同时，她还探讨了复杂性与进化、人工智能、计算、遗传、信息处理等领域的关系。
-
-书中讲的问题大概是这样的：
-有一个机器人罗比，它生活在一个 10×1010\times 1010×10 的网格中。这个网格中散落着许多易拉罐，罗比需要在有限的动作中收集尽可能多的易拉罐。罗比的初始位置在 ( ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/06/CF1695C/" title="CF1695C题解"><img class="post-bg" src="/img/CF1695C/transform-illustration.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CF1695C题解"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/06/CF1695C/" title="CF1695C题解">CF1695C题解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-22T04:18:34.638Z" title="发表于 2022-06-22 00:18:34">2022-06-22</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a></span></div><div class="content">题目链接（CF，洛谷） | 强烈推荐博客中观看。
-题意
-给你一个 n×mn \times mn×m (1≤n,m≤10001 \le n, m \le 10001≤n,m≤1000) 的格点图，每个格子的值要么是 −1-1−1，要么是 111，现在问你，是否有一条从 (1,1)(1, 1)(1,1) 到 (n,m)(n, m)(n,m) 的路径，使得路径上经过的格点的值的和为 000。在路径中，只能从 ai,ja_{i, j}ai,j​ 移动到 ai+1,ja_{i + 1, j}ai+1,j​ 或是 ai,j+1a_{i, j + 1}ai,j+1​（向右或是向下走）。
-思路
-看到这个 (1≤n,m≤10001 \le n, m \le 10001≤n,m≤1000) 的数据范围就知道暴搜肯定要寄了（别学我），所以得想一些别的办法。
-首先，如果经过奇数个格子，或者说 n+m−1n + m - 1n+m−1 为奇数，那么肯定没有这样的一条路径（经过的 −1-1−1 和 111 点没有办法相等）。
-直接判断某个格子图是否符合要求太麻烦，我们可以思考，如果有任意一条路径，我们是否能根据这条 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2022/06/error_compilation/" title="杂项问题集合">杂项问题集合</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-20T05:52:32.913Z" title="发表于 2022-06-20 01:52:32">2022-06-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%B8%8D%E7%9F%A5%E9%81%93%E5%92%8B%E5%88%86%E7%B1%BB/">不知道咋分类</a></span></div><div class="content">在这里放一些写程序时报的一些错（或者配置环境之类的很杂的问题），这样下次遇到了可以直接来这里看：
-按照语言分类，每个错误前面会有发生的时间。
-cpp
-用 thread 创建线程，并且函数是非静态时
-2022/6/20
-如果用 std::thread() 创建线程，并且传入函数指针是非静态的，需要这么写：
-1thread(&amp;class_name::func_name, this, arg1, arg2, other_args...);
-因为对于每个实例，这个函数是不一样的，所以只有传入 this 指针，执行这个线程时才知道具体是执行哪个实例的函数。
-其他
-编译 riscv 工具链时，因为没有安装 curses，编译出的 riscv64-unknown-elf-gdb 没有 tui 模式
-2022/7/12
-今天太无语了，本来花了好久时间编译，然后准备打开 qemu 和 riscv64-unknown-elf-gdb 单步 xv6 的内核，结果输入一个 layout split，居然告诉我 Undefined command: &quot;layout&quot;.  Try &q ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/06/CF1692G/" title="CF1692G题解"><img class="post-bg" src="/img/Codeforces_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CF1692G题解"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/06/CF1692G/" title="CF1692G题解">CF1692G题解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-17T03:50:12.693Z" title="发表于 2022-06-16 23:50:12">2022-06-16</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a></span></div><div class="content">题目链接（CF，洛谷） | 强烈推荐博客中观看。
-打的第一场 CF div.4
-这个题就是那种想到点了就很很简单，没想到的话就……寄了的题（我就属于是寄了）。
-1. 题意：
-给你一个长度为 n (∑n&lt;2⋅105)n \ (\sum n &lt; 2\cdot 10^5)n (∑n&lt;2⋅105) 的数组 aaa，问你在这个数组中，有多少个长度为 k+1 (1≤k&lt;n)k + 1 \ (1\le k &lt; n)k+1 (1≤k&lt;n) 的区间，符合以下的条件：
-20⋅ai&lt;21⋅ai+1&lt;22⋅ai+2&lt; ⁣⋯&lt;2k⋅ai+k注：i为这个区间开始的位置2^0 \cdot a_i &lt; 2^1 \cdot a_{i + 1} &lt; 2^2 \cdot a_{i + 2} &lt; \dotsi &lt; 2^k \cdot a_{i + k}\\
-
-\footnotesize{注：i 为这个区间开始的位置}
-20⋅ai​&lt;21⋅ai+1​&lt;22⋅ai+2​&lt;⋯&lt;2k⋅ai+k​注：i为这个区间开始的位置
-2. ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/06/hexo_font_update/" title="Hexo Butterfly 更换字体时遇到的一些奇怪的问题"><img class="post-bg" src="/img/Hexo_blog_logo.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo Butterfly 更换字体时遇到的一些奇怪的问题"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/06/hexo_font_update/" title="Hexo Butterfly 更换字体时遇到的一些奇怪的问题">Hexo Butterfly 更换字体时遇到的一些奇怪的问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-14T23:18:55.952Z" title="发表于 2022-06-14 19:18:55">2022-06-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Hexo/">Hexo</a></span></div><div class="content">今天发完 Treap 的博客之后自己看了一遍，突然感觉很不爽。Treap 的这篇博客大量的用到了指针和箭头运算符，因为博客的字体没有连字（ligature）的功能，所以看着特别傻。于是我决定把博客的字体换成 Iosevka。
-以下是一些我参考的网站
-
-https://imbhj.com/25c13146/
-https://zhuanlan.zhihu.com/p/361392320
-
-基本的思路还是写一个 css 文件，然后在 html 的 head 部分注入进去。最后再在 hexo 的设置中把字体改成你想用的字体。
-我改完写完 css 然后上传了字体文件之后 hexo s 了一下，发现没问题。不过很奇怪的是部署到 github 之后如果开 linux 的虚拟机访问，或是用手机访问，都不能正确的加载字体。
-于是我就尝试 f12 了一下，打开 css 文件之后发现 css 文件变成了这样：
-123456789&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdeli ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/06/treap_note/" title="Treap（树堆）学习笔记，基于洛谷 P3369"><img class="post-bg" src="/img/treap/rotate.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Treap（树堆）学习笔记，基于洛谷 P3369"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/06/treap_note/" title="Treap（树堆）学习笔记，基于洛谷 P3369">Treap（树堆）学习笔记，基于洛谷 P3369</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-14T02:56:57.266Z" title="发表于 2022-06-13 22:56:57">2022-06-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="content">一些废话
-最近发现以前学过的算法都非常容易忘，像什么后缀自动机，AC 自动机，插头 dp，都基本全忘了（甚至 KMP 和网络流这种太久没写也有点忘了，我太菜了）。所以在想，可以在学的时候就做笔记，以后忘了直接看笔记就行。
-然后就有了这篇博客，不过学习笔记类的文章不会跟题解一样详细，主要还是给自己看的，之后有时间的话可能会写教程类的文章。
-upd 2022/6/19：把给 OI-wiki 写的文章搞过来了，感觉现在已经可以作为一个教程类文章了。不过还需要添加无旋 treap 的内容。
-upd 2020/7/1：把给 OI-wiki 写的无旋 treap 和无旋 treap 的区间操作部分复制了过来、本文中的无旋操作几乎都是我写的，如果你想了解具体的贡献者可以看 OI-wiki 的 GitHub 页面。
-因为图片的颜色问题，建议关闭黑暗模式观看。
-简介
-Treap（树堆） 是一种 弱平衡 的 二叉搜索树。它同时符合二叉搜索树和堆的性质，名字也因此为 tree （树） 和 heap （堆） 的组合。
-其中，二叉搜索树的性质是：
-
-左子节点的值（val\textit{val}val）比父节点大 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#content-inner">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#content-inner">4</a><a class="extend next" rel="next" href="/page/4/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">tzyt</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/394488"><i class="fa-solid fa-up-right-from-square"></i><span>洛谷</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ttzytt" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/Zyt2006613@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a><a class="social-icon" href="https://stackoverflow.com/users/20080946/ttzytt?tab=profile" target="_blank" title="stack overflow"><i class="fa-brands fa-stack-overflow"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">如果有想交换友链的，可以通过洛谷的私信，我的邮箱，或者是右下角那个聊天室联系我。</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/least_square/" title="从微积分和线性代数的角度理解最小二乘法"><img src="/img/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/Linear_regression.svg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从微积分和线性代数的角度理解最小二乘法"/></a><div class="content"><a class="title" href="/2023/12/least_square/" title="从微积分和线性代数的角度理解最小二乘法">从微积分和线性代数的角度理解最小二乘法</a><time datetime="2023-12-09T01:48:06.814Z" title="发表于 2023-12-08 20:48:06">2023-12-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/GAMES101_note1/" title="GAMES101 学习笔记1"><img src="/img/GAMES101/games101.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GAMES101 学习笔记1"/></a><div class="content"><a class="title" href="/2023/06/GAMES101_note1/" title="GAMES101 学习笔记1">GAMES101 学习笔记1</a><time datetime="2023-06-16T23:30:42.507Z" title="发表于 2023-06-16 19:30:42">2023-06-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/USACO23JAN%20Find%20and%20Replace%20S/" title="USACO23JAN Find and Replace S（洛谷 P9013）题解"><img src="/img/USACO_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="USACO23JAN Find and Replace S（洛谷 P9013）题解"/></a><div class="content"><a class="title" href="/2023/02/USACO23JAN%20Find%20and%20Replace%20S/" title="USACO23JAN Find and Replace S（洛谷 P9013）题解">USACO23JAN Find and Replace S（洛谷 P9013）题解</a><time datetime="2023-02-06T02:15:37.710Z" title="发表于 2023-02-05 21:15:37">2023-02-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/CS144_lab4_rec/" title="[Stanford CS144] Lab4 实验记录"><img src="/img/CS144/tcp%E7%8A%B6%E6%80%81%E6%B5%81%E8%BD%AC%E5%9B%BE.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Stanford CS144] Lab4 实验记录"/></a><div class="content"><a class="title" href="/2023/01/CS144_lab4_rec/" title="[Stanford CS144] Lab4 实验记录">[Stanford CS144] Lab4 实验记录</a><time datetime="2023-01-30T05:00:00.000Z" title="发表于 2023-01-30 00:00:00">2023-01-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/CS144_lab0-3_rec/" title="[Stanford CS144] Lab0-Lab3 实验记录"><img src="/img/CS144/sponge%E7%BB%93%E6%9E%84%E5%9B%BE.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Stanford CS144] Lab0-Lab3 实验记录"/></a><div class="content"><a class="title" href="/2022/12/CS144_lab0-3_rec/" title="[Stanford CS144] Lab0-Lab3 实验记录">[Stanford CS144] Lab0-Lab3 实验记录</a><time datetime="2022-12-25T05:00:00.000Z" title="发表于 2022-12-25 00:00:00">2022-12-25</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+  pageType: 'home'
+}</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/custom_background.css"><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="tzyt的博客" type="application/atom+xml">
+</head><body><div class="bg-animation" id="web_bg" style="background: linear-gradient( to right, rgba(247, 149, 51, 0.1) 0, rgba(243, 112, 85, 0.1) 15%, rgba(239, 78, 123, 0.1) 30%, rgba(161, 102, 171, 0.1) 44%, rgba(80, 115, 184, 0.1) 58%, rgba(16, 152, 173, 0.1) 72%, rgba(7, 179, 155, 0.1) 86%, rgba(109, 186, 130, 0.1) 100% );"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 图库</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(/img/idx_img.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">tzyt的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 图库</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">tzyt的博客</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/ttzytt" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/Zyt2006613@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a><a class="social-icon" href="https://stackoverflow.com/users/20080946/ttzytt?tab=profile" target="_blank" title="stack overflow"><i class="fa-brands fa-stack-overflow"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/2022/07/xv6_lab2_record/" title="[MIT 6.s081] Xv6 Lab2 System Calls 实验记录"><img class="post-bg" src="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[MIT 6.s081] Xv6 Lab2 System Calls 实验记录"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/07/xv6_lab2_record/" title="[MIT 6.s081] Xv6 Lab2 System Calls 实验记录">[MIT 6.s081] Xv6 Lab2 System Calls 实验记录</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-10T23:50:41.000Z" title="发表于 2022-07-10 23:50:41">2022-07-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/">实验记录</a></span></div><div class="content">upd@2022/7/14：添加了 sysinfo 这个 lab，至此为止，lab2 已经全部写完。 upd@2022/9/14：最近把实验的代码放到 github 上了，如果需要参考可以查看这里： https://github.com/ttzytt/xv6-riscv 里面不同的分支就是不同的实验。  Lab2: system calls 系统调用过程 跟名字一样，这个 lab 需要我们往内核里增加两个系统调用。而要增加这些系统调用，我们首先需要了解系统调用的过程。 首先，用户态的系统调用函数被声明（没有实现）在 user/user.h 中。 12345678910111213141516171819202122// system callsint fork(void);int exit(int) __attribute__((noreturn));int wait(int*);int pipe(int*);int write(int, const void*, int);int read(int, void*, int);int close(int);int kill(int...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/07/CF1702/" title="CF1702 C, D, E, F 题解"><img class="post-bg" src="/img/Codeforces_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CF1702 C, D, E, F 题解"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/07/CF1702/" title="CF1702 C, D, E, F 题解">CF1702 C, D, E, F 题解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-10T19:56:38.000Z" title="发表于 2022-07-10 19:56:38">2022-07-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a></span></div><div class="content">C. Train and Queries 题意： 题目链接（CF，洛谷） 给你一个长度为 n(1≤n≤2⋅105)n (1\le n \le 2 \cdot 10 ^ 5)n(1≤n≤2⋅105) 的数组 uuu。代表所有的火车站。火车只能从左边的站台开到右边的站台。也就是从 u1u_1u1​ 开始，再到 u2, u3u_2, \ u_3u2​, u3​，最后到 unu_nun​。 现在给你 k(1≤k≤2⋅105)k (1\le k \le 2 \cdot 10 ^ 5)k(1≤k≤2⋅105) 个询问，每个包含两个整数 aia_iai​ 和 bib_ibi​，问你是否可以从 aia_iai​ 这个站台开始，坐火车到 bib_ibi​。 比如：uuu 数组为 [3,7,1,5,1,4][3,7,1,5,1,4][3,7,1,5,1,4]，有以下三个询问：  a1=3,b1=5a_1 = 3, b_1 = 5a1​=3,b1​=5。 从 333 号站台坐车到 555 号站台是可能的，有以下路径：[3,7,1,5][3,7,1,5][3,7,1,5]。 a2=1,b2=7a_2 =...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/07/xv6_lab1_record/" title="[MIT 6.s081] Xv6 Lab1 Util 实验记录"><img class="post-bg" src="/img/xv6/lab/lab1_primes_pipeline_transfer.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[MIT 6.s081] Xv6 Lab1 Util 实验记录"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/07/xv6_lab1_record/" title="[MIT 6.s081] Xv6 Lab1 Util 实验记录">[MIT 6.s081] Xv6 Lab1 Util 实验记录</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-09T19:04:29.000Z" title="发表于 2022-07-09 19:04:29">2022-07-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/">实验记录</a></span></div><div class="content">upd@2022/9/14：最近把实验的代码放到 github 上了，如果需要参考可以查看这里： https://github.com/ttzytt/xv6-riscv 里面不同的分支就是不同的实验。  开始之前先吐槽一句，为什么 xv6 源码的码风这么怪啊？？？函数的返回类型居然跟函数名不在同一行？？ 123intmain(int argc, char* argv[])&#123;&#125; 像这样…… 然后就是建议阅读时关闭暗黑模式（右下角齿轮标），因为有些图片上的字是黑的，开了暗黑模式就看不清了。 Lab 1: utils 实验说明地址：https://pdos.csail.mit.edu/6.828/2020/labs/util.html sleep   实现一个 sleep 命令，唯一的参数是休眠的时间。  因为有系统调用，所以实现起来还是比较简单的，可以直接调用提供的 sleep 系统调用。 唯一需要注意的是要在 #include user/user.h 之前先 #include kernel/types.h。这个文件里面包含了一些类型的定义，而 user.h 需要...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/07/xv6_note/" title="[MIT 6.s081] Xv6 操作系统学习笔记"><img class="post-bg" src="/img/xv6/note/xv6%E4%B9%A6%E5%B0%81%E9%9D%A2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[MIT 6.s081] Xv6 操作系统学习笔记"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/07/xv6_note/" title="[MIT 6.s081] Xv6 操作系统学习笔记">[MIT 6.s081] Xv6 操作系统学习笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-06T23:09:46.000Z" title="发表于 2022-07-06 23:09:46">2022-07-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="content">书的链接（中文翻译版）：https://github.com/duguosheng/6.S081-All-in-one 第零章 这章大部分的内容还是能够看懂的，但是在管道的示例程序上卡了很久。最后终于搞懂了，这里把我的理解写一下： 1234567891011121314151617int p[2];//p[0] 储存管道接收端的文件描述符，p[1] 为管道发送端的描述符char *argv[2];argv[0] = &quot;wc&quot;; //第一个参数是命令的名字argv[1] = 0; //stdinpipe(p);//子 p[0] &lt;--------- p[1] 父if(fork() == 0) &#123; close(0); dup(p[0]); close(p[0]); close(p[1]); exec(&quot;/bin/wc&quot;, argv);&#125; else &#123; write(p[1], &quot;hello world\n&quot;, 12); close(p[0]); close(p[1]);&#125; 首先需要...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2022/07/math_algos_notes/" title="数学算法学习笔记集合">数学算法学习笔记集合</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-05T17:54:12.000Z" title="发表于 2022-07-05 17:54:12">2022-07-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="content">辗转相除法（欧几里得算法）： 求最大公约数 (a,b),a&gt;b(a, b), a &gt; b(a,b),a&gt;b。 有： a÷b=q…ra=bq+rr=a−bqa \div b = q \ldots r\\ a = bq + r \\ r = a - bq a÷b=q…ra=bq+rr=a−bq 辗转相除法指出： gcd⁡(a,b)=gcd⁡(b,r)\gcd(a, b) = \gcd(b, r)gcd(a,b)=gcd(b,r) 我们设 ddd 为 aaa 和 bbb 的任意一个公约数。 以及 m=a÷d, n=b÷dm = a \div d,\ n = b \div d m=a÷d, n=b÷d 那么： a=dm, b=dnr=a−bq=dm−(dn)q=d(m−nq)a = dm,\ b = dn\\ \begin{align*} r &amp;= a - bq\\ &amp;= dm - (dn)q\\ &amp;= d(m - nq) \end{align*} a=dm, b=dnr​=a−bq=dm−(dn)q=d(m−nq)​ 因为 r=d(m−nq)r...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/07/CF1699C/" title="CF1699C题解"><img class="post-bg" src="/img/Codeforces_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CF1699C题解"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/07/CF1699C/" title="CF1699C题解">CF1699C题解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-04T19:41:07.000Z" title="发表于 2022-07-04 19:41:07">2022-07-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a></span></div><div class="content">题目链接（CF，洛谷） | 强烈推荐博客中观看。 这题是真的难想，我 cf 的题解看了好久才搞明白（我太菜了）。 题意 给你一个长度为 nnn 的排列 aaa，请你找出有多少个相同长度的排列 bbb 和 aaa 相似。 如果对于所有区间 [l,r](1≤l≤r≤n)[l, r] (1 \le l \le r \le n)[l,r](1≤l≤r≤n)，下面的条件满足： MEX⁡(al,al+1,…,ar)=MEX⁡(bl,bl+1,…,br)\operatorname{MEX}(a_l, a_{l + 1}, \ldots , a_r) = \operatorname{MEX}(b_l, b_{l + 1}, \ldots , b_r) MEX(al​,al+1​,…,ar​)=MEX(bl​,bl+1​,…,br​) 我们就称排列 aaa 和 bbb 是相似的。 其中 MEX⁡\operatorname{MEX}MEX 对于数组 ccc 的定义是：最小的，没有出现在 ccc 中的非负整数 xxx。 例如 MEX⁡([1,2,3,4,5])=0 MEX⁡([0,1,2,4,5])=...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/06/complexity_GA/" title="《复杂》中遗传算法的 C++ 实现"><img class="post-bg" src="/img/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95_%E5%A4%8D%E6%9D%82/crossover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《复杂》中遗传算法的 C++ 实现"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/06/complexity_GA/" title="《复杂》中遗传算法的 C++ 实现">《复杂》中遗传算法的 C++ 实现</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-30T00:00:00.000Z" title="发表于 2022-06-30 00:00:00">2022-06-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/">实验记录</a></span></div><div class="content">背景 大概一年多之前看了《复杂》这本书，最近因为一个比赛又想起了书里面介绍过的遗传算法，书里提供了详细的思路，所以想自己实现以下。 关于《复杂》这本书：不过多介绍内容，看完了只感觉非常牛逼，下面的介绍摘自豆瓣，自己加了一些标点符号：  蚂蚁在组成群体时为何会表现出如此的精密性和具有目的性？数以亿计的神经元是如何产生出像意识这样极度复杂的事物？是什么在引导免疫系统、互联网、全球经济和人类基因组等自组织结构？这些都是复杂系统科学尝试回答的迷人而令人费解的问题的一部分。   理解复杂系统需要有全新的方法。需要超越传统的科学还原论，并重新划定学科的疆域。借助于圣塔菲研究所的工作经历和交叉学科方法，复杂系统的前沿科学家米歇尔以清晰的思路介绍了复杂系统的研究，横跨生物、技术和社会学等领域，并探寻复杂系统的普遍规律，与此同时，她还探讨了复杂性与进化、人工智能、计算、遗传、信息处理等领域的关系。  书中讲的问题大概是这样的： 有一个机器人罗比，它生活在一个 10×1010\times 1010×10 的网格中。这个网格中散落着许多易拉罐，罗比需要在有限的动作中收集尽可能多的易拉罐。罗比的初始位置...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/06/CF1695C/" title="CF1695C题解"><img class="post-bg" src="/img/CF1695C/transform-illustration.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CF1695C题解"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/06/CF1695C/" title="CF1695C题解">CF1695C题解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-22T00:18:34.000Z" title="发表于 2022-06-22 00:18:34">2022-06-22</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a></span></div><div class="content">题目链接（CF，洛谷） | 强烈推荐博客中观看。 题意 给你一个 n×mn \times mn×m (1≤n,m≤10001 \le n, m \le 10001≤n,m≤1000) 的格点图，每个格子的值要么是 −1-1−1，要么是 111，现在问你，是否有一条从 (1,1)(1, 1)(1,1) 到 (n,m)(n, m)(n,m) 的路径，使得路径上经过的格点的值的和为 000。在路径中，只能从 ai,ja_{i, j}ai,j​ 移动到 ai+1,ja_{i + 1, j}ai+1,j​ 或是 ai,j+1a_{i, j + 1}ai,j+1​（向右或是向下走）。 思路 看到这个 (1≤n,m≤10001 \le n, m \le 10001≤n,m≤1000) 的数据范围就知道暴搜肯定要寄了（别学我），所以得想一些别的办法。 首先，如果经过奇数个格子，或者说 n+m−1n + m - 1n+m−1 为奇数，那么肯定没有这样的一条路径（经过的 −1-1−1 和 111 点没有办法相等）。 直接判断某个格子图是否符合要求太麻烦，我们可以思考，如果有任意一条路径，我们是否能根...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2022/06/error_compilation/" title="杂项问题集合">杂项问题集合</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-20T01:52:32.000Z" title="发表于 2022-06-20 01:52:32">2022-06-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%B8%8D%E7%9F%A5%E9%81%93%E5%92%8B%E5%88%86%E7%B1%BB/">不知道咋分类</a></span></div><div class="content">在这里放一些写程序时报的一些错（或者配置环境之类的很杂的问题），这样下次遇到了可以直接来这里看： 按照语言分类，每个错误前面会有发生的时间。 cpp 用 thread 创建线程，并且函数是非静态时 2022/6/20 如果用 std::thread() 创建线程，并且传入函数指针是非静态的，需要这么写： 1thread(&amp;class_name::func_name, this, arg1, arg2, other_args...); 因为对于每个实例，这个函数是不一样的，所以只有传入 this 指针，执行这个线程时才知道具体是执行哪个实例的函数。 其他 编译 riscv 工具链时，因为没有安装 curses，编译出的 riscv64-unknown-elf-gdb 没有 tui 模式 2022/7/12 今天太无语了，本来花了好久时间编译，然后准备打开 qemu 和 riscv64-unknown-elf-gdb 单步 xv6 的内核，结果输入一个 layout split，居然告诉我 Undefined command: &quot;layout&quot;.  Try...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/06/CF1692G/" title="CF1692G题解"><img class="post-bg" src="/img/Codeforces_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CF1692G题解"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/06/CF1692G/" title="CF1692G题解">CF1692G题解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-16T23:50:12.000Z" title="发表于 2022-06-16 23:50:12">2022-06-16</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a></span></div><div class="content">题目链接（CF，洛谷） | 强烈推荐博客中观看。 打的第一场 CF div.4 这个题就是那种想到点了就很很简单，没想到的话就……寄了的题（我就属于是寄了）。 1. 题意： 给你一个长度为 n (∑n&lt;2⋅105)n \ (\sum n &lt; 2\cdot 10^5)n (∑n&lt;2⋅105) 的数组 aaa，问你在这个数组中，有多少个长度为 k+1 (1≤k&lt;n)k + 1 \ (1\le k &lt; n)k+1 (1≤k&lt;n) 的区间，符合以下的条件： 20⋅ai&lt;21⋅ai+1&lt;22⋅ai+2&lt; ⁣⋯&lt;2k⋅ai+k注：i为这个区间开始的位置2^0 \cdot a_i &lt; 2^1 \cdot a_{i + 1} &lt; 2^2 \cdot a_{i + 2} &lt; \dotsi &lt; 2^k \cdot a_{i + k}\\  \footnotesize{注：i 为这个区间开始的位置} 20⋅ai​&lt;21⋅ai+1​&lt;22⋅ai+2​&lt;⋯&lt;2k⋅ai+k​注：i为这个区间开始的位置...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/06/hexo_font_update/" title="Hexo Butterfly 更换字体时遇到的一些奇怪的问题"><img class="post-bg" src="/img/Hexo_blog_logo.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo Butterfly 更换字体时遇到的一些奇怪的问题"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/06/hexo_font_update/" title="Hexo Butterfly 更换字体时遇到的一些奇怪的问题">Hexo Butterfly 更换字体时遇到的一些奇怪的问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-14T19:18:55.000Z" title="发表于 2022-06-14 19:18:55">2022-06-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Hexo/">Hexo</a></span></div><div class="content">今天发完 Treap 的博客之后自己看了一遍，突然感觉很不爽。Treap 的这篇博客大量的用到了指针和箭头运算符，因为博客的字体没有连字（ligature）的功能，所以看着特别傻。于是我决定把博客的字体换成 Iosevka。 以下是一些我参考的网站  https://imbhj.com/25c13146/ https://zhuanlan.zhihu.com/p/361392320  基本的思路还是写一个 css 文件，然后在 html 的 head 部分注入进去。最后再在 hexo 的设置中把字体改成你想用的字体。 我改完写完 css 然后上传了字体文件之后 hexo s 了一下，发现没问题。不过很奇怪的是部署到 github 之后如果开 linux 的虚拟机访问，或是用手机访问，都不能正确的加载字体。 于是我就尝试 f12 了一下，打开 css 文件之后发现 css 文件变成了这样： 123456789&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsd...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/06/treap_note/" title="Treap（树堆）学习笔记，基于洛谷 P3369"><img class="post-bg" src="/img/treap/rotate.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Treap（树堆）学习笔记，基于洛谷 P3369"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/06/treap_note/" title="Treap（树堆）学习笔记，基于洛谷 P3369">Treap（树堆）学习笔记，基于洛谷 P3369</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-13T22:56:57.000Z" title="发表于 2022-06-13 22:56:57">2022-06-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="content">一些废话 最近发现以前学过的算法都非常容易忘，像什么后缀自动机，AC 自动机，插头 dp，都基本全忘了（甚至 KMP 和网络流这种太久没写也有点忘了，我太菜了）。所以在想，可以在学的时候就做笔记，以后忘了直接看笔记就行。 然后就有了这篇博客，不过学习笔记类的文章不会跟题解一样详细，主要还是给自己看的，之后有时间的话可能会写教程类的文章。 upd 2022/6/19：把给 OI-wiki 写的文章搞过来了，感觉现在已经可以作为一个教程类文章了。不过还需要添加无旋 treap 的内容。 upd 2020/7/1：把给 OI-wiki 写的无旋 treap 和无旋 treap 的区间操作部分复制了过来、本文中的无旋操作几乎都是我写的，如果你想了解具体的贡献者可以看 OI-wiki 的 GitHub 页面。 因为图片的颜色问题，建议关闭黑暗模式观看。 简介 Treap（树堆） 是一种 弱平衡 的 二叉搜索树。它同时符合二叉搜索树和堆的性质，名字也因此为 tree （树） 和 heap （堆） 的组合。 其中，二叉搜索树的性质是：  左子节点的值（val\textit{val}val）比父...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#content-inner">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#content-inner">4</a><a class="extend next" rel="next" href="/page/4/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">tzyt</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/394488"><i class="fa-solid fa-up-right-from-square"></i><span>洛谷</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/ttzytt" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/Zyt2006613@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS链接"><i class="fa fa-rss"></i></a><a class="social-icon" href="https://stackoverflow.com/users/20080946/ttzytt?tab=profile" target="_blank" title="stack overflow"><i class="fa-brands fa-stack-overflow"></i></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/least_square/" title="从微积分和线性代数的角度理解最小二乘法"><img src="/img/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/Linear_regression.svg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从微积分和线性代数的角度理解最小二乘法"/></a><div class="content"><a class="title" href="/2023/12/least_square/" title="从微积分和线性代数的角度理解最小二乘法">从微积分和线性代数的角度理解最小二乘法</a><time datetime="2023-12-08T20:48:06.000Z" title="发表于 2023-12-08 20:48:06">2023-12-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/GAMES101_note1/" title="GAMES101 学习笔记1"><img src="/img/GAMES101/games101.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GAMES101 学习笔记1"/></a><div class="content"><a class="title" href="/2023/06/GAMES101_note1/" title="GAMES101 学习笔记1">GAMES101 学习笔记1</a><time datetime="2023-06-16T19:30:42.000Z" title="发表于 2023-06-16 19:30:42">2023-06-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/USACO23JAN%20Find%20and%20Replace%20S/" title="USACO23JAN Find and Replace S（洛谷 P9013）题解"><img src="/img/USACO_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="USACO23JAN Find and Replace S（洛谷 P9013）题解"/></a><div class="content"><a class="title" href="/2023/02/USACO23JAN%20Find%20and%20Replace%20S/" title="USACO23JAN Find and Replace S（洛谷 P9013）题解">USACO23JAN Find and Replace S（洛谷 P9013）题解</a><time datetime="2023-02-05T21:15:37.000Z" title="发表于 2023-02-05 21:15:37">2023-02-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/CS144_lab4_rec/" title="[Stanford CS144] Lab4 实验记录"><img src="/img/CS144/tcp%E7%8A%B6%E6%80%81%E6%B5%81%E8%BD%AC%E5%9B%BE.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Stanford CS144] Lab4 实验记录"/></a><div class="content"><a class="title" href="/2023/01/CS144_lab4_rec/" title="[Stanford CS144] Lab4 实验记录">[Stanford CS144] Lab4 实验记录</a><time datetime="2023-01-30T00:00:00.000Z" title="发表于 2023-01-30 00:00:00">2023-01-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/CS144_lab0-3_rec/" title="[Stanford CS144] Lab0-Lab3 实验记录"><img src="/img/CS144/sponge%E7%BB%93%E6%9E%84%E5%9B%BE.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Stanford CS144] Lab0-Lab3 实验记录"/></a><div class="content"><a class="title" href="/2022/12/CS144_lab0-3_rec/" title="[Stanford CS144] Lab0-Lab3 实验记录">[Stanford CS144] Lab0-Lab3 实验记录</a><time datetime="2022-12-25T00:00:00.000Z" title="发表于 2022-12-25 00:00:00">2022-12-25</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
             <i class="fas fa-folder-open"></i>
             <span>分类</span>
             
-            </div>
-            <ul class="card-category-list" id="aside-cat-list">
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
             <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Hexo/"><span class="card-category-list-name">Hexo</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E4%B8%8D%E7%9F%A5%E9%81%93%E5%92%8B%E5%88%86%E7%B1%BB/"><span class="card-category-list-name">不知道咋分类</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">学习笔记</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/"><span class="card-category-list-name">实验记录</span><span class="card-category-list-count">15</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%A2%98%E8%A7%A3/"><span class="card-category-list-name">题解</span><span class="card-category-list-count">19</span></a></li>
-            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.34em; color: #99a3b0">网络</a> <a href="/tags/%E6%90%9C%E7%B4%A2/" style="font-size: 1.26em; color: #999fa8">搜索</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" style="font-size: 1.1em; color: #999">系统调用</a> <a href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 1.1em; color: #999">文件系统</a> <a href="/tags/%E5%85%89%E7%BA%BF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.26em; color: #999fa8">光线追踪</a> <a href="/tags/Codechef/" style="font-size: 1.1em; color: #999">Codechef</a> <a href="/tags/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">遗传算法</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E5%89%B2/" style="font-size: 1.1em; color: #999">最小割</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 1.26em; color: #999fa8">贪心</a> <a href="/tags/dfs/" style="font-size: 1.1em; color: #999">dfs</a> <a href="/tags/RTNW/" style="font-size: 1.1em; color: #999">RTNW</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 1.26em; color: #999fa8">字符串</a> <a href="/tags/%E4%B9%98%E6%B3%95%E9%80%86%E5%85%83/" style="font-size: 1.1em; color: #999">乘法逆元</a> <a href="/tags/%E6%87%92%E5%88%86%E9%85%8D/" style="font-size: 1.1em; color: #999">懒分配</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 1.1em; color: #999">平衡树</a> <a href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" style="font-size: 1.1em; color: #999">微积分</a> <a href="/tags/2021/" style="font-size: 1.34em; color: #99a3b0">2021</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" style="font-size: 1.1em; color: #999">网络流</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 1.18em; color: #999ca1">汇编</a> <a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" style="font-size: 1.18em; color: #999ca1">线性代数</a> <a href="/tags/%E6%9E%9A%E4%B8%BE%EF%BC%8C%E6%9A%B4%E5%8A%9B/" style="font-size: 1.1em; color: #999">枚举，暴力</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">机器学习</a> <a href="/tags/%E6%9E%84%E9%80%A0/" style="font-size: 1.1em; color: #999">构造</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 1.34em; color: #99a3b0">图论</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 1.18em; color: #999ca1">位运算</a> <a href="/tags/%E5%87%A0%E4%BD%95/" style="font-size: 1.1em; color: #999">几何</a> <a href="/tags/%E8%BE%90%E5%B0%84%E5%BA%A6%E9%87%8F%E5%AD%A6/" style="font-size: 1.1em; color: #999">辐射度量学</a> <a href="/tags/MNIST/" style="font-size: 1.1em; color: #999">MNIST</a> <a href="/tags/xv6/" style="font-size: 1.5em; color: #99a9bf">xv6</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 1.18em; color: #999ca1">动态规划</a> <a href="/tags/%E4%BA%8C%E5%88%86%E5%9B%BE%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D/" style="font-size: 1.1em; color: #999">二分图最大匹配</a> <a href="/tags/%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">扩展欧几里得算法</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">神经网络</a> <a href="/tags/USACO-%E9%93%B6%E7%BB%84/" style="font-size: 1.42em; color: #99a6b7">USACO 银组</a> <a href="/tags/%E5%BA%95%E5%B1%82/" style="font-size: 1.34em; color: #99a3b0">底层</a> <a href="/tags/css/" style="font-size: 1.1em; color: #999">css</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.26em; color: #999fa8">数学</a> <a href="/tags/%E9%A1%B5%E8%A1%A8/" style="font-size: 1.26em; color: #999fa8">页表</a> <a href="/tags/%E6%8A%A5%E9%94%99/" style="font-size: 1.1em; color: #999">报错</a> <a href="/tags/TCP-IP/" style="font-size: 1.18em; color: #999ca1">TCP/IP</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
-    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/06/"><span class="card-archive-list-date">六月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/02/"><span class="card-archive-list-date">二月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/01/"><span class="card-archive-list-date">一月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/12/"><span class="card-archive-list-date">十二月 2022</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/10/"><span class="card-archive-list-date">十月 2022</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/09/"><span class="card-archive-list-date">九月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/08/"><span class="card-archive-list-date">八月 2022</span><span class="card-archive-list-count">7</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">46</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2022-04-15T04:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">167.5k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-01-28T02:14:19.657Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div><div class="card-widget user-map" id="user-map"><div class="item-headline"><i class="fa-solid fa-globe"></i><span>访客地图</span></div><div class="item-content"><script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=0GsHLCdDgCm_gTbEdFw3TBkMzW82ij3jHPVSgEKOEZ0"></script></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2025 By tzyt</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="/js/tw_cn.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
-  init: (str) => {
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.23em; color: #999ea6">数学</a> <a href="/tags/%E6%95%B0%E8%AE%BA/" style="font-size: 1.1em; color: #999">数论</a> <a href="/tags/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" style="font-size: 1.1em; color: #999">反向传播</a> <a href="/tags/%E6%9E%84%E9%80%A0/" style="font-size: 1.1em; color: #999">构造</a> <a href="/tags/%E5%9F%BA%E7%8E%AF%E6%A0%91/" style="font-size: 1.1em; color: #999">基环树</a> <a href="/tags/%E3%80%8A%E5%A4%8D%E6%9D%82%E3%80%8B/" style="font-size: 1.1em; color: #999">《复杂》</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">神经网络</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 1.17em; color: #999c9f">动态规划</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" style="font-size: 1.1em; color: #999">系统调用</a> <a href="/tags/UNIX/" style="font-size: 1.5em; color: #99a9bf">UNIX</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.3em; color: #99a1ac">网络</a> <a href="/tags/%E6%9F%8F%E6%9E%97%E5%99%AA%E5%A3%B0/" style="font-size: 1.1em; color: #999">柏林噪声</a> <a href="/tags/%E5%87%A0%E4%BD%95/" style="font-size: 1.1em; color: #999">几何</a> <a href="/tags/%E6%8A%A5%E9%94%99/" style="font-size: 1.1em; color: #999">报错</a> <a href="/tags/css/" style="font-size: 1.1em; color: #999">css</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">机器学习</a> <a href="/tags/MNIST/" style="font-size: 1.1em; color: #999">MNIST</a> <a href="/tags/%E6%90%9C%E7%B4%A2/" style="font-size: 1.23em; color: #999ea6">搜索</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 1.5em; color: #99a9bf">操作系统</a> <a href="/tags/USACO-%E9%93%9C%E7%BB%84/" style="font-size: 1.1em; color: #999">USACO 铜组</a> <a href="/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 1.1em; color: #999">协程</a> <a href="/tags/%E6%A0%91/" style="font-size: 1.37em; color: #99a4b2">树</a> <a href="/tags/%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6%EF%BC%88COW%EF%BC%89/" style="font-size: 1.1em; color: #999">写时复制（COW）</a> <a href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" style="font-size: 1.1em; color: #999">文件系统</a> <a href="/tags/%E6%9E%9A%E4%B8%BE%EF%BC%8C%E6%9A%B4%E5%8A%9B/" style="font-size: 1.1em; color: #999">枚举，暴力</a> <a href="/tags/%E9%A9%B1%E5%8A%A8/" style="font-size: 1.17em; color: #999c9f">驱动</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 1.17em; color: #999c9f">汇编</a> <a href="/tags/%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/" style="font-size: 1.1em; color: #999">手写数字识别</a> <a href="/tags/%E9%A1%B5%E8%A1%A8/" style="font-size: 1.23em; color: #999ea6">页表</a> <a href="/tags/%E4%BA%8C%E5%88%86%E5%9B%BE%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D/" style="font-size: 1.1em; color: #999">二分图最大匹配</a> <a href="/tags/USACO-%E9%93%B6%E7%BB%84/" style="font-size: 1.43em; color: #99a6b9">USACO 银组</a> <a href="/tags/bvh/" style="font-size: 1.1em; color: #999">bvh</a> <a href="/tags/%E5%A0%86/" style="font-size: 1.1em; color: #999">堆</a> <a href="/tags/Codeforces/" style="font-size: 1.43em; color: #99a6b9">Codeforces</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 1.1em; color: #999">双指针</a> <a href="/tags/%E6%8A%98%E5%8D%8A%E6%90%9C%E7%B4%A2-%E5%8F%8C%E5%90%91%E6%90%9C%E7%B4%A2/" style="font-size: 1.1em; color: #999">折半搜索 / 双向搜索</a> <a href="/tags/Treap/" style="font-size: 1.1em; color: #999">Treap</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 1.3em; color: #99a1ac">图论</a> <a href="/tags/CS144/" style="font-size: 1.17em; color: #999c9f">CS144</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 1.1em; color: #999">平衡树</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/12/">
+            <span class="card-archive-list-date">
+              十二月 2023
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/06/">
+            <span class="card-archive-list-date">
+              六月 2023
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/02/">
+            <span class="card-archive-list-date">
+              二月 2023
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/01/">
+            <span class="card-archive-list-date">
+              一月 2023
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2022/12/">
+            <span class="card-archive-list-date">
+              十二月 2022
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2022/10/">
+            <span class="card-archive-list-date">
+              十月 2022
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2022/09/">
+            <span class="card-archive-list-date">
+              九月 2022
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2022/08/">
+            <span class="card-archive-list-date">
+              八月 2022
+            </span>
+            <span class="card-archive-list-count">7</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">46</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">167.5k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-07-11T01:47:20.478Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div><div class="card-widget user-map" id="user-map"><div class="item-headline"><i class="fa-solid fa-globe"></i><span>访客地图</span></div><div class="item-content"><script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=0GsHLCdDgCm_gTbEdFw3TBkMzW82ij3jHPVSgEKOEZ0"></script></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By tzyt</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.5"></script><script src="/js/main.js?v=5.5.5"></script><script src="/js/tw_cn.js?v=5.5.5"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
     window.typed = new Typed('#subtitle', Object.assign({
       strings: str,
       startDelay: 300,
@@ -301,71 +252,375 @@ Treap（树堆） 是一种 弱平衡 的 二叉搜索树。它同时符合二�
       backSpeed: 50,
     }, null))
   },
-  run: (subtitleType) => {
+  run: subtitleType => {
     if (true) {
       if (typeof Typed === 'function') {
         subtitleType()
       } else {
-        getScript('https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.min.js').then(subtitleType)
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js@3.0.0/dist/typed.umd.min.js').then(subtitleType)
       }
     } else {
       subtitleType()
     }
+  },
+  processSubtitle: (content, extraContents = []) => {
+    if (true) {
+      const sub = [].slice()
+
+      if (extraContents.length > 0) {
+        sub.unshift(...extraContents)
+      }
+
+      if (typeof content === 'string') {
+        sub.unshift(content)
+      } else if (Array.isArray(content)) {
+        sub.unshift(...content)
+      }
+
+      sub.length > 0 && typedJSFn.init(sub)
+    } else {
+      document.getElementById('subtitle').textContent = typeof content === 'string' ? content :
+        (Array.isArray(content) && content.length > 0 ? content[0] : '')
+    }
   }
 }
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
 </script><script>function subtitleType () {
   fetch('https://v1.hitokoto.cn')
     .then(response => response.json())
     .then(data => {
-      if (true) {
-        const from = '出自 ' + data.from
-        const sub = []
-        sub.unshift(data.hitokoto, from)
-        typedJSFn.init(sub)
-      } else {
-        document.getElementById('subtitle').textContent = data.hitokoto
-      }
+      const from = '出自 ' + data.from
+      typedJSFn.processSubtitle(data.hitokoto, [from])
+    })
+    .catch(err => {
+      console.error('Failed to get the Hitokoto API:', err)
+      typedJSFn.processSubtitle([])
     })
 }
 typedJSFn.run(subtitleType)
 </script><script>(() => {
-  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
-  if ($mermaid.length === 0) return
-  const runMermaid = () => {
+  const parseViewBox = viewBox => {
+    if (!viewBox) return null
+    const parts = viewBox.trim().split(/[\s,]+/).map(n => Number(n))
+    if (parts.length !== 4 || parts.some(n => Number.isNaN(n))) return null
+    return parts
+  }
+
+  const getSvgViewBox = svg => {
+    const attr = parseViewBox(svg.getAttribute('viewBox'))
+    if (attr) return attr
+
+    // Fallback: use bbox to build a viewBox
+    try {
+      const bbox = svg.getBBox()
+      if (bbox && bbox.width && bbox.height) return [bbox.x, bbox.y, bbox.width, bbox.height]
+    } catch (e) {
+      // getBBox may fail on some edge cases; ignore
+    }
+
+    const w = Number(svg.getAttribute('width')) || 0
+    const h = Number(svg.getAttribute('height')) || 0
+    if (w > 0 && h > 0) return [0, 0, w, h]
+    return [0, 0, 100, 100]
+  }
+
+  const setSvgViewBox = (svg, vb) => {
+    svg.setAttribute('viewBox', `${vb[0]} ${vb[1]} ${vb[2]} ${vb[3]}`)
+  }
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v))
+
+  const openSvgInNewTab = ({ source, initViewBox }) => {
+    const getClonedSvg = () => {
+      if (typeof source === 'string') {
+        const template = document.createElement('template')
+        template.innerHTML = source.trim()
+        const svg = template.content.querySelector('svg')
+        return svg ? svg.cloneNode(true) : null
+      }
+      if (source && typeof source.cloneNode === 'function') {
+        return source.cloneNode(true)
+      }
+      return null
+    }
+
+    const clone = getClonedSvg()
+    if (!clone) return
+    if (initViewBox && initViewBox.length === 4) {
+      clone.setAttribute('viewBox', initViewBox.join(' '))
+    }
+    if (!clone.getAttribute('xmlns')) clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+    if (!clone.getAttribute('xmlns:xlink') && clone.outerHTML.includes('xlink:')) {
+      clone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+    }
+    // inject background to match current theme
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark'
+    const bg = getComputedStyle(document.body).backgroundColor || (isDark ? '#1e1e1e' : '#ffffff')
+    if (!clone.style.background) clone.style.background = bg
+
+    const serializer = new XMLSerializer()
+    const svgSource = serializer.serializeToString(clone)
+    const htmlSource = `<!doctype html><html><head><meta charset="utf-8" />
+      <style>
+        html, body { width: 100%; height: 100%; margin: 0; display: flex; align-items: center; justify-content: center; background: ${bg}; }
+        svg { max-width: 100%; max-height: 100%; height: auto; width: auto; }
+      </style>
+      </head><body>${svgSource}</body></html>`
+    const blob = new Blob([htmlSource], { type: 'text/html;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    window.open(url, '_blank', 'noopener')
+    setTimeout(() => URL.revokeObjectURL(url), 30000)
+  }
+
+  const attachMermaidViewerButton = wrap => {
+    let btn = wrap.querySelector('.mermaid-open-btn')
+    if (!btn) {
+      btn = document.createElement('button')
+      btn.type = 'button'
+      btn.className = 'mermaid-open-btn'
+      wrap.appendChild(btn)
+    }
+
+    btn.innerHTML = '<i class="fa fa-search fa-fw" aria-hidden="true"></i>'
+
+    if (!btn.__mermaidViewerBound) {
+      btn.addEventListener('click', e => {
+        e.preventDefault()
+        e.stopPropagation()
+        const svg = wrap.__mermaidOriginalSvg || wrap.querySelector('svg')
+        if (!svg) return
+        const initViewBox = wrap.__mermaidInitViewBox
+        if (typeof svg === 'string') {
+          openSvgInNewTab({ source: svg, initViewBox })
+          return
+        }
+        openSvgInNewTab({ source: svg, initViewBox })
+      })
+      btn.__mermaidViewerBound = true
+    }
+  }
+
+  // Zoom around a point (px, py) in the SVG viewport (in viewBox coordinates)
+  const zoomAtPoint = (vb, factor, px, py) => {
+    const w = vb[2] * factor
+    const h = vb[3] * factor
+    const nx = px - (px - vb[0]) * factor
+    const ny = py - (py - vb[1]) * factor
+    return [nx, ny, w, h]
+  }
+
+  const initMermaidGestures = wrap => {
+    const svg = wrap.querySelector('svg')
+    if (!svg) return
+
+    // Ensure viewBox exists so gestures always work
+    const initVb = getSvgViewBox(svg)
+    wrap.__mermaidInitViewBox = initVb
+    wrap.__mermaidCurViewBox = initVb.slice()
+    setSvgViewBox(svg, initVb)
+
+    // Avoid binding multiple times on themeChange/pjax
+    if (wrap.__mermaidGestureBound) return
+    wrap.__mermaidGestureBound = true
+
+    // Helper: map client (viewport) coordinate -> viewBox coordinate
+    const clientToViewBox = (clientX, clientY) => {
+      const rect = svg.getBoundingClientRect()
+      const vb = wrap.__mermaidCurViewBox || getSvgViewBox(svg)
+      const x = vb[0] + (clientX - rect.left) * (vb[2] / rect.width)
+      const y = vb[1] + (clientY - rect.top) * (vb[3] / rect.height)
+      return { x, y, rect, vb }
+    }
+
+    const state = {
+      pointers: new Map(),
+      startVb: null,
+      startDist: 0,
+      startCenter: null
+    }
+
+    const clampVb = vb => {
+      const init = wrap.__mermaidInitViewBox || vb
+      const minW = init[2] * 0.1
+      const maxW = init[2] * 10
+      const minH = init[3] * 0.1
+      const maxH = init[3] * 10
+      vb[2] = clamp(vb[2], minW, maxW)
+      vb[3] = clamp(vb[3], minH, maxH)
+      return vb
+    }
+
+    const setCurVb = vb => {
+      vb = clampVb(vb)
+      wrap.__mermaidCurViewBox = vb
+      setSvgViewBox(svg, vb)
+    }
+
+    const onPointerDown = e => {
+      // Allow only primary button for mouse
+      if (e.pointerType === 'mouse' && e.button !== 0) return
+      svg.setPointerCapture(e.pointerId)
+      state.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+
+      if (state.pointers.size === 1) {
+        state.startVb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+      } else if (state.pointers.size === 2) {
+        const pts = [...state.pointers.values()]
+        const dx = pts[0].x - pts[1].x
+        const dy = pts[0].y - pts[1].y
+        state.startDist = Math.hypot(dx, dy)
+        state.startVb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+        state.startCenter = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 }
+      }
+    }
+
+    const onPointerMove = e => {
+      if (!state.pointers.has(e.pointerId)) return
+      state.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+
+      // Pan with 1 pointer
+      if (state.pointers.size === 1 && state.startVb) {
+        const p = [...state.pointers.values()][0]
+        const prev = { x: e.clientX - e.movementX, y: e.clientY - e.movementY }
+        // movementX/Y unreliable on touch, compute from stored last position
+        const last = wrap.__mermaidLastSinglePointer || p
+        const dxClient = p.x - last.x
+        const dyClient = p.y - last.y
+        wrap.__mermaidLastSinglePointer = p
+
+        const { rect } = clientToViewBox(p.x, p.y)
+        const vb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+        const dx = dxClient * (vb[2] / rect.width)
+        const dy = dyClient * (vb[3] / rect.height)
+        setCurVb([vb[0] - dx, vb[1] - dy, vb[2], vb[3]])
+        return
+      }
+
+      // Pinch zoom with 2 pointers
+      if (state.pointers.size === 2 && state.startVb && state.startDist > 0) {
+        const pts = [...state.pointers.values()]
+        const dx = pts[0].x - pts[1].x
+        const dy = pts[0].y - pts[1].y
+        const dist = Math.hypot(dx, dy)
+        if (!dist) return
+        const factor = state.startDist / dist // dist bigger => zoom in (viewBox smaller)
+
+        const cx = (pts[0].x + pts[1].x) / 2
+        const cy = (pts[0].y + pts[1].y) / 2
+        const centerClient = { x: cx, y: cy }
+
+        const pxy = clientToViewBox(centerClient.x, centerClient.y)
+        const cpx = pxy.x
+        const cpy = pxy.y
+
+        const vb = zoomAtPoint(state.startVb, factor, cpx, cpy)
+        setCurVb(vb)
+      }
+    }
+
+    const onPointerUpOrCancel = e => {
+      state.pointers.delete(e.pointerId)
+      if (state.pointers.size === 0) {
+        state.startVb = null
+        state.startDist = 0
+        state.startCenter = null
+        wrap.__mermaidLastSinglePointer = null
+      } else if (state.pointers.size === 1) {
+        // reset single pointer baseline to avoid jump
+        wrap.__mermaidLastSinglePointer = [...state.pointers.values()][0]
+      }
+    }
+
+    // Wheel zoom (mouse/trackpad)
+    const onWheel = e => {
+      // ctrlKey on mac trackpad pinch; we treat both as zoom
+      e.preventDefault()
+      const delta = e.deltaY
+      const zoomFactor = delta > 0 ? 1.1 : 0.9
+      const { x, y } = clientToViewBox(e.clientX, e.clientY)
+      const vb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+      setCurVb(zoomAtPoint(vb, zoomFactor, x, y))
+    }
+
+    const onDblClick = () => {
+      const init = wrap.__mermaidInitViewBox
+      if (!init) return
+      wrap.__mermaidCurViewBox = init.slice()
+      setSvgViewBox(svg, init)
+    }
+
+    svg.addEventListener('pointerdown', onPointerDown)
+    svg.addEventListener('pointermove', onPointerMove)
+    svg.addEventListener('pointerup', onPointerUpOrCancel)
+    svg.addEventListener('pointercancel', onPointerUpOrCancel)
+    svg.addEventListener('wheel', onWheel, { passive: false })
+    svg.addEventListener('dblclick', onDblClick)
+  }
+
+  const runMermaid = ele => {
     window.loadMermaid = true
     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
 
-    Array.from($mermaid).forEach((item, index) => {
+    ele.forEach((item, index) => {
       const mermaidSrc = item.firstElementChild
-      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
-      const mermaidID = 'mermaid-' + index
+
+      // Clear old render (themeChange/pjax will rerun)
+      const oldSvg = item.querySelector('svg')
+      if (oldSvg) oldSvg.remove()
+      item.__mermaidGestureBound = false
+
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
       const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
 
       const renderFn = mermaid.render(mermaidID, mermaidDefinition)
-
-      const renderV10 = () => {
-        renderFn.then(({svg}) => {
-          mermaidSrc.insertAdjacentHTML('afterend', svg)
-        })
-      }
-
-      const renderV9 = svg => {
+      const renderMermaid = svg => {
         mermaidSrc.insertAdjacentHTML('afterend', svg)
+        if (true) initMermaidGestures(item)
+        item.__mermaidOriginalSvg = svg
+        if (true) attachMermaidViewerButton(item)
       }
 
-      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
     })
   }
 
   const loadMermaid = () => {
-    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.15.0/dist/mermaid.min.js').then(runMermaidFn)
   }
 
-  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
-
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
   window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
-})()</script></div><script src="/js/gitter_chat.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gitter-sidecar/1.3.3/sidecar.js" async defer></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="100,100,100" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="100,100,100" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
 POWERMODE.shake = false;
 POWERMODE.mobile = false;
 document.body.addEventListener('input', POWERMODE);
-</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
