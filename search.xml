@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>龙格-库塔法求解常微分方程</title>
+      <link href="/2024/06/math_reports/"/>
+      <url>/2024/06/math_reports/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><div class="row">    <embed src="/files/math_reports/diffeq_report_RK.pdf" width="100%" height="550" type="application/pdf"></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 2022 </tag>
+            
+            <tag> 网络 </tag>
+            
+            <tag> xv6 </tag>
+            
+            <tag> UNIX </tag>
+            
+            <tag> 操作系统 </tag>
+            
+            <tag> 驱动 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>从微积分和线性代数的角度理解最小二乘法</title>
       <link href="/2023/12/least_square/"/>
       <url>/2023/12/least_square/</url>
@@ -84,9 +119,9 @@
             
             <tag> USACO 银组 </tag>
             
-            <tag> 图论 </tag>
-            
             <tag> 字符串 </tag>
+            
+            <tag> 图论 </tag>
             
             <tag> 2023 </tag>
             
@@ -301,9 +336,9 @@
             
             <tag> 计算机图形学 </tag>
             
-            <tag> 辐射度量学 </tag>
-            
             <tag> 光线追踪 </tag>
+            
+            <tag> 辐射度量学 </tag>
             
             <tag> RTOW </tag>
             
@@ -402,44 +437,9 @@
             
             <tag> 操作系统 </tag>
             
-            <tag> 多线程 </tag>
-            
             <tag> 锁 </tag>
             
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>龙格-库塔法求解常微分方程</title>
-      <link href="/2022/08/math_reports/"/>
-      <url>/2022/08/math_reports/</url>
-      
-        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><div class="row">    <embed src="/files/xv6/lab/lab8_tran_desc_status.pdf" width="100%" height="550" type="application/pdf"></div>]]></content>
-      
-      
-      <categories>
-          
-          <category> 实验记录 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 2022 </tag>
-            
-            <tag> 网络 </tag>
-            
-            <tag> xv6 </tag>
-            
-            <tag> UNIX </tag>
-            
-            <tag> 操作系统 </tag>
-            
-            <tag> 驱动 </tag>
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -1307,9 +1307,9 @@
             
             <tag> 图论 </tag>
             
-            <tag> 二分图最大匹配 </tag>
-            
             <tag> 搜索 </tag>
+            
+            <tag> 二分图最大匹配 </tag>
             
         </tags>
       
@@ -1340,9 +1340,9 @@
             
             <tag> 2021 </tag>
             
-            <tag> 搜索 </tag>
-            
             <tag> USACO 铜组 </tag>
+            
+            <tag> 搜索 </tag>
             
         </tags>
       
