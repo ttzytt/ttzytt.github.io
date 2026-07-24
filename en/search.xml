@@ -171,11 +171,11 @@
       
         <tags>
             
+            <tag> 2022 </tag>
+            
             <tag> Codeforces </tag>
             
             <tag> Greedy </tag>
-            
-            <tag> 2022 </tag>
             
             <tag> Construction </tag>
             
@@ -301,9 +301,9 @@
             
             <tag> Computer Graphics </tag>
             
-            <tag> Radiometry </tag>
-            
             <tag> Ray Tracing </tag>
+            
+            <tag> Radiometry </tag>
             
             <tag> RTOW </tag>
             
@@ -606,17 +606,17 @@
             
             <tag> 2022 </tag>
             
-            <tag> xv6 </tag>
-            
-            <tag> UNIX </tag>
-            
-            <tag> Operating Systems </tag>
-            
             <tag> Assembly </tag>
             
             <tag> Low-level </tag>
             
             <tag> Stack Frames </tag>
+            
+            <tag> xv6 </tag>
+            
+            <tag> UNIX </tag>
+            
+            <tag> Operating Systems </tag>
             
             <tag> Traps </tag>
             
@@ -674,11 +674,11 @@
       
         <tags>
             
+            <tag> 2022 </tag>
+            
             <tag> Codeforces </tag>
             
             <tag> Greedy </tag>
-            
-            <tag> 2022 </tag>
             
             <tag> Recurrence </tag>
             
@@ -707,9 +707,9 @@
             
             <tag> Bit Manipulation </tag>
             
-            <tag> Codeforces </tag>
-            
             <tag> 2022 </tag>
+            
+            <tag> Codeforces </tag>
             
         </tags>
       
@@ -736,13 +736,13 @@
             
             <tag> 2022 </tag>
             
+            <tag> Low-level </tag>
+            
             <tag> xv6 </tag>
             
             <tag> UNIX </tag>
             
             <tag> Operating Systems </tag>
-            
-            <tag> Low-level </tag>
             
             <tag> Page Tables </tag>
             
@@ -790,13 +790,13 @@
             
             <tag> 2022 </tag>
             
+            <tag> Low-level </tag>
+            
             <tag> xv6 </tag>
             
             <tag> UNIX </tag>
             
             <tag> Operating Systems </tag>
-            
-            <tag> Low-level </tag>
             
             <tag> System Calls </tag>
             
@@ -925,9 +925,9 @@
       
         <tags>
             
-            <tag> Codeforces </tag>
-            
             <tag> 2022 </tag>
+            
+            <tag> Codeforces </tag>
             
         </tags>
       
@@ -981,9 +981,9 @@
       
         <tags>
             
-            <tag> Codeforces </tag>
-            
             <tag> 2022 </tag>
+            
+            <tag> Codeforces </tag>
             
             <tag> Dynamic Programming </tag>
             
@@ -1037,11 +1037,11 @@
       
         <tags>
             
-            <tag> Codeforces </tag>
+            <tag> Prefix Sums </tag>
             
             <tag> 2022 </tag>
             
-            <tag> Prefix Sums </tag>
+            <tag> Codeforces </tag>
             
         </tags>
       
@@ -1128,11 +1128,11 @@
             
             <tag> Trees </tag>
             
+            <tag> 2022 </tag>
+            
             <tag> Codeforces </tag>
             
             <tag> Greedy </tag>
-            
-            <tag> 2022 </tag>
             
         </tags>
       

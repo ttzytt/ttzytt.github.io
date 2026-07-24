@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Plotly 交互图表测试</title>
+      <link href="/2026/07/plotly_test/"/>
+      <url>/2026/07/plotly_test/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>下面的曲线表示</p><p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mi>A</mi><mi>sin</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>ω</mi><mi>x</mi><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">y=A\sin(\omega x).</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mord">.</span></span></span></span></span></p><p>拖动滑块可以实时改变振幅 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span> 和频率 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi></mrow><annotation encoding="application/x-tex">\omega</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span></span></span></span>。</p><div id="sine-wave" data-plotly-chart style="width:100%;height:500px"></div><script>(() => {  const target = document.getElementById("sine-wave");  const ready = window.plotlyReady || Promise.reject(new Error('Plotly loader was not initialized'));  ready.then(() => {    if (!target) throw new Error('Plotly chart container was not found');const pointCount = 600;const xValues = Array.from(  { length: pointCount },  (_, index) => -2 * Math.PI + (4 * Math.PI * index) / (pointCount - 1));const controls = document.createElement('div');controls.style.display = 'grid';controls.style.gridTemplateColumns = 'repeat(auto-fit, minmax(220px, 1fr))';controls.style.gap = '12px 24px';controls.style.margin = '0 0 16px';controls.style.padding = '16px';controls.style.border = '1px solid rgba(127, 127, 127, .25)';controls.style.borderRadius = '8px';controls.innerHTML = `  <label>    <span>振幅 A：<output data-value="amplitude">1.0</output></span>    <input data-control="amplitude" type="range" min="0.1" max="3" step="0.1" value="1"      style="display:block;width:100%;margin-top:8px">  </label>  <label>    <span>频率 ω：<output data-value="frequency">1.0</output></span>    <input data-control="frequency" type="range" min="0.1" max="5" step="0.1" value="1"      style="display:block;width:100%;margin-top:8px">  </label>`;target.before(controls);const amplitudeInput = controls.querySelector('[data-control="amplitude"]');const frequencyInput = controls.querySelector('[data-control="frequency"]');const amplitudeValue = controls.querySelector('[data-value="amplitude"]');const frequencyValue = controls.querySelector('[data-value="frequency"]');function palette() {  const dark = document.documentElement.getAttribute('data-theme') === 'dark';  return {    text: dark ? '#d8d8d8' : '#363636',    grid: dark ? 'rgba(255, 255, 255, .14)' : 'rgba(0, 0, 0, .12)',    line: dark ? '#49b1f5' : '#1f77b4'  };}function renderSineWave() {  const amplitude = Number(amplitudeInput.value);  const frequency = Number(frequencyInput.value);  const colors = palette();  const yLimit = Math.max(1, amplitude * 1.15);  amplitudeValue.value = amplitude.toFixed(1);  frequencyValue.value = frequency.toFixed(1);  const trace = {    x: xValues,    y: xValues.map(x => amplitude * Math.sin(frequency * x)),    type: 'scatter',    mode: 'lines',    name: 'y = A sin(ωx)',    line: {      color: colors.line,      width: 3    },    hovertemplate: 'x=%{x:.3f}<br>y=%{y:.3f}<extra></extra>'  };  const layout = {    title: {      text: `y = ${amplitude.toFixed(1)} sin(${frequency.toFixed(1)}x)`    },    paper_bgcolor: 'rgba(0, 0, 0, 0)',    plot_bgcolor: 'rgba(0, 0, 0, 0)',    font: {      color: colors.text    },    margin: {      l: 55,      r: 20,      t: 55,      b: 50    },    xaxis: {      title: { text: 'x' },      range: [-2 * Math.PI, 2 * Math.PI],      gridcolor: colors.grid,      zerolinecolor: colors.grid    },    yaxis: {      title: { text: 'y' },      range: [-yLimit, yLimit],      gridcolor: colors.grid,      zerolinecolor: colors.grid    },    showlegend: false  };  Plotly.react(target, [trace], layout, {    responsive: true,    displaylogo: false  });}amplitudeInput.addEventListener('input', renderSineWave);frequencyInput.addEventListener('input', renderSineWave);const themeObserver = new MutationObserver(renderSineWave);themeObserver.observe(document.documentElement, {  attributes: true,  attributeFilter: ['data-theme']});renderSineWave();  }).catch(error => {    console.error('[Plotly] Failed to render chart "sine-wave".', error);    if (target) {      target.textContent = 'Plotly 图表加载失败';      target.setAttribute('role', 'alert');    }  });})();</script>]]></content>
+      
+      
+      <categories>
+          
+          <category> 测试 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Plotly </tag>
+            
+            <tag> 数据可视化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>龙格-库塔法求解常微分方程</title>
       <link href="/2024/06/math_reports/"/>
       <url>/2024/06/math_reports/</url>
@@ -119,9 +146,9 @@
             
             <tag> USACO 银组 </tag>
             
-            <tag> 字符串 </tag>
-            
             <tag> 图论 </tag>
+            
+            <tag> 字符串 </tag>
             
             <tag> 2023 </tag>
             
@@ -206,11 +233,11 @@
       
         <tags>
             
+            <tag> 2022 </tag>
+            
             <tag> Codeforces </tag>
             
             <tag> 贪心 </tag>
-            
-            <tag> 2022 </tag>
             
             <tag> 构造 </tag>
             
@@ -437,9 +464,9 @@
             
             <tag> 操作系统 </tag>
             
-            <tag> 锁 </tag>
-            
             <tag> 多线程 </tag>
+            
+            <tag> 锁 </tag>
             
         </tags>
       
@@ -643,11 +670,11 @@
       
         <tags>
             
-            <tag> 树 </tag>
-            
             <tag> Codechef </tag>
             
             <tag> 堆 </tag>
+            
+            <tag> 树 </tag>
             
             <tag> 位运算 </tag>
             
@@ -674,11 +701,11 @@
       
         <tags>
             
+            <tag> 2022 </tag>
+            
             <tag> Codeforces </tag>
             
             <tag> 贪心 </tag>
-            
-            <tag> 2022 </tag>
             
             <tag> 递推 </tag>
             
@@ -705,11 +732,11 @@
       
         <tags>
             
-            <tag> Codeforces </tag>
+            <tag> 位运算 </tag>
             
             <tag> 2022 </tag>
             
-            <tag> 位运算 </tag>
+            <tag> Codeforces </tag>
             
         </tags>
       
@@ -925,9 +952,9 @@
       
         <tags>
             
-            <tag> Codeforces </tag>
-            
             <tag> 2022 </tag>
+            
+            <tag> Codeforces </tag>
             
         </tags>
       
@@ -981,9 +1008,9 @@
       
         <tags>
             
-            <tag> Codeforces </tag>
-            
             <tag> 2022 </tag>
+            
+            <tag> Codeforces </tag>
             
             <tag> 动态规划 </tag>
             
@@ -1037,11 +1064,11 @@
       
         <tags>
             
-            <tag> Codeforces </tag>
+            <tag> 前缀和 </tag>
             
             <tag> 2022 </tag>
             
-            <tag> 前缀和 </tag>
+            <tag> Codeforces </tag>
             
         </tags>
       
@@ -1126,13 +1153,13 @@
       
         <tags>
             
-            <tag> Codeforces </tag>
-            
-            <tag> 贪心 </tag>
-            
             <tag> 树 </tag>
             
             <tag> 2022 </tag>
+            
+            <tag> Codeforces </tag>
+            
+            <tag> 贪心 </tag>
             
         </tags>
       
