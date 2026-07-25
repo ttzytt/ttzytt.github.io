@@ -1,0 +1,79 @@
+:root {
+  --blog-plotly-text: #363636;
+  --blog-plotly-grid: rgba(0, 0, 0, 0.12);
+  --blog-plotly-primary: #1f77b4;
+  --blog-plotly-warning: #d48806;
+  --blog-plotly-accent: #6f42c1;
+  --blog-plotly-control-bg: rgba(255, 255, 255, 0.45);
+  --blog-plotly-control-border: rgba(0, 0, 0, 0.16);
+}
+
+html[data-theme='dark'] {
+  --blog-plotly-text: #d8d8d8;
+  --blog-plotly-grid: rgba(255, 255, 255, 0.14);
+  --blog-plotly-primary: #49b1f5;
+  --blog-plotly-warning: #f6c344;
+  --blog-plotly-accent: #9b8afb;
+  --blog-plotly-control-bg: rgba(255, 255, 255, 0.04);
+  --blog-plotly-control-border: rgba(255, 255, 255, 0.18);
+}
+
+[data-plotly-chart] {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.plotly-chart__loading {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  color: var(--blog-plotly-text);
+}
+
+.plotly-chart__loading .fa-spinner {
+  color: var(--blog-plotly-primary);
+  font-size: 1.25em;
+}
+
+.plotly-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px 24px;
+  margin: 0 0 16px;
+  padding: 16px;
+  color: var(--blog-plotly-text);
+  background: var(--blog-plotly-control-bg);
+  border: 1px solid var(--blog-plotly-control-border);
+  border-radius: 8px;
+}
+
+.plotly-control {
+  min-width: 0;
+}
+
+.plotly-control__label {
+  display: block;
+  line-height: 1.5;
+}
+
+.plotly-control__value {
+  color: var(--blog-plotly-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.plotly-control__range {
+  display: block;
+  width: 100%;
+  margin: 8px 0 0;
+  accent-color: var(--blog-plotly-primary);
+  cursor: pointer;
+}
+
+.plotly-control__range:focus-visible {
+  outline: 2px solid var(--blog-plotly-accent);
+  outline-offset: 3px;
+}
