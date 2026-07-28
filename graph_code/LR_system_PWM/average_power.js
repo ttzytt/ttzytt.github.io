@@ -1,3 +1,4 @@
+const { common, text } = chartI18n;
 const frequencyMin = 0.01;
 const frequencyMax = 100;
 const pointCount = 500;
@@ -49,9 +50,9 @@ function createDutyChart() {
   const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
     {
       key: 'frequency',
-      label: '频率',
+      label: text.frequency,
       mathLabel: 'f',
-      ariaLabel: '频率 f（对数调节）',
+      ariaLabel: text.frequencyLogarithmicAria,
       unit: 'Hz',
       min: Math.log10(frequencyMin),
       max: Math.log10(frequencyMax),
@@ -61,7 +62,7 @@ function createDutyChart() {
     },
     {
       key: 'tau',
-      label: '时间常数',
+      label: text.timeConstant,
       mathLabel: '\\tau',
       unit: 's',
       min: 0.05,
@@ -72,7 +73,7 @@ function createDutyChart() {
     },
     {
       key: 'referencePower',
-      label: '直流功耗',
+      label: text.dcPower,
       mathLabel: 'P_{\\mathrm{ref}}',
       unit: 'W',
       min: 1,
@@ -81,7 +82,9 @@ function createDutyChart() {
       value: 10,
       digits: 1
     }
-  ]);
+  ], {
+    separator: common.controlSeparator
+  });
 
   function render() {
     const frequency = Math.pow(10, Number(inputs.frequency.value));
@@ -118,7 +121,7 @@ function createDutyChart() {
         width: 3
       },
       hovertemplate:
-        'D=%{x:.3f}<br>周期平均功率=%{y:.3f} W<extra></extra>'
+        `D=%{x:.3f}<br>${text.periodAveragePower}=%{y:.3f} W<extra></extra>`
     };
 
     const linearReferenceTrace = {
@@ -133,7 +136,8 @@ function createDutyChart() {
         dash: 'dash'
       },
       hovertemplate:
-        '线性参考<br>D=%{x:.3f}<br>功率=%{y:.3f} W<extra></extra>'
+        `${text.linearReference}<br>D=%{x:.3f}<br>` +
+        `${text.power}=%{y:.3f} W<extra></extra>`
     };
 
     const quadraticReferenceTrace = {
@@ -148,7 +152,8 @@ function createDutyChart() {
         dash: 'dot'
       },
       hovertemplate:
-        '平方参考<br>D=%{x:.3f}<br>功率=%{y:.3f} W<extra></extra>'
+        `${text.quadraticReference}<br>D=%{x:.3f}<br>` +
+        `${text.power}=%{y:.3f} W<extra></extra>`
     };
 
     const layout = {
@@ -212,7 +217,7 @@ function createFrequencyChart() {
   const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
     {
       key: 'duty',
-      label: '占空比',
+      label: text.dutyCycle,
       mathLabel: 'D',
       min: 0,
       max: 1,
@@ -222,7 +227,7 @@ function createFrequencyChart() {
     },
     {
       key: 'tau',
-      label: '时间常数',
+      label: text.timeConstant,
       mathLabel: '\\tau',
       unit: 's',
       min: 0.05,
@@ -233,7 +238,7 @@ function createFrequencyChart() {
     },
     {
       key: 'referencePower',
-      label: '直流功耗',
+      label: text.dcPower,
       mathLabel: 'P_{\\mathrm{ref}}',
       unit: 'W',
       min: 1,
@@ -242,7 +247,9 @@ function createFrequencyChart() {
       value: 10,
       digits: 1
     }
-  ]);
+  ], {
+    separator: common.controlSeparator
+  });
 
   function render() {
     const duty = Number(inputs.duty.value);
@@ -273,7 +280,7 @@ function createFrequencyChart() {
         width: 3
       },
       hovertemplate:
-        'f=%{x:.3g} Hz<br>周期平均功率=%{y:.3f} W<extra></extra>'
+        `f=%{x:.3g} Hz<br>${text.periodAveragePower}=%{y:.3f} W<extra></extra>`
     };
 
     const layout = {
@@ -311,12 +318,16 @@ function createFrequencyChart() {
       showlegend: false,
       updatemenus: BlogPlotly.axisScaleButtons({
         currentType: frequencyAxisType,
-        logarithmicRange: [
-          Math.log10(frequencyMin),
-          Math.log10(frequencyMax)
-        ],
-        linearRange: [frequencyMin, frequencyMax]
-      }, colors)
+      logarithmicRange: [
+        Math.log10(frequencyMin),
+        Math.log10(frequencyMax)
+      ],
+      linearRange: [frequencyMin, frequencyMax],
+      labels: {
+        logarithmic: common.logarithmicScale,
+        linear: common.linearScale
+      }
+    }, colors)
     };
 
     return Plotly.react(

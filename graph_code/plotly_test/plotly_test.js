@@ -1,3 +1,4 @@
+const { common, text } = chartI18n;
 const pointCount = 600;
 const xValues = Array.from(
   { length: pointCount },
@@ -7,7 +8,7 @@ const xValues = Array.from(
 const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   {
     key: 'amplitude',
-    label: '振幅',
+    label: text.amplitude,
     mathLabel: 'A',
     min: 0.1,
     max: 3,
@@ -16,14 +17,16 @@ const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'frequency',
-    label: '频率',
+    label: text.frequency,
     mathLabel: '\\omega',
     min: 0.1,
     max: 5,
     step: 0.1,
     value: 1
   }
-]);
+], {
+  separator: common.controlSeparator
+});
 
 function renderSineWave() {
   const amplitude = Number(inputs.amplitude.value);

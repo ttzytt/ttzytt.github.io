@@ -1,10 +1,11 @@
+const { common, text } = chartI18n;
 const timeMin = 0;
 const timeMax = 20;
 
 const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   {
     key: 'duty',
-    label: '占空比',
+    label: text.dutyCycle,
     mathLabel: 'D',
     min: 0,
     max: 1,
@@ -14,7 +15,7 @@ const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'period',
-    label: '周期',
+    label: text.period,
     mathLabel: 'T',
     unit: 's',
     min: 0.5,
@@ -24,7 +25,7 @@ const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'voltage',
-    label: '高电平电压',
+    label: text.highLevelVoltage,
     mathLabel: 'V_0',
     unit: 'V',
     min: 0,
@@ -32,7 +33,9 @@ const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
     step: 0.5,
     value: 10
   }
-]);
+], {
+  separator: common.controlSeparator
+});
 
 function pwmPoints(duty, period, voltage) {
   if (duty === 0 || voltage === 0) {

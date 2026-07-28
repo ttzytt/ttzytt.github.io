@@ -1,3 +1,4 @@
+const { common, text } = chartI18n;
 const frequencyTauMin = 0.01;
 const frequencyTauMax = 100;
 const dutyPointCount = 121;
@@ -142,7 +143,7 @@ function renderRibbonPlot() {
       width: 7
     },
     hovertemplate:
-      '低频线性极限<br>D=%{x:.3f}<br>' +
+      `${text.lowFrequencyLinearLimit}<br>D=%{x:.3f}<br>` +
       'P̄/P<sub>ref</sub>=%{z:.4f}<extra></extra>'
   };
 
@@ -158,7 +159,7 @@ function renderRibbonPlot() {
       width: 7
     },
     hovertemplate:
-      '高频平方极限<br>D=%{x:.3f}<br>' +
+      `${text.highFrequencyQuadraticLimit}<br>D=%{x:.3f}<br>` +
       'P̄/P<sub>ref</sub>=%{z:.4f}<extra></extra>'
   };
 
@@ -167,7 +168,7 @@ function renderRibbonPlot() {
     title: {
       text:
         '$\\frac{\\overline P}{P_{\\mathrm{ref}}}=F(D,f\\tau)' +
-        '\\quad\\text{Ribbon Plot}$'
+        `\\quad\\text{${text.ribbonPlot}}$`
     },
     margin: {
       l: 10,
@@ -215,7 +216,11 @@ function renderRibbonPlot() {
       axisName: 'scene.yaxis',
       currentType: frequencyAxisType,
       logarithmicRange: logarithmicFrequencyTauRange(),
-      linearRange: [frequencyTauMin, frequencyTauMax]
+      linearRange: [frequencyTauMin, frequencyTauMax],
+      labels: {
+        logarithmic: common.logarithmicScale,
+        linear: common.linearScale
+      }
     }, colors),
     uirevision: 'pwm-average-power-ribbon'
   };
@@ -281,7 +286,7 @@ function renderContourPlot() {
     title: {
       text:
         '$\\frac{\\overline P}{P_{\\mathrm{ref}}}=F(D,f\\tau)' +
-        '\\quad\\text{等高线图}$'
+        `\\quad\\text{${text.contourPlot}}$`
     },
     margin: {
       l: 70,
@@ -310,7 +315,11 @@ function renderContourPlot() {
       axisName: 'yaxis',
       currentType: frequencyAxisType,
       logarithmicRange: logarithmicFrequencyTauRange(),
-      linearRange: [frequencyTauMin, frequencyTauMax]
+      linearRange: [frequencyTauMin, frequencyTauMax],
+      labels: {
+        logarithmic: common.logarithmicScale,
+        linear: common.linearScale
+      }
     }, colors),
     uirevision: 'pwm-average-power-contour'
   };

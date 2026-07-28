@@ -1,3 +1,4 @@
+const { common, text } = chartI18n;
 const frequencyMin = 0.01;
 const frequencyMax = 100;
 const pointCount = 500;
@@ -12,7 +13,7 @@ const frequencyValues = Array.from(
 const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   {
     key: 'duty',
-    label: '占空比',
+    label: text.dutyCycle,
     mathLabel: 'D',
     min: 0,
     max: 1,
@@ -22,7 +23,7 @@ const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'tau',
-    label: '时间常数',
+    label: text.timeConstant,
     mathLabel: '\\tau',
     unit: 's',
     min: 0.05,
@@ -33,7 +34,7 @@ const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'final',
-    label: '直流稳态电流',
+    label: text.dcSteadyStateCurrent,
     mathLabel: 'i_f\\,(V_0/R)',
     unit: 'A',
     min: 0,
@@ -41,7 +42,9 @@ const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
     step: 0.1,
     value: 5
   }
-]);
+], {
+  separator: common.controlSeparator
+});
 
 function steadyStateCurrents(frequency, tau, finalCurrent, duty) {
   const k = 1 / (frequency * tau);
@@ -91,13 +94,13 @@ function renderFrequencyResponse() {
     y: maximumValues,
     type: 'scatter',
     mode: 'lines',
-    name: '$i_{\\max}\\;\\text{周期峰值电流}$',
+    name: `$i_{\\max}\\;\\text{${text.periodPeakCurrent}}$`,
     line: {
       color: colors.primary,
       width: 3
     },
     hovertemplate:
-      'f=%{x:.3g} Hz<br>周期峰值电流=%{y:.3f} A<extra></extra>'
+      `f=%{x:.3g} Hz<br>${text.periodPeakCurrent}=%{y:.3f} A<extra></extra>`
   };
 
   const minimumTrace = {
@@ -105,13 +108,13 @@ function renderFrequencyResponse() {
     y: minimumValues,
     type: 'scatter',
     mode: 'lines',
-    name: '$i_{\\min}\\;\\text{周期谷值电流}$',
+    name: `$i_{\\min}\\;\\text{${text.periodValleyCurrent}}$`,
     line: {
       color: colors.warning,
       width: 3
     },
     hovertemplate:
-      'f=%{x:.3g} Hz<br>周期谷值电流=%{y:.3f} A<extra></extra>'
+      `f=%{x:.3g} Hz<br>${text.periodValleyCurrent}=%{y:.3f} A<extra></extra>`
   };
 
   const layout = {
@@ -154,7 +157,11 @@ function renderFrequencyResponse() {
         Math.log10(frequencyMin),
         Math.log10(frequencyMax)
       ],
-      linearRange: [frequencyMin, frequencyMax]
+      linearRange: [frequencyMin, frequencyMax],
+      labels: {
+        logarithmic: common.logarithmicScale,
+        linear: common.linearScale
+      }
     }, colors)
   };
 

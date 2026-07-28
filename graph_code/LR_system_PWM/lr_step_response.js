@@ -1,3 +1,4 @@
+const { common, text } = chartI18n;
 const pointCount = 500;
 const timeMin = -5;
 const timeMax = 20;
@@ -9,7 +10,7 @@ const timeValues = Array.from(
 const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   {
     key: 'tau',
-    label: '时间常数',
+    label: text.timeConstant,
     mathLabel: '\\tau',
     unit: 's',
     min: 0.2,
@@ -19,7 +20,7 @@ const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'initial',
-    label: '初始电流',
+    label: text.initialCurrent,
     mathLabel: 'i_0',
     unit: 'A',
     min: 0,
@@ -29,7 +30,7 @@ const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'final',
-    label: '直流稳态电流',
+    label: text.dcSteadyStateCurrent,
     mathLabel: 'i_f\\,(V_0/R)',
     unit: 'A',
     min: 0,
@@ -37,7 +38,9 @@ const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
     step: 0.1,
     value: 5
   }
-]);
+], {
+  separator: common.controlSeparator
+});
 
 function renderResponse() {
   const tau = Number(inputs.tau.value);

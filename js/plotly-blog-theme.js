@@ -53,7 +53,8 @@
       axisName = 'xaxis',
       currentType = 'log',
       logarithmicRange,
-      linearRange
+      linearRange,
+      labels = {}
     } = options;
     const typeKey = `${axisName}.type`;
     const rangeKey = `${axisName}.range`;
@@ -74,7 +75,7 @@
       },
       buttons: [
         {
-          label: '对数坐标',
+          label: labels.logarithmic || '对数坐标',
           method: 'relayout',
           args: [{
             [typeKey]: 'log',
@@ -82,7 +83,7 @@
           }]
         },
         {
-          label: '线性坐标',
+          label: labels.linear || '线性坐标',
           method: 'relayout',
           args: [{
             [typeKey]: 'linear',
@@ -127,10 +128,11 @@
     return initialization;
   }
 
-  function createRangeControls(target, definitions) {
+  function createRangeControls(target, definitions, options = {}) {
     const container = document.createElement('div');
     const inputs = {};
     const outputs = {};
+    const separator = options.separator ?? '：';
 
     container.className = 'plotly-controls';
 
@@ -151,7 +153,7 @@
         caption.append(' ', mathLabel);
       }
 
-      caption.append('：');
+      caption.append(separator);
 
       output.className = 'plotly-control__value';
       output.dataset.value = definition.key;

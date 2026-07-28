@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/%E6%9C%AA%E5%AE%8C%E6%88%90/tools_note.html</loc>
+    <loc>https://ttzytt.com/en/%E6%9C%AA%E5%AE%8C%E6%88%90/fake-valarray.html</loc>
     
     <lastmod>2026-07-28</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/%E6%9C%AA%E5%AE%8C%E6%88%90/fake-valarray.html</loc>
+    <loc>https://ttzytt.com/en/%E6%9C%AA%E5%AE%8C%E6%88%90/tools_note.html</loc>
     
     <lastmod>2026-07-28</lastmod>
     
@@ -47,6 +47,15 @@
   </url>
   
   <url>
+    <loc>https://ttzytt.com/en/gallery/index.html</loc>
+    
+    <lastmod>2026-07-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://ttzytt.com/en/categories/index.html</loc>
     
     <lastmod>2026-07-28</lastmod>
@@ -56,7 +65,16 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/gallery/index.html</loc>
+    <loc>https://ttzytt.com/en/2026/07/pwm-electromagnet/</loc>
+    
+    <lastmod>2026-07-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/2026/07/plotly-test/</loc>
     
     <lastmod>2026-07-28</lastmod>
     
@@ -546,14 +564,14 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/dynamic-programming/</loc>
+    <loc>https://ttzytt.com/en/tags/prefix-sums/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/prefix-sums/</loc>
+    <loc>https://ttzytt.com/en/tags/dynamic-programming/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -679,13 +697,6 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/error-reports/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ttzytt.com/en/tags/computer-graphics/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -728,28 +739,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/number-theory/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/extended-euclidean-algorithm/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/euclidean-algorithm/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/modular-multiplicative-inverses/</loc>
+    <loc>https://ttzytt.com/en/tags/calculus/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -778,6 +768,13 @@
   
   <url>
     <loc>https://ttzytt.com/en/tags/drivers/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/error-reports/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -819,6 +816,34 @@
   </url>
   
   <url>
+    <loc>https://ttzytt.com/en/tags/number-theory/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/extended-euclidean-algorithm/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/euclidean-algorithm/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/modular-multiplicative-inverses/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ttzytt.com/en/tags/usaco-gold/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -847,7 +872,14 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/calculus/</loc>
+    <loc>https://ttzytt.com/en/tags/strings/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/number-bases/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -868,21 +900,21 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/strings/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/number-bases/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ttzytt.com/en/tags/bipartite-matching/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/minimum-spanning-trees/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/unicyclic-graphs/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -910,14 +942,28 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/minimum-spanning-trees/</loc>
+    <loc>https://ttzytt.com/en/tags/plotly/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/unicyclic-graphs/</loc>
+    <loc>https://ttzytt.com/en/tags/data-visualization/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/circuits/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/hardware/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1022,14 +1068,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/multithreading/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/coroutines/</loc>
+    <loc>https://ttzytt.com/en/tags/copy-on-write-cow/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1043,7 +1082,14 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/copy-on-write-cow/</loc>
+    <loc>https://ttzytt.com/en/tags/multithreading/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/coroutines/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1080,6 +1126,13 @@
   </url>
   
   <url>
+    <loc>https://ttzytt.com/en/categories/hexo/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ttzytt.com/en/categories/uncategorized/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -1087,7 +1140,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/categories/hexo/</loc>
+    <loc>https://ttzytt.com/en/categories/testing/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
