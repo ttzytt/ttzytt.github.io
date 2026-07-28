@@ -2,25 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://ttzytt.com/en/%E6%9C%AA%E5%AE%8C%E6%88%90/fake-valarray.html</loc>
-    
-    <lastmod>2026-07-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://ttzytt.com/en/link/index.html</loc>
-    
-    <lastmod>2026-07-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/index.html</loc>
     
     <lastmod>2026-07-28</lastmod>
     
@@ -38,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/gallery/scene/index.html</loc>
+    <loc>https://ttzytt.com/en/%E6%9C%AA%E5%AE%8C%E6%88%90/fake-valarray.html</loc>
     
     <lastmod>2026-07-28</lastmod>
     
@@ -47,7 +29,16 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/categories/index.html</loc>
+    <loc>https://ttzytt.com/en/tags/index.html</loc>
+    
+    <lastmod>2026-07-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/gallery/scene/index.html</loc>
     
     <lastmod>2026-07-28</lastmod>
     
@@ -65,6 +56,15 @@
   </url>
   
   <url>
+    <loc>https://ttzytt.com/en/categories/index.html</loc>
+    
+    <lastmod>2026-07-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://ttzytt.com/en/about/index.html</loc>
     
     <lastmod>2026-07-10</lastmod>
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/08/math_reports/</loc>
+    <loc>https://ttzytt.com/en/2022/08/math-reports/</loc>
     
     <lastmod>2024-06-08</lastmod>
     
@@ -83,7 +83,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/CC_STARTERS_48/</loc>
+    <loc>https://ttzytt.com/en/2022/07/cc-starters-48/</loc>
     
     <lastmod>2024-04-07</lastmod>
     
@@ -92,7 +92,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2023/12/least_square/</loc>
+    <loc>https://ttzytt.com/en/2023/12/least-square/</loc>
     
     <lastmod>2023-12-24</lastmod>
     
@@ -110,7 +110,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2023/06/GAMES101_note1/</loc>
+    <loc>https://ttzytt.com/en/2023/06/games101-note1/</loc>
     
     <lastmod>2023-06-21</lastmod>
     
@@ -119,7 +119,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2023/02/USACO23JAN%20Find%20and%20Replace%20S/</loc>
+    <loc>https://ttzytt.com/en/2023/02/usaco23jan-find-and-replace-s/</loc>
     
     <lastmod>2023-06-16</lastmod>
     
@@ -128,7 +128,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2023/01/CS144_lab4_rec/</loc>
+    <loc>https://ttzytt.com/en/2023/01/cs144-lab4-rec/</loc>
     
     <lastmod>2023-02-02</lastmod>
     
@@ -137,7 +137,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/12/CS144_lab0-3_rec/</loc>
+    <loc>https://ttzytt.com/en/2022/12/cs144-lab0-3-rec/</loc>
     
     <lastmod>2022-12-28</lastmod>
     
@@ -146,7 +146,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/12/CF1774C/</loc>
+    <loc>https://ttzytt.com/en/2022/12/cf1774c/</loc>
     
     <lastmod>2022-12-18</lastmod>
     
@@ -155,7 +155,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/10/dense_neu_net_nmist/</loc>
+    <loc>https://ttzytt.com/en/2022/10/dense-neu-net-nmist/</loc>
     
     <lastmod>2022-11-05</lastmod>
     
@@ -164,7 +164,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/10/RTNW_note1/</loc>
+    <loc>https://ttzytt.com/en/2022/10/rtnw-note1/</loc>
     
     <lastmod>2022-10-22</lastmod>
     
@@ -173,7 +173,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/06/error_compilation/</loc>
+    <loc>https://ttzytt.com/en/2022/06/error-compilation/</loc>
     
     <lastmod>2022-10-15</lastmod>
     
@@ -182,7 +182,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/xv6_note/</loc>
+    <loc>https://ttzytt.com/en/2022/07/xv6-note/</loc>
     
     <lastmod>2022-10-15</lastmod>
     
@@ -191,7 +191,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/08/xv6_lab11_record/</loc>
+    <loc>https://ttzytt.com/en/2022/08/xv6-lab11-record/</loc>
     
     <lastmod>2022-10-15</lastmod>
     
@@ -200,7 +200,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/08/xv6_lab10_record/</loc>
+    <loc>https://ttzytt.com/en/2022/08/xv6-lab10-record/</loc>
     
     <lastmod>2022-10-15</lastmod>
     
@@ -209,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/08/xv6_lab9_record/</loc>
+    <loc>https://ttzytt.com/en/2022/08/xv6-lab9-record/</loc>
     
     <lastmod>2022-10-15</lastmod>
     
@@ -218,7 +218,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/08/xv6_lab8_record/</loc>
+    <loc>https://ttzytt.com/en/2022/08/xv6-lab8-record/</loc>
     
     <lastmod>2022-10-15</lastmod>
     
@@ -227,7 +227,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/08/xv6_lab7_record/</loc>
+    <loc>https://ttzytt.com/en/2022/08/xv6-lab7-record/</loc>
     
     <lastmod>2022-10-15</lastmod>
     
@@ -236,7 +236,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/xv6_lab6_record/</loc>
+    <loc>https://ttzytt.com/en/2022/07/xv6-lab6-record/</loc>
     
     <lastmod>2022-10-15</lastmod>
     
@@ -245,7 +245,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/xv6_lab5_record/</loc>
+    <loc>https://ttzytt.com/en/2022/07/xv6-lab5-record/</loc>
     
     <lastmod>2022-10-15</lastmod>
     
@@ -254,7 +254,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/xv6_lab4_record/</loc>
+    <loc>https://ttzytt.com/en/2022/07/xv6-lab4-record/</loc>
     
     <lastmod>2022-10-15</lastmod>
     
@@ -263,7 +263,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/xv6_lab3_record/</loc>
+    <loc>https://ttzytt.com/en/2022/07/xv6-lab3-record/</loc>
     
     <lastmod>2022-10-15</lastmod>
     
@@ -272,7 +272,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/xv6_lab2_record/</loc>
+    <loc>https://ttzytt.com/en/2022/07/xv6-lab2-record/</loc>
     
     <lastmod>2022-10-15</lastmod>
     
@@ -281,7 +281,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/xv6_lab1_record/</loc>
+    <loc>https://ttzytt.com/en/2022/07/xv6-lab1-record/</loc>
     
     <lastmod>2022-10-15</lastmod>
     
@@ -290,7 +290,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/09/RTOW_note2/</loc>
+    <loc>https://ttzytt.com/en/2022/09/rtow-note2/</loc>
     
     <lastmod>2022-09-06</lastmod>
     
@@ -299,7 +299,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/08/RTOW_note1/</loc>
+    <loc>https://ttzytt.com/en/2022/08/rtow-note1/</loc>
     
     <lastmod>2022-09-06</lastmod>
     
@@ -308,7 +308,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/CF1705/</loc>
+    <loc>https://ttzytt.com/en/2022/07/cf1705/</loc>
     
     <lastmod>2022-07-20</lastmod>
     
@@ -317,7 +317,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/CF1706/</loc>
+    <loc>https://ttzytt.com/en/2022/07/cf1706/</loc>
     
     <lastmod>2022-07-20</lastmod>
     
@@ -326,7 +326,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/CF1703/</loc>
+    <loc>https://ttzytt.com/en/2022/07/cf1703/</loc>
     
     <lastmod>2022-07-12</lastmod>
     
@@ -335,7 +335,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/CF1702/</loc>
+    <loc>https://ttzytt.com/en/2022/07/cf1702/</loc>
     
     <lastmod>2022-07-12</lastmod>
     
@@ -344,7 +344,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/math_algos_notes/</loc>
+    <loc>https://ttzytt.com/en/2022/07/math-algos-notes/</loc>
     
     <lastmod>2022-07-10</lastmod>
     
@@ -353,7 +353,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/06/complexity_GA/</loc>
+    <loc>https://ttzytt.com/en/2022/06/complexity-ga/</loc>
     
     <lastmod>2022-07-10</lastmod>
     
@@ -362,7 +362,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/07/CF1699C/</loc>
+    <loc>https://ttzytt.com/en/2022/07/cf1699c/</loc>
     
     <lastmod>2022-07-04</lastmod>
     
@@ -371,7 +371,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/06/treap_note/</loc>
+    <loc>https://ttzytt.com/en/2022/06/treap-note/</loc>
     
     <lastmod>2022-07-01</lastmod>
     
@@ -380,7 +380,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/06/CF1695C/</loc>
+    <loc>https://ttzytt.com/en/2022/06/cf1695c/</loc>
     
     <lastmod>2022-06-22</lastmod>
     
@@ -389,7 +389,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/06/CF1692G/</loc>
+    <loc>https://ttzytt.com/en/2022/06/cf1692g/</loc>
     
     <lastmod>2022-06-16</lastmod>
     
@@ -398,7 +398,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/06/hexo_font_update/</loc>
+    <loc>https://ttzytt.com/en/2022/06/hexo-font-update/</loc>
     
     <lastmod>2022-06-16</lastmod>
     
@@ -407,7 +407,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/06/CF1665C/</loc>
+    <loc>https://ttzytt.com/en/2022/06/cf1665c/</loc>
     
     <lastmod>2022-06-16</lastmod>
     
@@ -416,7 +416,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/04/P8270/</loc>
+    <loc>https://ttzytt.com/en/2022/04/p8270/</loc>
     
     <lastmod>2022-04-23</lastmod>
     
@@ -425,7 +425,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2021/11/P2867/</loc>
+    <loc>https://ttzytt.com/en/2021/11/p2867/</loc>
     
     <lastmod>2022-04-20</lastmod>
     
@@ -434,7 +434,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/03/P8187/</loc>
+    <loc>https://ttzytt.com/en/2022/03/p8187/</loc>
     
     <lastmod>2022-04-19</lastmod>
     
@@ -443,7 +443,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2021/08/P2944/</loc>
+    <loc>https://ttzytt.com/en/2021/08/p2944/</loc>
     
     <lastmod>2022-04-17</lastmod>
     
@@ -452,7 +452,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/04/P8269/</loc>
+    <loc>https://ttzytt.com/en/2022/04/p8269/</loc>
     
     <lastmod>2022-04-16</lastmod>
     
@@ -461,7 +461,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2021/12/P7995/</loc>
+    <loc>https://ttzytt.com/en/2021/12/p7995/</loc>
     
     <lastmod>2022-04-16</lastmod>
     
@@ -470,7 +470,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2022/02/P8095/</loc>
+    <loc>https://ttzytt.com/en/2022/02/p8095/</loc>
     
     <lastmod>2022-04-16</lastmod>
     
@@ -479,7 +479,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/2021/09/P3087/</loc>
+    <loc>https://ttzytt.com/en/2021/09/p3087/</loc>
     
     <lastmod>2022-04-16</lastmod>
     
@@ -497,42 +497,35 @@
 
   
   <url>
-    <loc>https://ttzytt.com/en/tags/CodeChef/</loc>
+    <loc>https://ttzytt.com/en/tags/codechef/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Heaps/</loc>
+    <loc>https://ttzytt.com/en/tags/heaps/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Trees/</loc>
+    <loc>https://ttzytt.com/en/tags/trees/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Bit-Manipulation/</loc>
+    <loc>https://ttzytt.com/en/tags/bit-manipulation/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Codeforces/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Greedy/</loc>
+    <loc>https://ttzytt.com/en/tags/prefix-sums/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -546,294 +539,182 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Prefix-Sums/</loc>
+    <loc>https://ttzytt.com/en/tags/codeforces/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Dynamic-Programming/</loc>
+    <loc>https://ttzytt.com/en/tags/greedy/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Recurrence/</loc>
+    <loc>https://ttzytt.com/en/tags/dynamic-programming/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/CS144/</loc>
+    <loc>https://ttzytt.com/en/tags/recurrence/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Networking/</loc>
+    <loc>https://ttzytt.com/en/tags/construction/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/TCP-IP/</loc>
+    <loc>https://ttzytt.com/en/tags/cs144/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Computer-Graphics/</loc>
+    <loc>https://ttzytt.com/en/tags/networking/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/GAMES101/</loc>
+    <loc>https://ttzytt.com/en/tags/tcp-ip/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Mathematics/</loc>
+    <loc>https://ttzytt.com/en/tags/genetic-algorithms/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Linear-Algebra/</loc>
+    <loc>https://ttzytt.com/en/tags/complexity/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Construction/</loc>
+    <loc>https://ttzytt.com/en/tags/error-reports/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/USACO/</loc>
+    <loc>https://ttzytt.com/en/tags/assembly/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/USACO-Silver/</loc>
+    <loc>https://ttzytt.com/en/tags/low-level/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Enumeration-and-Brute-Force/</loc>
+    <loc>https://ttzytt.com/en/tags/stack-frames/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/2021/</loc>
+    <loc>https://ttzytt.com/en/tags/dfs/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Geometry/</loc>
+    <loc>https://ttzytt.com/en/tags/experiments/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/USACO-Gold/</loc>
+    <loc>https://ttzytt.com/en/tags/machine-learning/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Graph-Theory/</loc>
+    <loc>https://ttzytt.com/en/tags/neural-networks/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Network-Flow/</loc>
+    <loc>https://ttzytt.com/en/tags/backpropagation/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Minimum-Cut/</loc>
+    <loc>https://ttzytt.com/en/tags/mnist/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Strings/</loc>
+    <loc>https://ttzytt.com/en/tags/handwritten-digit-recognition/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Number-Bases/</loc>
+    <loc>https://ttzytt.com/en/tags/computer-graphics/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/USACO-Bronze/</loc>
+    <loc>https://ttzytt.com/en/tags/games101/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Search/</loc>
+    <loc>https://ttzytt.com/en/tags/mathematics/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Bipartite-Matching/</loc>
+    <loc>https://ttzytt.com/en/tags/linear-algebra/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Two-Pointers/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Meet-in-the-Middle-Bidirectional-Search/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Hash-Tables/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Minimum-Spanning-Trees/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Unicyclic-Graphs/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Ray-Tracing/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/RTOW/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Genetic-Algorithms/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Complexity/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/2023/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Error-Reports/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Machine-Learning/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Neural-Networks/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Backpropagation/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/MNIST/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Handwritten-Digit-Recognition/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/en/tags/Hexo/</loc>
+    <loc>https://ttzytt.com/en/tags/hexo/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -847,28 +728,35 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Number-Theory/</loc>
+    <loc>https://ttzytt.com/en/tags/calculus/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Extended-Euclidean-Algorithm/</loc>
+    <loc>https://ttzytt.com/en/tags/number-theory/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Euclidean-Algorithm/</loc>
+    <loc>https://ttzytt.com/en/tags/extended-euclidean-algorithm/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Modular-Multiplicative-Inverses/</loc>
+    <loc>https://ttzytt.com/en/tags/euclidean-algorithm/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/modular-multiplicative-inverses/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -882,175 +770,287 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/UNIX/</loc>
+    <loc>https://ttzytt.com/en/tags/unix/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Operating-Systems/</loc>
+    <loc>https://ttzytt.com/en/tags/operating-systems/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Drivers/</loc>
+    <loc>https://ttzytt.com/en/tags/drivers/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Assembly/</loc>
+    <loc>https://ttzytt.com/en/tags/usaco/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Low-level/</loc>
+    <loc>https://ttzytt.com/en/tags/usaco-gold/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Stack-Frames/</loc>
+    <loc>https://ttzytt.com/en/tags/2021/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/DFS/</loc>
+    <loc>https://ttzytt.com/en/tags/graph-theory/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Experiments/</loc>
+    <loc>https://ttzytt.com/en/tags/network-flow/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Radiometry/</loc>
+    <loc>https://ttzytt.com/en/tags/minimum-cut/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/RTNW/</loc>
+    <loc>https://ttzytt.com/en/tags/usaco-silver/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Perlin-Noise/</loc>
+    <loc>https://ttzytt.com/en/tags/enumeration-and-brute-force/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/BVH/</loc>
+    <loc>https://ttzytt.com/en/tags/geometry/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/File-Systems/</loc>
+    <loc>https://ttzytt.com/en/tags/usaco-bronze/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Data-Structures/</loc>
+    <loc>https://ttzytt.com/en/tags/search/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Balanced-Trees/</loc>
+    <loc>https://ttzytt.com/en/tags/strings/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Treap/</loc>
+    <loc>https://ttzytt.com/en/tags/number-bases/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/System-Calls/</loc>
+    <loc>https://ttzytt.com/en/tags/two-pointers/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Page-Tables/</loc>
+    <loc>https://ttzytt.com/en/tags/meet-in-the-middle-bidirectional-search/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Traps/</loc>
+    <loc>https://ttzytt.com/en/tags/hash-tables/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Calculus/</loc>
+    <loc>https://ttzytt.com/en/tags/ray-tracing/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Lazy-Allocation/</loc>
+    <loc>https://ttzytt.com/en/tags/rtnw/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Copy-on-Write-COW/</loc>
+    <loc>https://ttzytt.com/en/tags/perlin-noise/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Multithreading/</loc>
+    <loc>https://ttzytt.com/en/tags/bvh/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Coroutines/</loc>
+    <loc>https://ttzytt.com/en/tags/radiometry/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/tags/Locks/</loc>
+    <loc>https://ttzytt.com/en/tags/rtow/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/minimum-spanning-trees/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/unicyclic-graphs/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/bipartite-matching/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/data-structures/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/balanced-trees/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/treap/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/file-systems/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/2023/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/system-calls/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/page-tables/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/copy-on-write-cow/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/lazy-allocation/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/traps/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/multithreading/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/coroutines/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/en/tags/locks/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1059,35 +1059,35 @@
 
   
   <url>
-    <loc>https://ttzytt.com/en/categories/Solutions/</loc>
+    <loc>https://ttzytt.com/en/categories/solutions/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/categories/Lab-Records/</loc>
+    <loc>https://ttzytt.com/en/categories/lab-records/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/categories/Study-Notes/</loc>
+    <loc>https://ttzytt.com/en/categories/uncategorized/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/categories/Uncategorized/</loc>
+    <loc>https://ttzytt.com/en/categories/study-notes/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/en/categories/Hexo/</loc>
+    <loc>https://ttzytt.com/en/categories/hexo/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
