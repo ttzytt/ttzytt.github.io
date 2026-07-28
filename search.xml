@@ -8,7 +8,7 @@
       <link href="/2026/07/plotly_test/"/>
       <url>/2026/07/plotly_test/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>下面的曲线表示</p><p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mi>A</mi><mi>sin</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>ω</mi><mi>x</mi><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">y=A\sin(\omega x).</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mord">.</span></span></span></span></span></p><p>拖动滑块可以实时改变振幅 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span> 和频率 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi></mrow><annotation encoding="application/x-tex">\omega</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span></span></span></span>。</p><div id="sine-wave" data-plotly-chart aria-busy="true" style="width:100%;height:500px">  <div class="plotly-chart__loading" role="status" aria-live="polite">    <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>    <span>图表加载中...</span>  </div></div><script>(() => {  const target = document.getElementById("sine-wave");  const ready = window.plotlyReady || Promise.reject(new Error('Plotly loader was not initialized'));  ready.then(() => {    if (!target) throw new Error('Plotly chart container was not found');    const loading = target.querySelector('.plotly-chart__loading');const pointCount = 600;const xValues = Array.from(  { length: pointCount },  (_, index) => -2 * Math.PI + (4 * Math.PI * index) / (pointCount - 1));const { inputs, outputs } = BlogPlotly.createRangeControls(target, [  {    key: 'amplitude',    label: '振幅 A',    min: 0.1,    max: 3,    step: 0.1,    value: 1  },  {    key: 'frequency',    label: '频率 ω',    min: 0.1,    max: 5,    step: 0.1,    value: 1  }]);function renderSineWave() {  const amplitude = Number(inputs.amplitude.value);  const frequency = Number(inputs.frequency.value);  const colors = BlogPlotly.getColors();  const yLimit = Math.max(1, amplitude * 1.15);  BlogPlotly.setOutput(outputs, 'amplitude', amplitude);  BlogPlotly.setOutput(outputs, 'frequency', frequency);  const trace = {    x: xValues,    y: xValues.map(x => amplitude * Math.sin(frequency * x)),    type: 'scatter',    mode: 'lines',    name: 'y = A sin(ωx)',    line: {      color: colors.primary,      width: 3    },    hovertemplate: 'x=%{x:.3f}<br>y=%{y:.3f}<extra></extra>'  };  const layout = {    ...BlogPlotly.baseLayout(colors),    title: {      text: `y = ${amplitude.toFixed(1)} sin(${frequency.toFixed(1)}x)`    },    margin: {      l: 55,      r: 20,      t: 55,      b: 50    },    xaxis: BlogPlotly.axis(      'x',      { range: [-2 * Math.PI, 2 * Math.PI] },      colors    ),    yaxis: BlogPlotly.axis('y', { range: [-yLimit, yLimit] }, colors),    showlegend: false  };  Plotly.react(target, [trace], layout, BlogPlotly.getPlotConfig());}inputs.amplitude.addEventListener('input', renderSineWave);inputs.frequency.addEventListener('input', renderSineWave);BlogPlotly.observeTheme(renderSineWave, target);renderSineWave();    loading?.remove();    target.setAttribute('aria-busy', 'false');  }).catch(error => {    console.error('[Plotly] Failed to render chart "sine-wave".', error);    if (target) {      target.textContent = "Plotly 图表加载失败";      target.setAttribute('aria-busy', 'false');      target.setAttribute('role', 'alert');    }  });})();</script>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>下面的曲线表示</p><p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mi>A</mi><mi>sin</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>ω</mi><mi>x</mi><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">y=A\sin(\omega x).</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mord">.</span></span></span></span></span></p><p>拖动滑块可以实时改变振幅 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span> 和频率 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi></mrow><annotation encoding="application/x-tex">\omega</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span></span></span></span>。</p><div id="sine-wave" data-plotly-chart data-plotly-mathjax="true" aria-busy="true" style="width:100%;height:500px">  <div class="plotly-chart__loading" role="status" aria-live="polite">    <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>    <span>图表加载中...</span>  </div></div><script>(() => {  const target = document.getElementById("sine-wave");  const ready = window.plotlyMathReady || Promise.reject(new Error('Plotly loader was not initialized'));  ready.then(() => {    if (!target) throw new Error('Plotly chart container was not found');    const loading = target.querySelector('.plotly-chart__loading');const pointCount = 600;const xValues = Array.from(  { length: pointCount },  (_, index) => -2 * Math.PI + (4 * Math.PI * index) / (pointCount - 1));const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [  {    key: 'amplitude',    label: '振幅',    mathLabel: 'A',    min: 0.1,    max: 3,    step: 0.1,    value: 1  },  {    key: 'frequency',    label: '频率',    mathLabel: '\\omega',    min: 0.1,    max: 5,    step: 0.1,    value: 1  }]);function renderSineWave() {  const amplitude = Number(inputs.amplitude.value);  const frequency = Number(inputs.frequency.value);  const colors = BlogPlotly.getColors();  const yLimit = Math.max(1, amplitude * 1.15);  BlogPlotly.setOutput(outputs, 'amplitude', amplitude);  BlogPlotly.setOutput(outputs, 'frequency', frequency);  const trace = {    x: xValues,    y: xValues.map(x => amplitude * Math.sin(frequency * x)),    type: 'scatter',    mode: 'lines',    name: '$y=A\\sin(\\omega x)$',    line: {      color: colors.primary,      width: 3    },    hovertemplate: 'x=%{x:.3f}<br>y=%{y:.3f}<extra></extra>'  };  const layout = {    ...BlogPlotly.baseLayout(colors),    title: {      text:        `$y=${amplitude.toFixed(1)}\\sin` +        `\\!\\left(${frequency.toFixed(1)}x\\right)$`    },    margin: {      l: 55,      r: 20,      t: 55,      b: 50    },    xaxis: BlogPlotly.axis(      'x',      { range: [-2 * Math.PI, 2 * Math.PI] },      colors    ),    yaxis: BlogPlotly.axis('y', { range: [-yLimit, yLimit] }, colors),    showlegend: false  };  return Plotly.react(target, [trace], layout, BlogPlotly.getPlotConfig());}inputs.amplitude.addEventListener('input', renderSineWave);inputs.frequency.addEventListener('input', renderSineWave);BlogPlotly.observeTheme(renderSineWave, target);BlogPlotly.initializeMathChart(target, container, renderSineWave);    const renderReady = target.plotlyRenderReady || Promise.resolve();    return renderReady.then(() => {      loading?.remove();      target.setAttribute('aria-busy', 'false');    });  }).catch(error => {    console.error('[Plotly] Failed to render chart "sine-wave".', error);    if (target) {      target.textContent = "Plotly 图表加载失败";      target.setAttribute('aria-busy', 'false');      target.setAttribute('role', 'alert');    }  });})();</script>]]></content>
       
       
       <categories>
@@ -144,9 +144,9 @@
             
             <tag> USACO </tag>
             
-            <tag> USACO 银组 </tag>
-            
             <tag> 图论 </tag>
+            
+            <tag> USACO 银组 </tag>
             
             <tag> 字符串 </tag>
             
@@ -464,9 +464,9 @@
             
             <tag> 操作系统 </tag>
             
-            <tag> 多线程 </tag>
-            
             <tag> 锁 </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -670,11 +670,11 @@
       
         <tags>
             
+            <tag> 树 </tag>
+            
             <tag> Codechef </tag>
             
             <tag> 堆 </tag>
-            
-            <tag> 树 </tag>
             
             <tag> 位运算 </tag>
             
@@ -732,11 +732,11 @@
       
         <tags>
             
-            <tag> 位运算 </tag>
-            
             <tag> Codeforces </tag>
             
             <tag> 2022 </tag>
+            
+            <tag> 位运算 </tag>
             
         </tags>
       
@@ -1153,11 +1153,11 @@
       
         <tags>
             
-            <tag> 树 </tag>
-            
             <tag> Codeforces </tag>
             
             <tag> 贪心 </tag>
+            
+            <tag> 树 </tag>
             
             <tag> 2022 </tag>
             
@@ -1256,9 +1256,9 @@
             
             <tag> USACO </tag>
             
-            <tag> USACO 银组 </tag>
-            
             <tag> 图论 </tag>
+            
+            <tag> USACO 银组 </tag>
             
             <tag> 最小生成树 </tag>
             
@@ -1330,13 +1330,13 @@
             
             <tag> USACO </tag>
             
-            <tag> USACO 银组 </tag>
-            
             <tag> 图论 </tag>
             
-            <tag> 搜索 </tag>
+            <tag> USACO 银组 </tag>
             
             <tag> 二分图最大匹配 </tag>
+            
+            <tag> 搜索 </tag>
             
         </tags>
       
@@ -1367,9 +1367,9 @@
             
             <tag> 2021 </tag>
             
-            <tag> USACO 铜组 </tag>
-            
             <tag> 搜索 </tag>
+            
+            <tag> USACO 铜组 </tag>
             
         </tags>
       
@@ -1396,11 +1396,11 @@
             
             <tag> USACO </tag>
             
+            <tag> 2021 </tag>
+            
             <tag> USACO 银组 </tag>
             
             <tag> 枚举，暴力 </tag>
-            
-            <tag> 2021 </tag>
             
             <tag> 几何 </tag>
             
@@ -1429,9 +1429,9 @@
             
             <tag> USACO </tag>
             
-            <tag> USACO 银组 </tag>
-            
             <tag> 2021 </tag>
+            
+            <tag> USACO 银组 </tag>
             
             <tag> 字符串 </tag>
             
@@ -1462,9 +1462,9 @@
             
             <tag> USACO </tag>
             
-            <tag> 2021 </tag>
-            
             <tag> USACO 金组 </tag>
+            
+            <tag> 2021 </tag>
             
             <tag> 图论 </tag>
             

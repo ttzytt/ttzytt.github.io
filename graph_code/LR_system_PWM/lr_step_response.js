@@ -6,10 +6,11 @@ const timeValues = Array.from(
   (_, index) => timeMin + ((timeMax - timeMin) * index) / (pointCount - 1)
 );
 
-const { inputs, outputs } = BlogPlotly.createRangeControls(target, [
+const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   {
     key: 'tau',
-    label: '时间常数 τ',
+    label: '时间常数',
+    mathLabel: '\\tau',
     unit: 's',
     min: 0.2,
     max: 10,
@@ -18,7 +19,8 @@ const { inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'initial',
-    label: '初始电流 i₀',
+    label: '初始电流',
+    mathLabel: 'i_0',
     unit: 'A',
     min: 0,
     max: 10,
@@ -27,7 +29,8 @@ const { inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'final',
-    label: '最终电流 i_f (V₀/R)',
+    label: '直流稳态电流',
+    mathLabel: 'i_f\\,(V_0/R)',
     unit: 'A',
     min: 0,
     max: 10,
@@ -60,7 +63,7 @@ function renderResponse() {
     y: currentValues,
     type: 'scatter',
     mode: 'lines',
-    name: 'i(t)',
+    name: '$i(t)$',
     line: {
       color: colors.primary,
       width: 3
@@ -73,7 +76,7 @@ function renderResponse() {
     y: [currentAtTau],
     type: 'scatter',
     mode: 'markers',
-    name: 't = τ',
+    name: '$t=\\tau$',
     marker: {
       color: colors.accent,
       size: 9
@@ -84,7 +87,7 @@ function renderResponse() {
   const layout = {
     ...BlogPlotly.baseLayout(colors),
     title: {
-      text: 'i(t) = i<sub>f</sub> + (i<sub>0</sub> − i<sub>f</sub>)e<sup>−t/τ</sup>'
+      text: '$i(t)=i_f+(i_0-i_f)e^{-t/\\tau}$'
     },
     margin: {
       l: 60,
@@ -92,11 +95,11 @@ function renderResponse() {
       t: 65,
       b: 55
     },
-    xaxis: BlogPlotly.axis('时间 t (s)', {
+    xaxis: BlogPlotly.axis('$t\\; (\\mathrm{s})$', {
       range: [timeMin, timeMax],
     }, colors),
     yaxis: BlogPlotly.axis(
-      '电流 i(t) (A)',
+      '$i(t)\\; (\\mathrm{A})$',
       { range: [0, currentMax] },
       colors
     ),
@@ -132,7 +135,7 @@ function renderResponse() {
         y: finalCurrent,
         xanchor: 'right',
         yanchor: finalCurrent >= initialCurrent ? 'bottom' : 'top',
-        text: `i<sub>f</sub> = V₀/R = ${finalCurrent.toFixed(1)} A`,
+        text: `$i_f=\\frac{V_0}{R}=${finalCurrent.toFixed(1)}\\,\\mathrm{A}$`,
         showarrow: false,
         font: { color: colors.warning }
       }
@@ -144,7 +147,12 @@ function renderResponse() {
     }
   };
 
-  Plotly.react(target, [responseTrace, tauMarker], layout, BlogPlotly.getPlotConfig());
+  return Plotly.react(
+    target,
+    [responseTrace, tauMarker],
+    layout,
+    BlogPlotly.getPlotConfig()
+  );
 }
 
 inputs.tau.addEventListener('input', renderResponse);
@@ -152,4 +160,4 @@ inputs.initial.addEventListener('input', renderResponse);
 inputs.final.addEventListener('input', renderResponse);
 
 BlogPlotly.observeTheme(renderResponse, target);
-renderResponse();
+BlogPlotly.initializeMathChart(target, container, renderResponse);

@@ -4,10 +4,11 @@ const xValues = Array.from(
   (_, index) => -2 * Math.PI + (4 * Math.PI * index) / (pointCount - 1)
 );
 
-const { inputs, outputs } = BlogPlotly.createRangeControls(target, [
+const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   {
     key: 'amplitude',
-    label: '振幅 A',
+    label: '振幅',
+    mathLabel: 'A',
     min: 0.1,
     max: 3,
     step: 0.1,
@@ -15,7 +16,8 @@ const { inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'frequency',
-    label: '频率 ω',
+    label: '频率',
+    mathLabel: '\\omega',
     min: 0.1,
     max: 5,
     step: 0.1,
@@ -37,7 +39,7 @@ function renderSineWave() {
     y: xValues.map(x => amplitude * Math.sin(frequency * x)),
     type: 'scatter',
     mode: 'lines',
-    name: 'y = A sin(ωx)',
+    name: '$y=A\\sin(\\omega x)$',
     line: {
       color: colors.primary,
       width: 3
@@ -48,7 +50,9 @@ function renderSineWave() {
   const layout = {
     ...BlogPlotly.baseLayout(colors),
     title: {
-      text: `y = ${amplitude.toFixed(1)} sin(${frequency.toFixed(1)}x)`
+      text:
+        `$y=${amplitude.toFixed(1)}\\sin` +
+        `\\!\\left(${frequency.toFixed(1)}x\\right)$`
     },
     margin: {
       l: 55,
@@ -65,11 +69,11 @@ function renderSineWave() {
     showlegend: false
   };
 
-  Plotly.react(target, [trace], layout, BlogPlotly.getPlotConfig());
+  return Plotly.react(target, [trace], layout, BlogPlotly.getPlotConfig());
 }
 
 inputs.amplitude.addEventListener('input', renderSineWave);
 inputs.frequency.addEventListener('input', renderSineWave);
 
 BlogPlotly.observeTheme(renderSineWave, target);
-renderSineWave();
+BlogPlotly.initializeMathChart(target, container, renderSineWave);

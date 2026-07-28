@@ -9,10 +9,11 @@ const frequencyValues = Array.from(
   )
 );
 
-const { inputs, outputs } = BlogPlotly.createRangeControls(target, [
+const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   {
     key: 'duty',
-    label: '占空比 D',
+    label: '占空比',
+    mathLabel: 'D',
     min: 0,
     max: 1,
     step: 0.05,
@@ -21,7 +22,8 @@ const { inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'tau',
-    label: '时间常数 τ',
+    label: '时间常数',
+    mathLabel: '\\tau',
     unit: 's',
     min: 0.05,
     max: 10,
@@ -31,7 +33,8 @@ const { inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'final',
-    label: '最终电流 i_f (V₀/R)',
+    label: '直流稳态电流',
+    mathLabel: 'i_f\\,(V_0/R)',
     unit: 'A',
     min: 0,
     max: 10,
@@ -62,6 +65,11 @@ function renderFrequencyResponse() {
   const colors = BlogPlotly.getColors();
   const maximumValues = [];
   const minimumValues = [];
+  const frequencyAxisType =
+    target.layout?.xaxis?.type === 'linear' ? 'linear' : 'log';
+  const frequencyAxisRange = frequencyAxisType === 'linear'
+    ? [frequencyMin, frequencyMax]
+    : [Math.log10(frequencyMin), Math.log10(frequencyMax)];
 
   for (const frequency of frequencyValues) {
     const currents = steadyStateCurrents(
@@ -75,7 +83,7 @@ function renderFrequencyResponse() {
   }
 
   BlogPlotly.setOutput(outputs, 'duty', duty, 2);
-  BlogPlotly.setOutput(outputs, 'tau', tau);
+  BlogPlotly.setOutput(outputs, 'tau', tau, 2);
   BlogPlotly.setOutput(outputs, 'final', finalCurrent);
 
   const maximumTrace = {
@@ -83,13 +91,13 @@ function renderFrequencyResponse() {
     y: maximumValues,
     type: 'scatter',
     mode: 'lines',
-    name: 'i<sub>max</sub>',
+    name: '$i_{\\max}\\;\\text{周期峰值电流}$',
     line: {
       color: colors.primary,
       width: 3
     },
     hovertemplate:
-      'f=%{x:.3g} Hz<br>i<sub>max</sub>=%{y:.3f} A<extra></extra>'
+      'f=%{x:.3g} Hz<br>周期峰值电流=%{y:.3f} A<extra></extra>'
   };
 
   const minimumTrace = {
@@ -97,21 +105,22 @@ function renderFrequencyResponse() {
     y: minimumValues,
     type: 'scatter',
     mode: 'lines',
-    name: 'i<sub>min</sub>',
+    name: '$i_{\\min}\\;\\text{周期谷值电流}$',
     line: {
       color: colors.warning,
       width: 3
     },
     hovertemplate:
-      'f=%{x:.3g} Hz<br>i<sub>min</sub>=%{y:.3f} A<extra></extra>'
+      'f=%{x:.3g} Hz<br>周期谷值电流=%{y:.3f} A<extra></extra>'
   };
 
   const layout = {
     ...BlogPlotly.baseLayout(colors),
     title: {
       text:
-        `PWM 稳态电流随频率的变化（D=${duty.toFixed(2)}，` +
-        `τ=${tau.toFixed(2)} s，i<sub>f</sub>=${finalCurrent.toFixed(1)} A）`
+        `$i_{\\max}(f),\\ i_{\\min}(f),\\quad D=${duty.toFixed(2)},` +
+        `\\quad \\tau=${tau.toFixed(2)}\\,\\mathrm{s},` +
+        `\\quad i_f=${finalCurrent.toFixed(1)}\\,\\mathrm{A}$`
     },
     margin: {
       l: 60,
@@ -120,15 +129,15 @@ function renderFrequencyResponse() {
       b: 65
     },
     xaxis: BlogPlotly.axis(
-      '频率 f (Hz)',
+      '$f\\; (\\mathrm{Hz})$',
       {
-        type: 'log',
-        range: [Math.log10(frequencyMin), Math.log10(frequencyMax)]
+        type: frequencyAxisType,
+        range: frequencyAxisRange
       },
       colors
     ),
     yaxis: BlogPlotly.axis(
-      '稳态电流 (A)',
+      '$i\\; (\\mathrm{A})$',
       {
         range: [0, Math.max(1, finalCurrent) * 1.1]
       },
@@ -138,10 +147,18 @@ function renderFrequencyResponse() {
       orientation: 'h',
       x: 0,
       y: 1.08
-    }
+    },
+    updatemenus: BlogPlotly.axisScaleButtons({
+      currentType: frequencyAxisType,
+      logarithmicRange: [
+        Math.log10(frequencyMin),
+        Math.log10(frequencyMax)
+      ],
+      linearRange: [frequencyMin, frequencyMax]
+    }, colors)
   };
 
-  Plotly.react(
+  return Plotly.react(
     target,
     [maximumTrace, minimumTrace],
     layout,
@@ -154,4 +171,4 @@ inputs.tau.addEventListener('input', renderFrequencyResponse);
 inputs.final.addEventListener('input', renderFrequencyResponse);
 
 BlogPlotly.observeTheme(renderFrequencyResponse, target);
-renderFrequencyResponse();
+BlogPlotly.initializeMathChart(target, container, renderFrequencyResponse);

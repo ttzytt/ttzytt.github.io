@@ -4,6 +4,8 @@
   if (window.BlogPlotly) return;
 
   const root = document.documentElement;
+  let mathTypesetQueue = Promise.resolve();
+  let initialChartQueue = Promise.resolve();
 
   function cssVariable(name, fallback) {
     return getComputedStyle(root).getPropertyValue(name).trim() || fallback;
@@ -15,7 +17,15 @@
       grid: cssVariable('--blog-plotly-grid', 'rgba(0, 0, 0, 0.12)'),
       primary: cssVariable('--blog-plotly-primary', '#1f77b4'),
       warning: cssVariable('--blog-plotly-warning', '#d48806'),
-      accent: cssVariable('--blog-plotly-accent', '#6f42c1')
+      accent: cssVariable('--blog-plotly-accent', '#6f42c1'),
+      controlBackground: cssVariable(
+        '--blog-plotly-control-bg',
+        'rgba(255, 255, 255, 0.82)'
+      ),
+      controlBorder: cssVariable(
+        '--blog-plotly-control-border',
+        'rgba(0, 0, 0, 0.16)'
+      )
     };
   }
 
@@ -38,6 +48,85 @@
     };
   }
 
+  function axisScaleButtons(options, colors = getColors()) {
+    const {
+      axisName = 'xaxis',
+      currentType = 'log',
+      logarithmicRange,
+      linearRange
+    } = options;
+    const typeKey = `${axisName}.type`;
+    const rangeKey = `${axisName}.range`;
+
+    return [{
+      type: 'buttons',
+      direction: 'right',
+      active: currentType === 'linear' ? 1 : 0,
+      showactive: true,
+      x: 1,
+      y: 1,
+      xanchor: 'right',
+      yanchor: 'top',
+      bgcolor: colors.controlBackground,
+      bordercolor: colors.controlBorder,
+      font: {
+        color: colors.text
+      },
+      buttons: [
+        {
+          label: '对数坐标',
+          method: 'relayout',
+          args: [{
+            [typeKey]: 'log',
+            [rangeKey]: logarithmicRange
+          }]
+        },
+        {
+          label: '线性坐标',
+          method: 'relayout',
+          args: [{
+            [typeKey]: 'linear',
+            [rangeKey]: linearRange
+          }]
+        }
+      ]
+    }];
+  }
+
+  function typesetMath(elements) {
+    const targets = (Array.isArray(elements) ? elements : [elements])
+      .filter(Boolean);
+
+    if (targets.length === 0) return Promise.resolve();
+
+    const ready = window.mathJaxReady || Promise.resolve(window.MathJax);
+    mathTypesetQueue = mathTypesetQueue
+      .then(() => ready)
+      .then(mathJax => {
+        if (!mathJax || typeof mathJax.typesetPromise !== 'function') {
+          throw new Error('MathJax is unavailable');
+        }
+        return mathJax.typesetPromise(targets);
+      })
+      .catch(error => {
+        console.warn('[Plotly] Failed to typeset external chart controls.', error);
+      });
+
+    return mathTypesetQueue;
+  }
+
+  function initializeMathChart(target, controls, render) {
+    const initialization = initialChartQueue
+      .then(() => typesetMath(controls))
+      .then(() => render());
+
+    initialChartQueue = initialization.catch(error => {
+      console.error('[Plotly] Failed to initialize a MathJax chart.', error);
+    });
+    target.plotlyRenderReady = initialization;
+    return initialization;
+  }
+
   function createRangeControls(target, definitions) {
     const container = document.createElement('div');
     const inputs = {};
@@ -53,7 +142,16 @@
 
       label.className = 'plotly-control';
       caption.className = 'plotly-control__label';
-      caption.append(`${definition.label}：`);
+      caption.append(definition.label);
+
+      if (definition.mathLabel) {
+        const mathLabel = document.createElement('span');
+        mathLabel.className = 'plotly-control__math';
+        mathLabel.textContent = `\\(${definition.mathLabel}\\)`;
+        caption.append(' ', mathLabel);
+      }
+
+      caption.append('：');
 
       output.className = 'plotly-control__value';
       output.dataset.value = definition.key;
@@ -116,11 +214,14 @@
 
   window.BlogPlotly = Object.freeze({
     axis,
+    axisScaleButtons,
     baseLayout,
     createRangeControls,
     getColors,
     getPlotConfig,
+    initializeMathChart,
     observeTheme,
-    setOutput
+    setOutput,
+    typesetMath
   });
 })();

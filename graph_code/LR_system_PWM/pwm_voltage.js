@@ -1,10 +1,11 @@
 const timeMin = 0;
 const timeMax = 20;
 
-const { inputs, outputs } = BlogPlotly.createRangeControls(target, [
+const { container, inputs, outputs } = BlogPlotly.createRangeControls(target, [
   {
     key: 'duty',
-    label: '占空比 D',
+    label: '占空比',
+    mathLabel: 'D',
     min: 0,
     max: 1,
     step: 0.05,
@@ -13,7 +14,8 @@ const { inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'period',
-    label: '周期 T',
+    label: '周期',
+    mathLabel: 'T',
     unit: 's',
     min: 0.5,
     max: 10,
@@ -22,7 +24,8 @@ const { inputs, outputs } = BlogPlotly.createRangeControls(target, [
   },
   {
     key: 'voltage',
-    label: '高电平电压 V₀',
+    label: '高电平电压',
+    mathLabel: 'V_0',
     unit: 'V',
     min: 0,
     max: 20,
@@ -91,7 +94,7 @@ function renderPwm() {
     y: points.y,
     type: 'scatter',
     mode: 'lines',
-    name: 'V(t)',
+    name: '$V(t)$',
     line: {
       color: colors.primary,
       width: 3,
@@ -104,9 +107,9 @@ function renderPwm() {
     ...BlogPlotly.baseLayout(colors),
     title: {
       text:
-        `PWM：D=${duty.toFixed(2)}，` +
-        `T=${period.toFixed(1)} s，` +
-        `V<sub>0</sub>=${voltage.toFixed(1)} V`
+        `$\\mathrm{PWM}:\\quad D=${duty.toFixed(2)},` +
+        `\\quad T=${period.toFixed(1)}\\,\\mathrm{s},` +
+        `\\quad V_0=${voltage.toFixed(1)}\\,\\mathrm{V}$`
     },
     margin: {
       l: 60,
@@ -115,19 +118,19 @@ function renderPwm() {
       b: 55
     },
     xaxis: BlogPlotly.axis(
-      '时间 t (s)',
+      '$t\\; (\\mathrm{s})$',
       { range: [timeMin, timeMax] },
       colors
     ),
     yaxis: BlogPlotly.axis(
-      '电压 V(t) (V)',
+      '$V(t)\\; (\\mathrm{V})$',
       { range: [0, Math.max(1, voltage) * 1.15] },
       colors
     ),
     showlegend: false
   };
 
-  Plotly.react(target, [trace], layout, BlogPlotly.getPlotConfig());
+  return Plotly.react(target, [trace], layout, BlogPlotly.getPlotConfig());
 }
 
 inputs.duty.addEventListener('input', renderPwm);
@@ -135,4 +138,4 @@ inputs.period.addEventListener('input', renderPwm);
 inputs.voltage.addEventListener('input', renderPwm);
 
 BlogPlotly.observeTheme(renderPwm, target);
-renderPwm();
+BlogPlotly.initializeMathChart(target, container, renderPwm);

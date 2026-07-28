@@ -60,6 +60,10 @@ html[data-theme='dark'] {
   line-height: 1.5;
 }
 
+.plotly-control__math mjx-container {
+  margin: 0;
+}
+
 .plotly-control__value {
   color: var(--blog-plotly-primary);
   font-variant-numeric: tabular-nums;
