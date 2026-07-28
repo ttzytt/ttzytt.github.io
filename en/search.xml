@@ -303,9 +303,9 @@
             
             <tag> Ray Tracing </tag>
             
-            <tag> Radiometry </tag>
-            
             <tag> RTOW </tag>
+            
+            <tag> Radiometry </tag>
             
         </tags>
       
@@ -606,17 +606,17 @@
             
             <tag> 2022 </tag>
             
-            <tag> xv6 </tag>
-            
-            <tag> UNIX </tag>
-            
-            <tag> Operating Systems </tag>
-            
             <tag> Assembly </tag>
             
             <tag> Low-level </tag>
             
             <tag> Stack Frames </tag>
+            
+            <tag> xv6 </tag>
+            
+            <tag> UNIX </tag>
+            
+            <tag> Operating Systems </tag>
             
             <tag> Traps </tag>
             
@@ -736,13 +736,13 @@
             
             <tag> 2022 </tag>
             
+            <tag> Low-level </tag>
+            
             <tag> xv6 </tag>
             
             <tag> UNIX </tag>
             
             <tag> Operating Systems </tag>
-            
-            <tag> Low-level </tag>
             
             <tag> Page Tables </tag>
             
@@ -790,13 +790,13 @@
             
             <tag> 2022 </tag>
             
+            <tag> Low-level </tag>
+            
             <tag> xv6 </tag>
             
             <tag> UNIX </tag>
             
             <tag> Operating Systems </tag>
-            
-            <tag> Low-level </tag>
             
             <tag> System Calls </tag>
             
