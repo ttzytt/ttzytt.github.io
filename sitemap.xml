@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/link/index.html</loc>
+    <loc>https://ttzytt.com/tags/index.html</loc>
     
     <lastmod>2026-07-28</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/tags/index.html</loc>
+    <loc>https://ttzytt.com/link/index.html</loc>
     
     <lastmod>2026-07-28</lastmod>
     
@@ -83,7 +83,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/2026/07/LR_system_PWM/</loc>
+    <loc>https://ttzytt.com/2026/07/pwm-electromagnet-currrent-power/</loc>
     
     <lastmod>2026-07-28</lastmod>
     
@@ -564,14 +564,14 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</loc>
+    <loc>https://ttzytt.com/tags/%E5%89%8D%E7%BC%80%E5%92%8C/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ttzytt.com/tags/%E5%89%8D%E7%BC%80%E5%92%8C/</loc>
+    <loc>https://ttzytt.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -641,20 +641,6 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/tags/%E7%94%B5%E8%B7%AF/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/tags/%E7%A1%AC%E4%BB%B6/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ttzytt.com/tags/USACO/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -704,20 +690,6 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/tags/%E6%9E%9A%E4%B8%BE%EF%BC%8C%E6%9A%B4%E5%8A%9B/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/tags/%E5%87%A0%E4%BD%95/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ttzytt.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -732,7 +704,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/tags/USACO-%E9%93%9C%E7%BB%84/</loc>
+    <loc>https://ttzytt.com/tags/%E4%BA%8C%E5%88%86%E5%9B%BE%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -746,7 +718,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/tags/%E4%BA%8C%E5%88%86%E5%9B%BE%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D/</loc>
+    <loc>https://ttzytt.com/tags/USACO-%E9%93%9C%E7%BB%84/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -774,6 +746,20 @@
   </url>
   
   <url>
+    <loc>https://ttzytt.com/tags/%E6%9E%9A%E4%B8%BE%EF%BC%8C%E6%9A%B4%E5%8A%9B/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/tags/%E5%87%A0%E4%BD%95/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ttzytt.com/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -788,7 +774,21 @@
   </url>
   
   <url>
+    <loc>https://ttzytt.com/tags/%E8%BE%90%E5%B0%84%E5%BA%A6%E9%87%8F%E5%AD%A6/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ttzytt.com/tags/%E5%85%89%E7%BA%BF%E8%BF%BD%E8%B8%AA/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/tags/RTOW/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -810,27 +810,6 @@
   
   <url>
     <loc>https://ttzytt.com/tags/bvh/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/tags/2023/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/tags/%E8%BE%90%E5%B0%84%E5%BA%A6%E9%87%8F%E5%AD%A6/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/tags/RTOW/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -893,6 +872,20 @@
   </url>
   
   <url>
+    <loc>https://ttzytt.com/tags/Hexo/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/tags/css/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ttzytt.com/tags/%E6%B1%87%E7%BC%96/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -928,14 +921,7 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/tags/Hexo/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/tags/css/</loc>
+    <loc>https://ttzytt.com/tags/2023/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -943,34 +929,6 @@
   
   <url>
     <loc>https://ttzytt.com/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/tags/%E6%95%B0%E8%AE%BA/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/tags/%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/tags/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/tags/%E4%B9%98%E6%B3%95%E9%80%86%E5%85%83/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1005,7 +963,28 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</loc>
+    <loc>https://ttzytt.com/tags/%E6%95%B0%E8%AE%BA/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/tags/%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/tags/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/tags/%E4%B9%98%E6%B3%95%E9%80%86%E5%85%83/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1026,7 +1005,14 @@
   </url>
   
   <url>
-    <loc>https://ttzytt.com/tags/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/</loc>
+    <loc>https://ttzytt.com/tags/%E7%94%B5%E8%B7%AF/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/tags/%E7%A1%AC%E4%BB%B6/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1054,6 +1040,20 @@
   </url>
   
   <url>
+    <loc>https://ttzytt.com/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ttzytt.com/tags/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ttzytt.com/tags/%E9%A1%B5%E8%A1%A8/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -1075,6 +1075,13 @@
   </url>
   
   <url>
+    <loc>https://ttzytt.com/tags/%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6%EF%BC%88COW%EF%BC%89/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ttzytt.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -1083,13 +1090,6 @@
   
   <url>
     <loc>https://ttzytt.com/tags/%E5%8D%8F%E7%A8%8B/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ttzytt.com/tags/%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6%EF%BC%88COW%EF%BC%89/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

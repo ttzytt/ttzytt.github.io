@@ -606,17 +606,17 @@
             
             <tag> 2022 </tag>
             
-            <tag> Assembly </tag>
-            
-            <tag> Low-level </tag>
-            
-            <tag> Stack Frames </tag>
-            
             <tag> xv6 </tag>
             
             <tag> UNIX </tag>
             
             <tag> Operating Systems </tag>
+            
+            <tag> Assembly </tag>
+            
+            <tag> Low-level </tag>
+            
+            <tag> Stack Frames </tag>
             
             <tag> Traps </tag>
             
@@ -643,11 +643,11 @@
       
         <tags>
             
-            <tag> Trees </tag>
-            
             <tag> CodeChef </tag>
             
             <tag> Heaps </tag>
+            
+            <tag> Trees </tag>
             
             <tag> Bit Manipulation </tag>
             
@@ -705,11 +705,11 @@
       
         <tags>
             
+            <tag> Bit Manipulation </tag>
+            
             <tag> Codeforces </tag>
             
             <tag> 2022 </tag>
-            
-            <tag> Bit Manipulation </tag>
             
         </tags>
       
@@ -736,13 +736,13 @@
             
             <tag> 2022 </tag>
             
-            <tag> Low-level </tag>
-            
             <tag> xv6 </tag>
             
             <tag> UNIX </tag>
             
             <tag> Operating Systems </tag>
+            
+            <tag> Low-level </tag>
             
             <tag> Page Tables </tag>
             
@@ -790,13 +790,13 @@
             
             <tag> 2022 </tag>
             
-            <tag> Low-level </tag>
-            
             <tag> xv6 </tag>
             
             <tag> UNIX </tag>
             
             <tag> Operating Systems </tag>
+            
+            <tag> Low-level </tag>
             
             <tag> System Calls </tag>
             
@@ -1126,11 +1126,11 @@
       
         <tags>
             
+            <tag> Trees </tag>
+            
             <tag> Codeforces </tag>
             
             <tag> Greedy </tag>
-            
-            <tag> Trees </tag>
             
             <tag> 2022 </tag>
             
