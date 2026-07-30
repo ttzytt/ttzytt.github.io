@@ -1,0 +1,7 @@
+(() => {
+  'use strict';
+  if (!window.Plotly || typeof window.Plotly.register !== 'function') {
+    throw new Error('Plotly must load before locale bg');
+  }
+  window.Plotly.register({"moduleType":"locale","name":"bg","dictionary":{},"format":{"days":["Неделя","Понеделник","Вторник","Сряда","Четвъртък","Петък","Събота"],"shortDays":["Нед","Пон","Вто","Сря","Чет","Пет","Съб"],"months":["Януари","Февруари","Март","Април","Май","Юни","Юли","Август","Септември","Октомври","Ноември","Декември"],"shortMonths":["Яну","Фев","Мар","Апр","Май","Юни","Юли","Авг","Сеп","Окт","Нов","Дек"],"date":"%d.%m.%Y"}});
+})();

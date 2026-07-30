@@ -1,0 +1,137 @@
+:root {
+  color-scheme: light dark;
+  --hexo-plotly-text: #363636;
+  --hexo-plotly-grid: rgba(0, 0, 0, 0.12);
+  --hexo-plotly-primary: #1f77b4;
+  --hexo-plotly-warning: #d48806;
+  --hexo-plotly-accent: #6f42c1;
+  --hexo-plotly-control-bg: rgba(255, 255, 255, 0.45);
+  --hexo-plotly-control-border: rgba(0, 0, 0, 0.16);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --hexo-plotly-text: #d8d8d8;
+    --hexo-plotly-grid: rgba(255, 255, 255, 0.14);
+    --hexo-plotly-primary: #49b1f5;
+    --hexo-plotly-warning: #f6c344;
+    --hexo-plotly-accent: #9b8afb;
+    --hexo-plotly-control-bg: rgba(255, 255, 255, 0.04);
+    --hexo-plotly-control-border: rgba(255, 255, 255, 0.18);
+  }
+}
+
+:root[data-theme='light'],
+:root[data-color-mode='light'],
+:root[data-scheme='light'],
+:root.light,
+body[data-theme='light'],
+body[data-color-mode='light'],
+body[data-scheme='light'],
+body.light {
+  --hexo-plotly-text: #363636;
+  --hexo-plotly-grid: rgba(0, 0, 0, 0.12);
+  --hexo-plotly-primary: #1f77b4;
+  --hexo-plotly-warning: #d48806;
+  --hexo-plotly-accent: #6f42c1;
+  --hexo-plotly-control-bg: rgba(255, 255, 255, 0.45);
+  --hexo-plotly-control-border: rgba(0, 0, 0, 0.16);
+}
+
+:root[data-theme='dark'],
+:root[data-color-mode='dark'],
+:root[data-scheme='dark'],
+:root.dark,
+body[data-theme='dark'],
+body[data-color-mode='dark'],
+body[data-scheme='dark'],
+body.dark {
+  --hexo-plotly-text: #d8d8d8;
+  --hexo-plotly-grid: rgba(255, 255, 255, 0.14);
+  --hexo-plotly-primary: #49b1f5;
+  --hexo-plotly-warning: #f6c344;
+  --hexo-plotly-accent: #9b8afb;
+  --hexo-plotly-control-bg: rgba(255, 255, 255, 0.04);
+  --hexo-plotly-control-border: rgba(255, 255, 255, 0.18);
+}
+
+[data-hexo-plotly-chart] {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.hexo-plotly-loading {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65em;
+  color: var(--hexo-plotly-text);
+}
+
+.hexo-plotly-spinner {
+  width: 1.15em;
+  height: 1.15em;
+  box-sizing: border-box;
+  border: 0.16em solid color-mix(in srgb, var(--hexo-plotly-primary) 30%, transparent);
+  border-top-color: var(--hexo-plotly-primary);
+  border-radius: 50%;
+  animation: hexo-plotly-spin 0.8s linear infinite;
+}
+
+@keyframes hexo-plotly-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hexo-plotly-spinner {
+    animation-duration: 1.8s;
+  }
+}
+
+.hexo-plotly-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px 24px;
+  margin: 0 0 16px;
+  padding: 16px;
+  color: var(--hexo-plotly-text);
+  background: var(--hexo-plotly-control-bg);
+  border: 1px solid var(--hexo-plotly-control-border);
+  border-radius: 8px;
+}
+
+.hexo-plotly-control {
+  min-width: 0;
+}
+
+.hexo-plotly-control__label {
+  display: block;
+  line-height: 1.5;
+}
+
+.hexo-plotly-control__math mjx-container {
+  margin: 0;
+}
+
+.hexo-plotly-control__value {
+  color: var(--hexo-plotly-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.hexo-plotly-control__range {
+  display: block;
+  width: 100%;
+  margin: 8px 0 0;
+  accent-color: var(--hexo-plotly-primary);
+  cursor: pointer;
+}
+
+.hexo-plotly-control__range:focus-visible {
+  outline: 2px solid var(--hexo-plotly-accent);
+  outline-offset: 3px;
+}

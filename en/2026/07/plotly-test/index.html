@@ -5,7 +5,7 @@
   "url": "https://ttzytt.com/en/2026/07/plotly-test/",
   "image": "https://ttzytt.com/img/avatar.png",
   "datePublished": "2026-07-24T12:30:00.000Z",
-  "dateModified": "2026-07-28T15:59:29.757Z",
+  "dateModified": "2026-07-30T08:13:41.483Z",
   "author": [
     {
       "@type": "Person",
@@ -212,154 +212,29 @@
   isToc: false,
   pageType: 'post'
 }</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/custom_background.css"><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/en/atom.xml" title="tzyt's Blog" type="application/atom+xml">
-<link rel="stylesheet" href="/css/plotly-blog.css" data-plotly-styles>
-<script src="/js/plotly-blog-theme.js" data-plotly-theme></script>
-<script data-plotly-loader data-plotly-mathjax="true">
+<link rel="stylesheet" href="/en/assets/hexo-plotly/hexo-plotly.css" data-hexo-plotly-styles>
+<script src="/en/assets/hexo-plotly/hexo-plotly.js" data-hexo-plotly-runtime></script>
+<script data-hexo-plotly-loader data-plotly-loader data-hexo-plotly-mathjax="true">
 (() => {
-  if (window.plotlyMathReady) return;
-
-  const mathJaxEnabled = true;
-  const cdnUrl = "https://cdn.jsdelivr.net/npm/plotly.js@3.7.0/dist/plotly.min.js";
-  const localUrl = "/js/vendor/plotly-3.7.0.min.js";
-  const mathJaxCdnUrl = "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js";
-  const mathJaxLocalUrl = "/js/vendor/mathjax-3.2.2-tex-svg.js";
-  const timeoutMs = 10000;
-
-  const loadScript = (source, timeout, isReady, label) => new Promise((resolve, reject) => {
-    if (isReady()) {
-      resolve();
-      return;
-    }
-
-    const script = document.createElement('script');
-    const hasTimeout = Number.isFinite(timeout) && timeout > 0;
-    let settled = false;
-    let timer = null;
-
-    const cleanUp = () => {
-      if (timer !== null) {
-        window.clearTimeout(timer);
-        timer = null;
-      }
-      script.onload = null;
-      script.onerror = null;
-    };
-
-    const succeed = () => {
-      if (settled) return;
-      settled = true;
-      cleanUp();
-      resolve(window.Plotly);
-    };
-
-    const fail = message => {
-      if (settled) return;
-      settled = true;
-      cleanUp();
-      script.remove();
-      reject(new Error(message));
-    };
-
-    script.src = source;
-    script.async = true;
-    script.dataset.plotlySource = source;
-    script.onload = () => {
-      if (isReady()) {
-        succeed();
-      } else {
-        fail(label + ' loaded without exposing its browser API: ' + source);
-      }
-    };
-    script.onerror = () => fail('Failed to load ' + label + ': ' + source);
-
-    document.head.appendChild(script);
-    if (hasTimeout) {
-      timer = window.setTimeout(
-        () => fail('Timed out loading ' + label + ' after ' + timeout + 'ms: ' + source),
-        timeout
-      );
-    }
-  });
-
-  const loadWithFallback = (cdnSource, localSource, isReady, label) => (
-    loadScript(cdnSource, timeoutMs, isReady, label).catch(cdnError => {
-      console.warn(
-        '[Plotly] ' + label + ' CDN unavailable or slow; trying the local fallback.',
-        cdnError
-      );
-      return loadScript(localSource, timeoutMs, isReady, label);
-    })
-  );
-
-  const loadPlotlyWithFallback = () => (
-    loadScript(cdnUrl, timeoutMs, plotlyIsReady, 'Plotly').catch(cdnError => {
-      console.warn(
-        '[Plotly] Plotly CDN unavailable or slow; trying the local fallback.',
-        cdnError
-      );
-      return loadScript(localUrl, timeoutMs, plotlyIsReady, 'Plotly').catch(localError => {
-        console.warn(
-          '[Plotly] Plotly local fallback unavailable or slow; retrying the CDN without a timeout.',
-          localError
-        );
-        return loadScript(cdnUrl, null, plotlyIsReady, 'Plotly');
-      });
-    })
-  );
-
-  const plotlyIsReady = () => Boolean(window.Plotly);
-  const mathJaxIsReady = () => {
-    const version = window.MathJax && window.MathJax.version;
-    const majorVersion = Number.parseInt((version || '').split('.')[0], 10);
-    return majorVersion === 3 && typeof window.MathJax.typesetPromise === 'function';
-  };
-
-  if (mathJaxEnabled && (!window.MathJax || !window.MathJax.version)) {
-    const existingConfig = window.MathJax || {};
-    window.MathJax = {
-      ...existingConfig,
-      tex: {
-        ...existingConfig.tex,
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      },
-      svg: {
-        ...existingConfig.svg,
-        fontCache: 'local'
-      }
-    };
+  const options = {"plotlyCdnUrl":"https://cdn.jsdelivr.net/npm/plotly.js@3.7.0/dist/plotly.min.js","plotlyLocalUrl":"/en/assets/hexo-plotly/plotly-3.7.0.min.js","mathJaxCdnUrl":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js","mathJaxLocalUrl":"/en/assets/hexo-plotly/mathjax-3.2.2-tex-svg.js","localeCdnUrl":null,"localeLocalUrl":null,"locale":"en","mathJaxEnabled":true,"stopInputPropagation":true,"timeoutMs":10000};
+  if (!window.HexoPlotly || typeof window.HexoPlotly.boot !== 'function') {
+    const error = new Error('Hexo Plotly runtime failed to load');
+    window.hexoPlotlyReady = Promise.reject(error);
+    window.plotlyMathReady = window.hexoPlotlyReady;
+    return;
   }
-
-  window.plotlyReady = window.plotlyReady || loadPlotlyWithFallback()
-    .then(() => window.Plotly);
-
-  if (mathJaxEnabled) {
-    window.mathJaxReady = window.mathJaxReady || loadWithFallback(
-      mathJaxCdnUrl,
-      mathJaxLocalUrl,
-      mathJaxIsReady,
-      'MathJax'
-    ).then(() => window.MathJax.startup.promise)
-      .then(() => window.MathJax);
-
-    window.plotlyMathReady = Promise.all([
-      window.plotlyReady,
-      window.mathJaxReady
-    ]).then(([plotly]) => plotly);
-  } else {
-    window.mathJaxReady = window.mathJaxReady || Promise.resolve(null);
-    window.plotlyMathReady = window.plotlyReady;
-  }
+  window.HexoPlotly.boot(options);
 })();
 </script>
-</head><body><div class="bg-animation" id="web_bg" style="background: linear-gradient( to right, rgba(247, 149, 51, 0.1) 0, rgba(243, 112, 85, 0.1) 15%, rgba(239, 78, 123, 0.1) 30%, rgba(161, 102, 171, 0.1) 44%, rgba(80, 115, 184, 0.1) 58%, rgba(16, 152, 173, 0.1) 72%, rgba(7, 179, 155, 0.1) 86%, rgba(109, 186, 130, 0.1) 100% );"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/en/archives/"><div class="headline">Articles</div><div class="length-num">48</div></a><a href="/en/tags/"><div class="headline">Tags</div><div class="length-num">84</div></a><a href="/en/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/en/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/en/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/en/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/en/link/"><i class="fa-fw fas fa-link"></i><span> Links</span></a></div><div class="menus_item"><a class="site-page" href="/en/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page" href="/en/gallery/"><i class="fa-fw fas fa-image"></i><span> Gallery</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-language"></i><span> Language</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/en/"><i class="fa-fw fas fa-e current-language"></i><span> English</span></a></li><li><a class="site-page child" href="/"><i class="fa-fw fas fa-c multiple-language-switch"></i><span> 中文</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(to right, #2c3e50, #4ca1af);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/en/"><span class="site-name">tzyt's Blog</span></a><a class="nav-page-title" href="/en/"><span class="site-name">Plotly Interactive Chart Test</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/en/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/en/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/en/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/en/link/"><i class="fa-fw fas fa-link"></i><span> Links</span></a></div><div class="menus_item"><a class="site-page" href="/en/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page" href="/en/gallery/"><i class="fa-fw fas fa-image"></i><span> Gallery</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-language"></i><span> Language</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/en/"><i class="fa-fw fas fa-e current-language"></i><span> English</span></a></li><li><a class="site-page child" href="/"><i class="fa-fw fas fa-c multiple-language-switch"></i><span> 中文</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Plotly Interactive Chart Test</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-07-24T12:30:00.000Z" title="Created 2026-07-24 12:30:00">2026-07-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-07-28T15:59:29.757Z" title="Updated 2026-07-28 15:59:29">2026-07-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/en/categories/testing/">Testing</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">373</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>2mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><div class="note danger simple"><p>The content below was generated entirely by machine translation. Please verify its accuracy. If anything is unclear, consult the <a href="/2026/07/plotly-test/">Chinese source version</a>.</p>
+</head><body><div class="bg-animation" id="web_bg" style="background: linear-gradient( to right, rgba(247, 149, 51, 0.1) 0, rgba(243, 112, 85, 0.1) 15%, rgba(239, 78, 123, 0.1) 30%, rgba(161, 102, 171, 0.1) 44%, rgba(80, 115, 184, 0.1) 58%, rgba(16, 152, 173, 0.1) 72%, rgba(7, 179, 155, 0.1) 86%, rgba(109, 186, 130, 0.1) 100% );"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/en/archives/"><div class="headline">Articles</div><div class="length-num">48</div></a><a href="/en/tags/"><div class="headline">Tags</div><div class="length-num">84</div></a><a href="/en/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/en/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/en/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/en/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/en/link/"><i class="fa-fw fas fa-link"></i><span> Links</span></a></div><div class="menus_item"><a class="site-page" href="/en/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page" href="/en/gallery/"><i class="fa-fw fas fa-image"></i><span> Gallery</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-language"></i><span> Language</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/en/"><i class="fa-fw fas fa-e current-language"></i><span> English</span></a></li><li><a class="site-page child" href="/"><i class="fa-fw fas fa-c multiple-language-switch"></i><span> 中文</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(to right, #2c3e50, #4ca1af);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/en/"><span class="site-name">tzyt's Blog</span></a><a class="nav-page-title" href="/en/"><span class="site-name">Plotly Interactive Chart Test</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/en/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/en/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/en/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/en/link/"><i class="fa-fw fas fa-link"></i><span> Links</span></a></div><div class="menus_item"><a class="site-page" href="/en/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page" href="/en/gallery/"><i class="fa-fw fas fa-image"></i><span> Gallery</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-language"></i><span> Language</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/en/"><i class="fa-fw fas fa-e current-language"></i><span> English</span></a></li><li><a class="site-page child" href="/"><i class="fa-fw fas fa-c multiple-language-switch"></i><span> 中文</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Plotly Interactive Chart Test</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-07-24T12:30:00.000Z" title="Created 2026-07-24 12:30:00">2026-07-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-07-30T08:13:41.483Z" title="Updated 2026-07-30 08:13:41">2026-07-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/en/categories/testing/">Testing</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">378</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>2mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><div class="note danger simple"><p>The content below was generated entirely by machine translation. Please verify its accuracy. If anything is unclear, consult the <a href="/2026/07/plotly-test/">Chinese source version</a>.</p>
 </div>
 <p>The curve below represents</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mi>A</mi><mi>sin</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>ω</mi><mi>x</mi><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">y=A\sin(\omega x).
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mord">.</span></span></span></span></span></p>
 <p>Drag the sliders to change the amplitude <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span> and frequency <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi></mrow><annotation encoding="application/x-tex">\omega</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">ω</span></span></span></span> in real time.</p>
-<div id="sine-wave" data-plotly-chart data-plotly-mathjax="true" data-plotly-locale="en" aria-busy="true" style="width:100%;height:500px">
-  <div class="plotly-chart__loading" role="status" aria-live="polite">
-    <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+<div id="sine-wave" data-hexo-plotly-chart data-plotly-chart data-hexo-plotly-mathjax="true" data-plotly-mathjax="true" data-plotly-locale="en" aria-busy="true" style="width:100%;height:500px">
+  <div class="hexo-plotly-loading plotly-chart__loading" role="status" aria-live="polite">
+    <span class="hexo-plotly-spinner" aria-hidden="true"></span>
     <span>Loading chart...</span>
   </div>
 </div>
@@ -367,10 +242,11 @@
 (() => {
   const target = document.getElementById("sine-wave");
   const chartI18n = Object.freeze({"locale":"en","common":{"controlSeparator":": ","linearScale":"Linear scale","logarithmicScale":"Log scale"},"text":{"amplitude":"Amplitude","frequency":"Frequency"}});
-  const ready = window.plotlyMathReady || Promise.reject(new Error('Plotly loader was not initialized'));
+  const ready = window.hexoPlotlyReady || window.plotlyMathReady ||
+    Promise.reject(new Error('Hexo Plotly loader was not initialized'));
   ready.then(() => {
     if (!target) throw new Error('Plotly chart container was not found');
-    const loading = target.querySelector('.plotly-chart__loading');
+    const loading = target.querySelector('.hexo-plotly-loading');
 const { common, text } = chartI18n;
 const pointCount = 600;
 const xValues = Array.from(
@@ -460,7 +336,7 @@ BlogPlotly.initializeMathChart(target, container, renderSineWave);
       target.setAttribute('aria-busy', 'false');
     });
   }).catch(error => {
-    console.error('[Plotly] Failed to render chart "sine-wave".', error);
+    console.error('[Hexo Plotly] Failed to render chart ' + "plotly_test.js" + '.', error);
     if (target) {
       target.textContent = "Failed to load Plotly chart";
       target.setAttribute('aria-busy', 'false');

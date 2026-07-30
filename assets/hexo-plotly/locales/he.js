@@ -1,0 +1,7 @@
+(() => {
+  'use strict';
+  if (!window.Plotly || typeof window.Plotly.register !== 'function') {
+    throw new Error('Plotly must load before locale he');
+  }
+  window.Plotly.register({"moduleType":"locale","name":"he","dictionary":{},"format":{"days":["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"],"shortDays":["א'","ב'","ג'","ד'","ה'","ו'","שבת"],"months":["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"],"shortMonths":["1","2","3","4","5","6","7","8","9","10","11","12"],"date":"%d/%m/%Y"}});
+})();
