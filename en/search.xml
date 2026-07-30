@@ -140,9 +140,9 @@
             
             <tag> USACO Silver </tag>
             
-            <tag> Graph Theory </tag>
-            
             <tag> Strings </tag>
+            
+            <tag> Graph Theory </tag>
             
             <tag> 2023 </tag>
             
@@ -699,11 +699,11 @@
       
         <tags>
             
+            <tag> Trees </tag>
+            
             <tag> CodeChef </tag>
             
             <tag> Heaps </tag>
-            
-            <tag> Trees </tag>
             
             <tag> Bit Manipulation </tag>
             
@@ -761,11 +761,11 @@
       
         <tags>
             
-            <tag> Bit Manipulation </tag>
-            
             <tag> Codeforces </tag>
             
             <tag> 2022 </tag>
+            
+            <tag> Bit Manipulation </tag>
             
         </tags>
       
@@ -1182,11 +1182,11 @@
       
         <tags>
             
-            <tag> Trees </tag>
-            
             <tag> Codeforces </tag>
             
             <tag> Greedy </tag>
+            
+            <tag> Trees </tag>
             
             <tag> 2022 </tag>
             
@@ -1361,9 +1361,9 @@
             
             <tag> USACO Silver </tag>
             
-            <tag> Graph Theory </tag>
-            
             <tag> Search </tag>
+            
+            <tag> Graph Theory </tag>
             
             <tag> Bipartite Matching </tag>
             
@@ -1493,9 +1493,9 @@
             
             <tag> 2021 </tag>
             
-            <tag> USACO Gold </tag>
-            
             <tag> Graph Theory </tag>
+            
+            <tag> USACO Gold </tag>
             
             <tag> Network Flow </tag>
             
